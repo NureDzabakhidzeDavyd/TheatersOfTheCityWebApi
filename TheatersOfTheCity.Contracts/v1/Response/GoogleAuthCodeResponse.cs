@@ -2,7 +2,7 @@
 
 public class GoogleAuthCodeResponse
 {
-    public string Code { get; set; }
+    public string AccessToken { get; set; }
     
-    public  string RedirectUrl { get; set; }
+    public  string RefreshToken { get; set; }
 }

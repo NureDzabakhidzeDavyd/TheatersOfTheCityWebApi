@@ -8,6 +8,6 @@ public class RequestToDomainProfile : Profile
 {
     public RequestToDomainProfile()
     {
-        CreateMap<GoogleAuthCodeResponse, GoogleAuthBody>();
+        CreateMap<GoogleTokenBody, GoogleAuthCodeResponse>();
     }
 }

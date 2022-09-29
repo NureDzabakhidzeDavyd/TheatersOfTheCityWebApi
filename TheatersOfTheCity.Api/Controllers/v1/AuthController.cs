@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Serilog;
+using Serilog.Core;
 using TheatersOfTheCity.Contracts.v1.Request;
 using TheatersOfTheCity.Core.External;
 using TheatersOfTheCity.Core.Services;
@@ -25,20 +28,38 @@ namespace TheatersOfTheCity.Api.Controllers.v1
             _mapper = mapper;
         }
         
-        [HttpGet("search")]
-        public async Task<IActionResult> GoogleAuthAccessToken()
+        /// <summary>
+        /// Get refresh and access token by code
+        /// </summary>
+        /// <param name="authCode">The authorization code returned from the initial request</param>
+        /// <returns>The object with refresh and access token + remaining token lifetime</returns>
+        [HttpPost("code")]
+        public async Task<IActionResult> RefreshAndAccessToken(string authCode)
         {
-            var authCodeResponse = await SendGoogleAuthRequest();
-            var result = JsonConvert.DeserializeObject<GoogleAuthBody>(authCodeResponse.ToString() ?? throw new InvalidOperationException());
+            var token = await _googleService.GetAccessTokenAsync(authCode);
 
-            return null;
+            var result = _mapper.Map<GoogleAuthCodeResponse>(token);
+            return Ok(result);
         }
 
-        [HttpPost("code")]
-        public async Task<IActionResult> SendGoogleAuthRequest()
+        [HttpPost("user")]
+        public async Task<ActionResult> UserByAccessToken(string accessToken)
         {
-            string url = await _googleService.GoogleAuthUrlRequest();
-            return Redirect(url);
+            var user = await _googleService.GetUserProfile(accessToken);
+
+            var response = _mapper.Map<UserProfileResponse>(user);
+
+            return Ok(response);
+        }
+
+        [HttpPost("refresh")]
+        public async Task<IActionResult> RefreshAccessToken(string refreshToken)
+        {
+            var newAccessToken = await _googleService.RefreshAccessToken(refreshToken);
+
+            var result = _mapper.Map<GoogleAuthCodeResponse>(newAccessToken);
+
+            return Ok(result);
         }
     }
 }

@@ -1,6 +1,13 @@
-﻿namespace TheatersOfTheCity.Core.Services;
+﻿using TheatersOfTheCity.Core.Domain;
+using TheatersOfTheCity.Core.External;
+
+namespace TheatersOfTheCity.Core.Services;
 
 public interface IGoogleService
 {
-    public Task<string> GoogleAuthUrlRequest();
+    public Task<GoogleTokenBody> RefreshAccessToken(string refreshToken);
+
+    public Task<GoogleTokenBody> GetAccessTokenAsync(string code);
+
+    public Task<UserProfile> GetUserProfile(string accessToken);
 }
