@@ -6,21 +6,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="79f55697-854b-4938-9a02-5344e539f5d5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Mapper/DomainToResponseProfile.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/v1/Response/UserProfileResponse.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/UserProfile.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/External/GoogleTokenBody.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/ContactsController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/PerformancesController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/TheatersController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Data/IBaseRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Data/IContactRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Data/IPerformanceRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Data/ITheaterRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Data/IUnitOfWork.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/Contact.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/Performance.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/Theater.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Enums/Position.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Options/MySqlRepositoryConfiguration.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/BaseRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/UnitOfWork.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Data/TheatersOfTheCity.Data.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TheatersOfTheCity/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TheatersOfTheCity/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/AuthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/AuthController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Api/Mapper/RequestToDomainProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Mapper/RequestToDomainProfile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Business/External/GoogleService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Business/External/GoogleService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Business/TheatersOfTheCity.Business.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Business/TheatersOfTheCity.Business.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/TheatersOfTheCity.Contracts.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/TheatersOfTheCity.Contracts.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/v1/Response/GoogleAuthCodeResponse.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/v1/Response/GoogleAuthCodeResponse.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Core/External/GoogleAuthBody.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Core/Services/IGoogleService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Services/IGoogleService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Core/TheatersOfTheCity.Core.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/TheatersOfTheCity.Core.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Api/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Api/WeatherForecast.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/WeatherForecast.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.sln" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.sln" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +53,10 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/71029a2b89604fe6b8155ea9af33f0f4174c00/13/27707468/MySqlConfiguration.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/71029a2b89604fe6b8155ea9af33f0f4174c00/9b/1ac5b486/MySqlConnection.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/1e8feaadf5c3fa14d36ea2a638c432a2e1a47b7837d8b83d88303c5d9c15cf/AsyncValueTaskMethodBuilderT.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/235fecfc84e8e09ce55fc8bba3fcb4c5ca185aab84a999e62cfb101d43c9e0af/DbString.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/392edbf4ea815ae88a1c83bdacf6671cca83c6133bd4828f0d9e66aa14383/FormUrlEncodedContent.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/43a583eda4397148bf3ef8a58b0afac41d7335955f43c10a7ecd29ea06eeb/StringContent.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/92babe8112867ada958d7443496d6510f9173f428dbe621a94a6d174937/IHttpClientFactory.cs" root0="SKIP_HIGHLIGHTING" />
@@ -59,6 +67,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/dc41d2764e295e11d0a0305f926b72dbe060b646459c99121e6e4fc878d92a/HttpContent.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/e295fac9a6f35972ee6c75fded62aade8c497a676a8fb45e76fb58a69c59/QueryBuilder.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/efd3e9c4749621d4a53b45d7117d2a581e02a265c444a040f1387a155db/Dictionary.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/WeatherForecastController.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -69,16 +78,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.sourceCode.C#",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.C#&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected=".NET Launch Settings Profile.TheatersOfTheCity.Api: IIS Express">
     <configuration name="TheatersOfTheCity.Api" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/TheatersOfTheCity.Api/TheatersOfTheCity.Api.csproj" />
@@ -122,6 +131,8 @@
       <workItem from="1664341290591" duration="30001000" />
       <workItem from="1664397893824" duration="966000" />
       <workItem from="1664437308122" duration="10552000" />
+      <workItem from="1664458862505" duration="2896000" />
+      <workItem from="1664519220183" duration="17627000" />
     </task>
     <task id="LOCAL-00001" summary="Setting default project body">
       <created>1664343077330</created>
@@ -170,10 +181,10 @@
           <line>55</line>
           <properties documentPath="C:\Users\david.dzabakhidze\RiderProjects\TheatersOfTheCity\TheatersOfTheCity.Business\External\GoogleService.cs" initialLine="57" containingFunctionPresentation="method 'GetUserProfile'">
             <startOffsets>
-              <option value="2110" />
+              <option value="-1" />
             </startOffsets>
             <endOffsets>
-              <option value="2110" />
+              <option value="-1" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="16" />
