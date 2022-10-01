@@ -5,16 +5,10 @@
     <projectFile profileName="TheatersOfTheCity.Api">TheatersOfTheCity.Api/TheatersOfTheCity.Api.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79f55697-854b-4938-9a02-5344e539f5d5" name="Changes" comment="Base repositories and controllers structure; Dockerfile">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TheatersOfTheCity/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TheatersOfTheCity/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Core/Data/IBaseRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Data/IRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Core/Data/IContactRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Data/IContactRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Core/Data/IPerformanceRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Data/IPerformanceRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Core/Data/ITheaterRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Data/ITheaterRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Core/Data/IUnitOfWork.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Data/IUnitOfWork.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/BaseRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/Repository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/UnitOfWork.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/UnitOfWork.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Data/TheatersOfTheCity.Data.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Data/TheatersOfTheCity.Data.csproj" afterDir="false" />
+    <list default="true" id="79f55697-854b-4938-9a02-5344e539f5d5" name="Changes" comment="UnitOfWork with entities repos + Dapper.Contrib">
+      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/ContactRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/PerformanceRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/TheaterRepository.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,7 +117,7 @@
       <workItem from="1664437308122" duration="10552000" />
       <workItem from="1664458862505" duration="2896000" />
       <workItem from="1664519220183" duration="17627000" />
-      <workItem from="1664600595275" duration="2411000" />
+      <workItem from="1664600595275" duration="2764000" />
     </task>
     <task id="LOCAL-00001" summary="Setting default project body">
       <created>1664343077330</created>
@@ -146,7 +140,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664600686256</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="UnitOfWork with entities repos + Dapper.Contrib">
+      <created>1664603119675</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1664603119675</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -171,7 +172,8 @@
     <MESSAGE value="Created basic body for TheatersOfTheCity.sln" />
     <MESSAGE value="Base repositories, controllers and Dockerfile" />
     <MESSAGE value="Base repositories and controllers structure; Dockerfile" />
-    <option name="LAST_COMMIT_MESSAGE" value="Base repositories and controllers structure; Dockerfile" />
+    <MESSAGE value="UnitOfWork with entities repos + Dapper.Contrib" />
+    <option name="LAST_COMMIT_MESSAGE" value="UnitOfWork with entities repos + Dapper.Contrib" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
