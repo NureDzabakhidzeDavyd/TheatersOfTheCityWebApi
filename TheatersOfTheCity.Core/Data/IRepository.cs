@@ -1,9 +1,9 @@
 ﻿namespace TheatersOfTheCity.Core.Data;
 
-public interface IBaseRepository<T>
+public interface IRepository<T>
 {
-    public Task<T> CreateAsync(string[] values);
-    public Task<T> UpdateAsync();
+    public Task<T> CreateAsync(T entity);
+    public Task<T> UpdateAsync(T entity);
 
     public Task DeleteAsync(T entity);
     public Task DeleteByIdAsync(int id);

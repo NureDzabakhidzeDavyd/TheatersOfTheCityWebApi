@@ -1,4 +1,6 @@
 ﻿using System.Data;
+using Dapper.Contrib;
+using Dapper.Contrib.Extensions;
 using Dapper;
 using MySql;
 using MySql.Data.MySqlClient;
@@ -7,11 +9,10 @@ using TheatersOfTheCity.Core.Options;
 
 namespace TheatersOfTheCity.Data.Repositories;
 
-public class BaseRepository<T> : IBaseRepository<T> where T: class
+public class BaseRepository<T> : IRepository<T> where T: class
 {
     private readonly string _connectiong;
     private readonly string _table;
-    private readonly string _entityProperties = typeof(T).GetProperties().ToString() ?? throw new InvalidOperationException();
     
     public BaseRepository(MySqlRepositoryConfiguration sqlConfiguration)
     {
@@ -19,46 +20,44 @@ public class BaseRepository<T> : IBaseRepository<T> where T: class
         _table = sqlConfiguration.TableName;
     }
 
-    public async Task<T> CreateAsync(string[] values)
+    public async Task<T> CreateAsync(T entity)
     {
-        var query = $"INSERT INTO {_table} ({_entityProperties}) VALUES ({values})";
         using IDbConnection connection = new MySqlConnection(_connectiong);
-        var result = await connection.QueryFirstAsync(query, new {values});
-        return result;
+        var result = await connection.InsertAsync(entity);
+        return entity;
     }
 
-    public async Task<T> UpdateAsync()
+    public async Task<T> UpdateAsync(T entity)
     {
-        throw new NotImplementedException();
+        using IDbConnection connection = new MySqlConnection(_connectiong);
+        await connection.UpdateAsync<T>(entity);
+        return entity;
     }
 
     public async Task DeleteAsync(T entity)
     {
-        throw new NotImplementedException();
+        using IDbConnection connection = new MySqlConnection(_connectiong);
+        await connection.DeleteAsync<T>(entity);
     }
 
     public async Task DeleteByIdAsync(int id)
     {
-        var query = $"DELETE FROM {_table} WHERE Id = @id";
         using IDbConnection connection = new MySqlConnection(_connectiong);
-        await connection.ExecuteAsync(query, new {id});
+        var entityToDel = await connection.GetAsync<T>(id);
+        await connection.DeleteAsync(entityToDel);
     }
 
     public async Task<T> GetByIdAsync(int id)
     {
-        var query = $"SELECT * FROM {_table} WHERE Id = @id";
         using IDbConnection connection = new MySqlConnection(_connectiong);
-        var result = await connection.QueryFirstAsync(query);
-
+        var result = await connection.GetAsync<T>(id);
         return result;
     }
 
     public async Task<IEnumerable<T>> GetAllAsync()
     {
-        var query = $"SELECT * From {_table}";
         using IDbConnection connection = new MySqlConnection(_connectiong);
-        var result = await connection.QueryAsync<T>(query);
-
+        var result = await connection.GetAllAsync<T>();
         return result;
     }
 }

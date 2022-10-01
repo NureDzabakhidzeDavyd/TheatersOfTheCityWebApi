@@ -1,6 +1,8 @@
-﻿namespace TheatersOfTheCity.Core.Data;
+﻿using TheatersOfTheCity.Core.Domain;
 
-public class ITheaterRepository
+namespace TheatersOfTheCity.Core.Data;
+
+public interface ITheaterRepository : IRepository<Theater>
 {
     
 }
