@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TheatersOfTheCity.Api.Controllers.Extensions;
+using TheatersOfTheCity.Contracts.Common;
 using TheatersOfTheCity.Contracts.v1.Request;
 using TheatersOfTheCity.Core.Data;
 using TheatersOfTheCity.Core.Domain;
@@ -45,15 +46,16 @@ namespace TheatersOfTheCity.Api.Controllers.v1
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public override async Task<IActionResult> GetById([FromRoute] int id)
         {
-            var theater = await _unitOfWork.TheaterRepository.GetByIdAsync(id);
-
-            if (theater.Equals(null))
+            // var theater = await _unitOfWork.TheaterRepository.GetByIdAsync(id);
+            var theater = new Theater();
+            theater = null;
+            if (theater is null)
             {
-                return NotFound();
+                return NotFound(theater.ToApiResponse("Theater doesn't exist"));
             }
 
             var response = _mapper.Map<TheaterResponse>(theater);
-            return Ok(response);
+            return Ok(response.ToApiResponse());
         }
         
         [ProducesResponseType(typeof(TheaterResponse), StatusCodes.Status201Created)]

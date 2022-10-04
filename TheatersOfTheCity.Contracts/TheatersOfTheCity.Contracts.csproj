@@ -10,4 +10,14 @@
       <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Reference Include="System.Web.Http">
+        <HintPath>..\..\..\.nuget\packages\microsoft.aspnet.webapi.core\5.2.9\lib\net45\System.Web.Http.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Services" />
+    </ItemGroup>
+
 </Project>

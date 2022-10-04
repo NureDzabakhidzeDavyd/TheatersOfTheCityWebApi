@@ -5,36 +5,15 @@
     <projectFile profileName="TheatersOfTheCity.Api">TheatersOfTheCity.Api/TheatersOfTheCity.Api.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79f55697-854b-4938-9a02-5344e539f5d5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/Extensions/BaseEntitiesController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/v1/Request/CreateTheaterRequest.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/v1/Request/UpdateTheaterRequest.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/v1/Response/TheaterResponse.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/ApiErrorResponse.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/ApiResponse.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/BaseEntity.cs" afterDir="false" />
+    <list default="true" id="79f55697-854b-4938-9a02-5344e539f5d5" name="Changes" comment="Entities Repositories and theater controller">
+      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/Common/ApiResponse.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/Common/ApiResponseError.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TheatersOfTheCity/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TheatersOfTheCity/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/PerformancesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/PerformancesController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/TheatersController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/TheatersController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/WeatherForecastController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Api/Mapper/DomainToResponseProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Mapper/DomainToResponseProfile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Api/Mapper/RequestToDomainProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Mapper/RequestToDomainProfile.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Api/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Api/TheatersOfTheCity.Api.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/TheatersOfTheCity.Api.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Api/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Business/Services/ProofKeyService.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Business/TheatersOfTheCity.Business.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Business/TheatersOfTheCity.Business.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/TheatersOfTheCity.Contracts.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/TheatersOfTheCity.Contracts.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/Contact.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/Contact.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/Performance.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/Performance.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/Theater.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/Theater.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/UserProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/UserProfile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/WeatherForecast.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Core/Options/MySqlRepositoryConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Options/RepositoryConfiguration.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Core/TheatersOfTheCity.Core.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/TheatersOfTheCity.Core.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/BaseRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/BaseRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/ContactRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/ContactRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/PerformanceRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/PerformanceRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/TheaterRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/TheaterRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/UnitOfWork.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/UnitOfWork.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,6 +41,7 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/469ece4c5e50469a945a25a6befb4ee56f5e8/a0/fc7a4c1f/HttpConfiguration.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/71029a2b89604fe6b8155ea9af33f0f4174c00/13/27707468/MySqlConfiguration.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/71029a2b89604fe6b8155ea9af33f0f4174c00/9b/1ac5b486/MySqlConnection.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/af93ab1e92f54cbcb9356bed7b1ee3c4f600/c9/b0205ace/ComputedAttribute.cs" root0="SKIP_HIGHLIGHTING" />
@@ -70,6 +50,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/235fecfc84e8e09ce55fc8bba3fcb4c5ca185aab84a999e62cfb101d43c9e0af/DbString.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/392edbf4ea815ae88a1c83bdacf6671cca83c6133bd4828f0d9e66aa14383/FormUrlEncodedContent.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/43a583eda4397148bf3ef8a58b0afac41d7335955f43c10a7ecd29ea06eeb/StringContent.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/4c73f2459a83b7cf3b947e5c1d79474616bd2f535a8d974bad75b7fc2bc/DelegatingHandler.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/4f7a8aa5cb5a2542ab3a884b974e04cf614a935703da6ce12978c87f356d95/SqlMapperExtensions.Async.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/92babe8112867ada958d7443496d6510f9173f428dbe621a94a6d174937/IHttpClientFactory.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/a5a310969299f85b94b4f128fa37f50593b8fecdb3f14e1ac4d31476d060/HttpClientFactoryExtensions.cs" root0="SKIP_HIGHLIGHTING" />
@@ -80,6 +61,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d637c023e2af36afcf4029ac03b963cee26af0e27567ddca648c8ff08c1546/ByteArrayContent.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/dc41d2764e295e11d0a0305f926b72dbe060b646459c99121e6e4fc878d92a/HttpContent.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/e295fac9a6f35972ee6c75fded62aade8c497a676a8fb45e76fb58a69c59/QueryBuilder.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/e329bd4f14a42c5f6951d92d29ba7796e511d77e6a35ab20a5a38f50ba6fd74/HttpResponseMessage.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/efd3e9c4749621d4a53b45d7117d2a581e02a265c444a040f1387a155db/Dictionary.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f64d1af13711e5d52a0f979b45e4e03f225ed970de1a61cddb5c1f578258/StatusCodes.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
@@ -149,7 +131,7 @@
       <workItem from="1664519220183" duration="17627000" />
       <workItem from="1664600595275" duration="7960000" />
       <workItem from="1664781366471" duration="12597000" />
-      <workItem from="1664873581466" duration="1626000" />
+      <workItem from="1664873581466" duration="10939000" />
     </task>
     <task id="LOCAL-00001" summary="Setting default project body">
       <created>1664343077330</created>
@@ -186,7 +168,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664603714204</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Entities Repositories and theater controller">
+      <created>1664875312231</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1664875312231</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -213,7 +202,8 @@
     <MESSAGE value="Base repositories and controllers structure; Dockerfile" />
     <MESSAGE value="UnitOfWork with entities repos + Dapper.Contrib" />
     <MESSAGE value="Add inheritances and implements for repos" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add inheritances and implements for repos" />
+    <MESSAGE value="Entities Repositories and theater controller" />
+    <option name="LAST_COMMIT_MESSAGE" value="Entities Repositories and theater controller" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -243,6 +233,19 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/TheatersController.cs</url>
+          <line>53</line>
+          <properties documentPath="C:\Users\david.dzabakhidze\RiderProjects\TheatersOfTheCity\TheatersOfTheCity.Api\Controllers\v1\TheatersController.cs" initialLine="52" containingFunctionPresentation="method 'GetById'">
+            <startOffsets>
+              <option value="1847" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1911" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="23" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
