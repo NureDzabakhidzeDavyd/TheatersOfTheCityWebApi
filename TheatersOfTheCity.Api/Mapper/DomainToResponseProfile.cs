@@ -9,5 +9,7 @@ public class DomainToResponseProfile : Profile
     public DomainToResponseProfile()
     {
         CreateMap<UserProfile, UserProfileResponse>();
+        
+        CreateMap<Theater, TheaterResponse>();
     }
 }

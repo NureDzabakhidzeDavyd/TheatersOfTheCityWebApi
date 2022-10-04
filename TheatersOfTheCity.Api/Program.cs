@@ -3,7 +3,10 @@ using Serilog;
 using Serilog.Extensions.Logging;
 using TheatersOfTheCity.Business.External;
 using TheatersOfTheCity.Business.Options;
+using TheatersOfTheCity.Core.Data;
+using TheatersOfTheCity.Core.Options;
 using TheatersOfTheCity.Core.Services;
+using TheatersOfTheCity.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,9 +24,21 @@ builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddControllers();
 builder.Services.AddHttpClient();
 
+#region Database services
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+var databaseConfiguration = builder.Configuration.GetSection(nameof(RepositoryConfiguration)).Get<RepositoryConfiguration>();
+builder.Services.AddSingleton(databaseConfiguration);
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<ITheaterRepository, TheaterRepository>();
+builder.Services.AddScoped<IContactRepository, ContactRepository>();
+builder.Services.AddScoped<IPerformanceRepository, PerformanceRepository>();
+
+#endregion
+
 builder.Services.AddEndpointsApiExplorer();
+
+#region Swagger configuration
+
 builder.Services.AddSwaggerGen(option =>
 {
     option.SwaggerDoc("v1", new OpenApiInfo()
@@ -34,6 +49,8 @@ builder.Services.AddSwaggerGen(option =>
     });
 });
 
+#endregion
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -42,8 +59,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseRouting();
 app.UseHttpsRedirection();
+app.UseRouting();
 app.UseAuthorization();
 
 app.UseEndpoints(endpoints => { endpoints.MapControllers(); });

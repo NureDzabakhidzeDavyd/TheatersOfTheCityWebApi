@@ -2,10 +2,10 @@
 
 namespace TheatersOfTheCity.Core.Domain;
 
-public class UserProfile
+public class UserProfile : BaseEntity
 {
     [JsonProperty("id")]
-    public string id { get; set; }
+    public override int Id { get; set; }
     
     [JsonProperty("name")]
     public string FullName { get; set; }

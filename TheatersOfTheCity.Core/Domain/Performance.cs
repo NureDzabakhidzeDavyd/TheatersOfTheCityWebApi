@@ -1,6 +1,6 @@
 ﻿namespace TheatersOfTheCity.Core.Domain;
 
-public class Performance
+public class Performance : BaseEntity
 {
     public string Name { get; set; }
     

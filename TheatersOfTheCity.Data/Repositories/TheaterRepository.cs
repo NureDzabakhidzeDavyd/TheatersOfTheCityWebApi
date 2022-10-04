@@ -6,5 +6,5 @@ namespace TheatersOfTheCity.Data.Repositories;
 
 public class TheaterRepository : BaseRepository<Theater>, ITheaterRepository
 {
-    public TheaterRepository(MySqlRepositoryConfiguration sqlConfiguration) : base(sqlConfiguration) {}
+    public TheaterRepository(RepositoryConfiguration sqlConfiguration) : base(sqlConfiguration) {}
 }

@@ -19,6 +19,7 @@
       <ProjectReference Include="..\TheatersOfTheCity.Business\TheatersOfTheCity.Business.csproj" />
       <ProjectReference Include="..\TheatersOfTheCity.Contracts\TheatersOfTheCity.Contracts.csproj" />
       <ProjectReference Include="..\TheatersOfTheCity.Core\TheatersOfTheCity.Core.csproj" />
+      <ProjectReference Include="..\TheatersOfTheCity.Data\TheatersOfTheCity.Data.csproj" />
     </ItemGroup>
 
 </Project>

@@ -2,7 +2,7 @@
 
 namespace TheatersOfTheCity.Core.Domain;
 
-public class Contact
+public class Contact : BaseEntity
 {
     public string FullName { get; set; }
 

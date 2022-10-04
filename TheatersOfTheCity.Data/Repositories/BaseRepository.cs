@@ -12,12 +12,10 @@ namespace TheatersOfTheCity.Data.Repositories;
 public class BaseRepository<T> : IRepository<T> where T: class
 {
     private readonly string _connectiong;
-    private readonly string _table;
     
-    public BaseRepository(MySqlRepositoryConfiguration sqlConfiguration)
+    public BaseRepository(RepositoryConfiguration sqlConfiguration)
     {
-        _connectiong = sqlConfiguration.MySqlConnection;
-        _table = sqlConfiguration.TableName;
+        _connectiong = sqlConfiguration.DbConnection;
     }
 
     public async Task<T> CreateAsync(T entity)
@@ -60,4 +58,5 @@ public class BaseRepository<T> : IRepository<T> where T: class
         var result = await connection.GetAllAsync<T>();
         return result;
     }
+    
 }

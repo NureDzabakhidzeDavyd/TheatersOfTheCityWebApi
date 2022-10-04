@@ -6,5 +6,5 @@ namespace TheatersOfTheCity.Data.Repositories;
 
 public class PerformanceRepository : BaseRepository<Performance>, IPerformanceRepository
 {
-    public PerformanceRepository(MySqlRepositoryConfiguration sqlConfiguration) : base(sqlConfiguration) {}
+    public PerformanceRepository(RepositoryConfiguration sqlConfiguration) : base(sqlConfiguration) {}
 }

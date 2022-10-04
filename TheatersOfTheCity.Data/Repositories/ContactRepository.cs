@@ -6,5 +6,5 @@ namespace TheatersOfTheCity.Data.Repositories;
 
 public class ContactRepository : BaseRepository<Contact>, IContactRepository
 {
-    public ContactRepository(MySqlRepositoryConfiguration sqlConfiguration) : base(sqlConfiguration) {}
+    public ContactRepository(RepositoryConfiguration sqlConfiguration) : base(sqlConfiguration) {}
 }

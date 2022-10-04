@@ -1,11 +1,7 @@
-﻿using Dapper.Contrib.Extensions;
+﻿namespace TheatersOfTheCity.Contracts.v1.Request;
 
-namespace TheatersOfTheCity.Core.Domain;
-
-[Table("Theaters")]
-public class Theater : BaseEntity
+public class CreateTheaterRequest
 {
-
     public  string Name { get; set; }
     
     public string City { get; set; }
@@ -14,7 +10,7 @@ public class Theater : BaseEntity
     
     public string Email { get; set; }
     
-    public string Phone { get; set; }
+    public string Phohe { get; set; }
     
     public string ArtisticDirector { get; set; }
 }
