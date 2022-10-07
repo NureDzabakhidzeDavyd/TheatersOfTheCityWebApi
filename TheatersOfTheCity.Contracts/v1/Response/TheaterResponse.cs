@@ -1,4 +1,6 @@
-﻿namespace TheatersOfTheCity.Contracts.v1.Request;
+﻿using TheatersOfTheCity.Core.Domain;
+
+namespace TheatersOfTheCity.Contracts.v1.Response;
 
 public class TheaterResponse
 {
@@ -12,5 +14,5 @@ public class TheaterResponse
     
     public string Phohe { get; set; }
     
-    public string ArtisticDirector { get; set; }
+    public Contact ArtisticDirector { get; set; }
 }

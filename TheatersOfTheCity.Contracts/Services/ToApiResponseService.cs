@@ -1,6 +1,6 @@
 ﻿namespace TheatersOfTheCity.Contracts.Common;
 
-public static class ApiResponseError
+public static class ToApiResponseService
 {
     public static ApiResponse<T> ToApiResponse<T>(this T response, string? errorMessage = null)
     {

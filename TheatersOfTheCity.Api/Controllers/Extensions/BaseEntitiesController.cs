@@ -16,12 +16,6 @@ public abstract class BaseEntitiesController : ControllerBase
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public abstract Task<IActionResult> GetById([FromRoute] int id);
 
-        [HttpPut]
-        public abstract Task<IActionResult> Create([FromBody] CreateTheaterRequest request);
-
-        [HttpPost]
-        public abstract Task<IActionResult> Update([FromBody] UpdateTheaterRequest request);
-
         [HttpDelete("{id}")]
         public abstract Task<IActionResult> DeleteById([FromRoute] int id);
 }

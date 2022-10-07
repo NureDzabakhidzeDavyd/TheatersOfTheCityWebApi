@@ -2,7 +2,7 @@
 
 public enum Position
 {
-    Actor,
-    Director,
-    ArtisticDirector
+    Actor = 0,
+    Director = 1,
+    ArtisticDirector = 2
 }

@@ -3,6 +3,8 @@
 public interface IRepository<T>
 {
     public Task<T> CreateAsync(T entity);
+    public Task<IEnumerable<T>> CreateManyAsync(IEnumerable<T> entities);
+    
     public Task<T> UpdateAsync(T entity);
 
     public Task DeleteAsync(T entity);

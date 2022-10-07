@@ -1,16 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using Serilog;
-using Serilog.Core;
+using TheatersOfTheCity.Contracts.Common;
 using TheatersOfTheCity.Contracts.v1.Request;
-using TheatersOfTheCity.Core.External;
+using TheatersOfTheCity.Core.Data;
 using TheatersOfTheCity.Core.Services;
 
 namespace TheatersOfTheCity.Api.Controllers.v1
@@ -21,10 +13,12 @@ namespace TheatersOfTheCity.Api.Controllers.v1
     {
         private readonly IGoogleService _googleService;
         private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
         
-        public AuthController(IGoogleService googleService, IMapper mapper)
+        public AuthController(IGoogleService googleService, IMapper mapper, IUnitOfWork unitOfWork)
         {
             _googleService = googleService;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
         
@@ -39,7 +33,7 @@ namespace TheatersOfTheCity.Api.Controllers.v1
             var token = await _googleService.GetAccessTokenAsync(authCode);
 
             var result = _mapper.Map<GoogleAuthCodeResponse>(token);
-            return Ok(result);
+            return Ok(result.ToApiResponse());
         }
 
         [HttpPost("user")]
@@ -47,9 +41,9 @@ namespace TheatersOfTheCity.Api.Controllers.v1
         {
             var user = await _googleService.GetUserProfile(accessToken);
 
-            var response = _mapper.Map<UserProfileResponse>(user);
+            var result = _mapper.Map<UserProfileResponse>(user);
 
-            return Ok(response);
+            return Ok(result.ToApiResponse());
         }
 
         [HttpPost("refresh")]
@@ -59,7 +53,26 @@ namespace TheatersOfTheCity.Api.Controllers.v1
 
             var result = _mapper.Map<GoogleAuthCodeResponse>(newAccessToken);
 
-            return Ok(result);
+            return Ok(result.ToApiResponse());
+        }
+
+        [HttpPost("google")]
+        public async Task<IActionResult> GoogleAuth(string token)
+        {
+            var googleTokenBody = await _googleService.GetAccessTokenAsync(token);
+
+            var userInfo = await _googleService.GetUserProfile(googleTokenBody.AccessToken);
+
+            var user = await _unitOfWork.UserRepository.GetUserByEmail(userInfo.Email);
+
+            if (user is null)
+            {
+                userInfo.RefreshToken = googleTokenBody.RefreshToken;
+                await _unitOfWork.UserRepository.CreateAsync(userInfo);
+            }
+
+            var result = _mapper.Map<UserProfileResponse>(userInfo);
+            return Ok(result.ToApiResponse());
         }
     }
 }

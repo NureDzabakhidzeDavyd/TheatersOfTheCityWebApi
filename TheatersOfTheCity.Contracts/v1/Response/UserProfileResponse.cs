@@ -2,9 +2,9 @@
 
 public class UserProfileResponse
 {
-    public string id { get; set; }
+    public int UserId { get; set; }
     
-    public string FullName { get; set; }
+    public string UserGoogleId { get; set; }
     
     public string FirstName { get; set; }
     

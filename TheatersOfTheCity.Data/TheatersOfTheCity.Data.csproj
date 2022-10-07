@@ -7,13 +7,23 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="11.0.1" />
+      <PackageReference Include="Bogus" Version="34.0.2" />
       <PackageReference Include="Dapper" Version="2.0.123" />
       <PackageReference Include="Dapper.Contrib" Version="2.0.78" />
+      <PackageReference Include="Dapper.FluentMap" Version="2.0.0" />
       <PackageReference Include="MySql.Data" Version="8.0.30" />
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\TheatersOfTheCity.Contracts\TheatersOfTheCity.Contracts.csproj" />
       <ProjectReference Include="..\TheatersOfTheCity.Core\TheatersOfTheCity.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Microsoft.Extensions.Logging.Abstractions">
+        <HintPath>..\..\..\..\..\Program Files\dotnet\shared\Microsoft.AspNetCore.App\6.0.8\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
 </Project>

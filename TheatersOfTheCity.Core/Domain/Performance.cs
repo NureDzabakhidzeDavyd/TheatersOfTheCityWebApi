@@ -1,16 +1,19 @@
-﻿namespace TheatersOfTheCity.Core.Domain;
+﻿using System.ComponentModel.DataAnnotations;
 
-public class Performance : BaseEntity
+namespace TheatersOfTheCity.Core.Domain;
+
+public class Performance 
 {
+    [Dapper.Contrib.Extensions.Key]
+    public int PerformanceId { get; set; }
+    
+    [Required]
     public string Name { get; set; }
     
+    [Required]
     public string Genre { get; set; }
     
     public string Duration { get; set; }
 
     public string Language { get; set; }
-
-    public IEnumerable<Contact> Actors { get; set; }
-
-    public IEnumerable<Contact> Directors { get; set; }
 }

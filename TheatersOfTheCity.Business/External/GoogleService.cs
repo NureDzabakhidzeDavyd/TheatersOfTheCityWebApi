@@ -1,8 +1,6 @@
-﻿using System.Text;
+﻿using Microsoft.Extensions.Logging;
 using TheatersOfTheCity.Business.Options;
 using TheatersOfTheCity.Core.Services;
-using Microsoft.AspNetCore.Http.Extensions;
-using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
 using Serilog;
 using TheatersOfTheCity.Core.Domain;
@@ -18,11 +16,15 @@ public class GoogleService : IGoogleService
     
     private readonly ClientCredentials _clientCredentials;
     private readonly IHttpClientFactory _clientFactory;
+    private readonly ILogger<GoogleService> _logger;
 
-    public GoogleService(ClientCredentials clientCredentials, IHttpClientFactory clientFactory)
+    public GoogleService(ClientCredentials clientCredentials, 
+        IHttpClientFactory clientFactory, 
+        ILogger<GoogleService> logger)
     {
         _clientCredentials = clientCredentials;
         _clientFactory = clientFactory;
+        _logger = logger;
     }
 
     public async Task<GoogleTokenBody> GetAccessTokenAsync(string code)
@@ -39,10 +41,10 @@ public class GoogleService : IGoogleService
 
         var content = new FormUrlEncodedContent(queryParams);
         
-        Log.Information("Google: Trying to request token");
+        _logger.LogInformation("Google: Trying to request token");
         var authResponse = await _clientFactory.CreateClient().PostAsync(AuthEndpoint, content);
         authResponse.EnsureSuccessStatusCode();
-        Log.Information("Google: refresh token was successfully received");
+        _logger.LogInformation("Google: refresh token was successfully received");
         
         var stringData = await authResponse.Content.ReadAsStringAsync();
             
@@ -57,10 +59,10 @@ public class GoogleService : IGoogleService
             .Format(UserInfoUrl, accessToken);
         
 
-        Log.Information("Auth: Trying to get user info");
+        _logger.LogInformation("Auth: Trying to get user info");
         var authResponse = await _clientFactory.CreateClient().GetAsync(formattedUrl);
         authResponse.EnsureSuccessStatusCode();
-        Log.Information("Auth: user profile was successfully received");
+        _logger.LogInformation("Auth: user profile was successfully received");
 
         var stringData = await authResponse.Content.ReadAsStringAsync();
         var user = JsonConvert.DeserializeObject<UserProfile>(stringData);
