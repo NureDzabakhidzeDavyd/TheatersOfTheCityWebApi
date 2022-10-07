@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TheatersOfTheCity.Contracts.Common;
 using TheatersOfTheCity.Contracts.v1.Request;
@@ -72,6 +73,10 @@ namespace TheatersOfTheCity.Api.Controllers.v1
             }
 
             var result = _mapper.Map<UserProfileResponse>(userInfo);
+            
+            var jwtAuthenticationToken = _googleService.WriteJwtToken();
+            Response.Headers.Add("Bearer",$"Bearer {jwtAuthenticationToken}");
+            
             return Ok(result.ToApiResponse());
         }
     }

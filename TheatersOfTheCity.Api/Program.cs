@@ -1,15 +1,20 @@
 using Dapper.FluentMap;
 using Dapper.FluentMap.Configuration;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.JsonWebTokens;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using TheatersOfTheCity.Business.External;
 using TheatersOfTheCity.Business.Options;
 using TheatersOfTheCity.Core.Data;
-using TheatersOfTheCity.Core.Domain;
 using TheatersOfTheCity.Core.Options;
 using TheatersOfTheCity.Core.Services;
 using TheatersOfTheCity.Data;
 using TheatersOfTheCity.Data.Repositories;
+using JwtConstants = System.IdentityModel.Tokens.Jwt.JwtConstants;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +23,9 @@ Log.Logger = new LoggerConfiguration().WriteTo.Console().CreateLogger();
 
 var clientCredentials = builder.Configuration.GetSection(nameof(ClientCredentials)).Get<ClientCredentials>();
 builder.Services.AddSingleton(clientCredentials);
+
+var jwtSettings = builder.Configuration.GetSection(nameof(JwtSettings)).Get<JwtSettings>();
+builder.Services.AddSingleton(jwtSettings);
 
 builder.Services.AddSingleton<IGoogleService, GoogleService>();
 
@@ -52,7 +60,51 @@ builder.Services.AddSwaggerGen(option =>
         Version = "v1",
         Title = "Theaters of the city"
     });
+
+    option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+    {
+        BearerFormat = "Bearer {jwt}",
+        Description = "Please insert JWT into field",
+        In = ParameterLocation.Header,
+        Scheme = JwtBearerDefaults.AuthenticationScheme,
+        Type = SecuritySchemeType.ApiKey,
+        Name = "Authorization"
+    });
+
+    var securityScheme = new OpenApiSecurityScheme()
+    {
+        Reference = new OpenApiReference()
+        {
+            Id = "Bearer",
+            Type = ReferenceType.SecurityScheme
+        }
+    };
+    
+    option.AddSecurityRequirement(new OpenApiSecurityRequirement()
+    {
+        {securityScheme, new string[] {} }
+    });
 });
+
+builder.Services.AddAuthentication(x =>
+{
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(x =>
+{
+    x.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidIssuer = clientCredentials.ClientId,
+        ValidateIssuer = true,
+        
+        ValidateAudience = false,
+        RequireExpirationTime = true,
+        
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.Unicode.GetBytes(jwtSettings.Secret)),
+        ValidateIssuerSigningKey = true
+    };
+});
+builder.Services.AddAuthorization();
 
 #endregion
 
@@ -73,7 +125,9 @@ using (var scope = app.Services.CreateScope())
 
 app.UseHttpsRedirection();
 app.UseRouting();
+
 app.UseAuthorization();
+app.UseAuthentication();
 
 app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 

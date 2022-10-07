@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 
 namespace TheatersOfTheCity.Core.Domain;
 
+[Table("User")]
 public class UserProfile
 {
     [Key]

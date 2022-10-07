@@ -15,7 +15,7 @@ public class UserRepository : BaseRepository<UserProfile>, IUserRepository
 
     public async Task<UserProfile?> GetUserByEmail(string email)
     {
-        var command = @"SELECT * FROM user WHERE email = @email";
+        var command = @"SELECT * FROM User WHERE email = @email";
         using DbConnection connection = new MySqlConnection(Connection);
         var result = await connection.QuerySingleOrDefaultAsync<UserProfile?>(command, new {email});
         return result;

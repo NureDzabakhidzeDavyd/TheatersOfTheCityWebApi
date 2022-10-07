@@ -1,8 +1,11 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using Microsoft.Extensions.Logging;
 using TheatersOfTheCity.Business.Options;
 using TheatersOfTheCity.Core.Services;
 using Newtonsoft.Json;
-using Serilog;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using TheatersOfTheCity.Core.Domain;
 using TheatersOfTheCity.Core.External;
 
@@ -17,11 +20,14 @@ public class GoogleService : IGoogleService
     private readonly ClientCredentials _clientCredentials;
     private readonly IHttpClientFactory _clientFactory;
     private readonly ILogger<GoogleService> _logger;
+    private readonly JwtSettings _jwtSettings;
 
     public GoogleService(ClientCredentials clientCredentials, 
         IHttpClientFactory clientFactory, 
-        ILogger<GoogleService> logger)
+        ILogger<GoogleService> logger,
+        JwtSettings jwtSettings)
     {
+        _jwtSettings = jwtSettings;
         _clientCredentials = clientCredentials;
         _clientFactory = clientFactory;
         _logger = logger;
@@ -89,5 +95,16 @@ public class GoogleService : IGoogleService
         var newAccessToken = JsonConvert.DeserializeObject<GoogleTokenBody>(stringData);
 
         return newAccessToken ?? throw new ArgumentNullException(newAccessToken?.Error);
+    }
+
+    public string WriteJwtToken()
+    {
+        JwtSecurityToken jwtSecurityToken = new JwtSecurityToken(
+            issuer: _clientCredentials.ClientId,
+            signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.Unicode.GetBytes(_jwtSettings.Secret)), SecurityAlgorithms.HmacSha256),
+            expires: DateTime.UtcNow.Add(_jwtSettings.TokenLifetime));
+
+        var jwtResult = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
+        return jwtResult;
     }
 }

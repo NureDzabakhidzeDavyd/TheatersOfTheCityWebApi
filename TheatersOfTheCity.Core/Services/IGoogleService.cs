@@ -10,4 +10,6 @@ public interface IGoogleService
     public Task<GoogleTokenBody> GetAccessTokenAsync(string code);
 
     public Task<UserProfile> GetUserProfile(string accessToken);
+
+    public string WriteJwtToken();
 }
