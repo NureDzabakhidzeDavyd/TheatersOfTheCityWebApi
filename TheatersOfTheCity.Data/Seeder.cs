@@ -22,13 +22,37 @@ public class Seeder : ISeeder
     {
         if (generateDatabase)
         {
-            await GenerateContacts(20);
+          //  await GenerateContacts(20);
+            await GenerateTheaters(); 
         }
     }
 
-    public async Task GenerateTheaters(int count)
+    /// <summary>
+    /// Generate theaters depends on artistic director's contacts count.
+    /// </summary>
+    public async Task GenerateTheaters()
     {
+        _logger.LogInformation("Seeder: Creating theaters");
+
+        var theaters = new List<Theater>();
+        var contacts = await _unitOfWork.ContactRepository.GetAllAsync();
         
+        var artisticDirectorContacts = contacts
+            .Where(x => x.Position == Position.ArtisticDirector);
+        foreach (var contact in artisticDirectorContacts)
+        {
+            var fakeTheater = new Faker<Theater>()
+                .RuleFor(x => x.Name, f => f.Commerce.Department())
+                .RuleFor(x => x.City, f => f.Address.City())
+                .RuleFor(x => x.Address, f => f.Address.StreetAddress())
+                .RuleFor(x => x.ArtisticDirector, contact)
+                .RuleFor(x => x.ArtisticDirectorId, contact.ContactId)
+                .Generate();
+            theaters.Add(fakeTheater);
+        }
+
+        await _unitOfWork.TheaterRepository.CreateManyAsync(theaters);
+        _logger.LogInformation("Seeder: theaters created");
     }
 
     public async Task GenerateContacts(int count)

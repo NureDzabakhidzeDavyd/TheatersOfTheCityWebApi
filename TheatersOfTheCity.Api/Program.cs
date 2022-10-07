@@ -13,7 +13,7 @@ using TheatersOfTheCity.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Logging.AddSerilog();
+builder.Host.UseSerilog();
 Log.Logger = new LoggerConfiguration().WriteTo.Console().CreateLogger();
 
 var clientCredentials = builder.Configuration.GetSection(nameof(ClientCredentials)).Get<ClientCredentials>();

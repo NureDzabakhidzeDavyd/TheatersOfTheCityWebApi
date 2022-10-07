@@ -17,6 +17,7 @@ public class Contact
     [Required]
     public DateTime Birth { get; set; }
 
+    [EnumDataType(typeof(Position))]
     public Position Position { get; set; }
 
     public  string Email { get; set; }
