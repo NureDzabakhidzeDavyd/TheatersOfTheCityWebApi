@@ -37,19 +37,19 @@ public class Seeder : ISeeder
         var theaters = new List<Theater>();
         var contacts = await _unitOfWork.ContactRepository.GetAllAsync();
         
-        var artisticDirectorContacts = contacts
-            .Where(x => x.Position == Position.ArtisticDirector);
-        foreach (var contact in artisticDirectorContacts)
-        {
-            var fakeTheater = new Faker<Theater>()
-                .RuleFor(x => x.Name, f => f.Commerce.Department())
-                .RuleFor(x => x.City, f => f.Address.City())
-                .RuleFor(x => x.Address, f => f.Address.StreetAddress())
-                .RuleFor(x => x.ArtisticDirector, contact)
-                .RuleFor(x => x.ArtisticDirectorId, contact.ContactId)
-                .Generate();
-            theaters.Add(fakeTheater);
-        }
+        // var artisticDirectorContacts = contacts
+        //     .Where(x => x.Position == Position.ArtisticDirector);
+        // foreach (var contact in artisticDirectorContacts)
+        // {
+        //     var fakeTheater = new Faker<Theater>()
+        //         .RuleFor(x => x.Name, f => f.Commerce.Department())
+        //         .RuleFor(x => x.City, f => f.Address.City())
+        //         .RuleFor(x => x.Address, f => f.Address.StreetAddress())
+        //         // .RuleFor(x => x.ArtisticDirector, contact)
+        //         // .RuleFor(x => x.ArtisticDirectorId, contact.ContactId)
+        //         .Generate();
+        //     theaters.Add(fakeTheater);
+        // }
 
         await _unitOfWork.TheaterRepository.CreateManyAsync(theaters);
         _logger.LogInformation("Seeder: theaters created");
@@ -62,7 +62,6 @@ public class Seeder : ISeeder
             .RuleFor(x => x.FirstName, (f => f.Name.FirstName()))
             .RuleFor(x => x.SecondName, f => f.Name.LastName())
             .RuleFor(x => x.Birth, f => f.Date.Past(15, new DateTime(2004, 11, 11)))
-            .RuleFor(x => x.Position, f => f.PickRandom<Position>())
             .RuleFor(x => x.Email, (f, x) => f.Internet.Email(x.FirstName, x.SecondName))
             .RuleFor(x => x.Phone, f => f.Phone.PhoneNumber())
             .Generate(count);

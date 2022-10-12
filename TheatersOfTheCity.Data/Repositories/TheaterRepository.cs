@@ -16,18 +16,19 @@ public class TheaterRepository : BaseRepository<Theater>, ITheaterRepository
 
     public override async Task<IEnumerable<Theater>> GetAllAsync()
     {
-        var sql =
-            @"SELECT Theater.*, Contact.FirstName, Contact.SecondName 
-            FROM Theater 
-                LEFT JOIN Contact 
-                    ON Theater.ArtisticDirectorId = Contact.ContactId";
-
-        using DbConnection connection = new MySqlConnection(Connection);
-        var result = await connection.QueryAsync<Theater, Contact, Theater>(sql, (theater, contact) =>
-        {
-            theater.ArtisticDirector = contact;
-            return theater;
-        });
-        return result;
+        // var sql =
+        //     @"SELECT Theater.*, Contact.FirstName, Contact.SecondName 
+        //     FROM Theater 
+        //         LEFT JOIN Contact 
+        //             ON Theater.ArtisticDirectorId = Contact.ContactId";
+        //
+        // using DbConnection connection = new MySqlConnection(Connection);
+        // var result = await connection.QueryAsync<Theater, Contact, Theater>(sql, (theater, contact) =>
+        // {
+        //     theater.ArtisticDirector = contact;
+        //     return theater;
+        // });
+        // return result;
+        throw new NullReferenceException();
     }
 }

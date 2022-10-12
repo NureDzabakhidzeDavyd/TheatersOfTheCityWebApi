@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Dapper.Contrib.Extensions;
 
 namespace TheatersOfTheCity.Core.Domain;
-[Dapper.Contrib.Extensions.Table("Theater")]
+[Dapper.Contrib.Extensions.Table("theater")]
 public class Theater
 {
     [Dapper.Contrib.Extensions.Key]
@@ -19,7 +19,7 @@ public class Theater
     public  string Address { get; set; }
 
     [Write(false)]
-    public Contact ArtisticDirector { get; set; }
+    public Contact Director { get; set; }
 
-    public int ArtisticDirectorId { get; set; }
+    public int DirectorId { get; set; }
 }

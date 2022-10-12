@@ -119,7 +119,7 @@ if (app.Environment.IsDevelopment())
 using (var scope = app.Services.CreateScope())
 {
     var seeder = scope.ServiceProvider.GetRequiredService<ISeeder>();
-    await seeder.Seed(true);
+    await seeder.Seed(false);
 }
 
 

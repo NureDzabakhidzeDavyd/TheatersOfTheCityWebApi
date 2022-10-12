@@ -10,7 +10,6 @@ public class Performance
     [Required]
     public string Name { get; set; }
     
-    [Required]
     public string Genre { get; set; }
     
     public string Duration { get; set; }
