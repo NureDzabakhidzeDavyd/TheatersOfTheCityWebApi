@@ -25,7 +25,8 @@ namespace TheatersOfTheCity.Api.Controllers.v1
 
         [ProducesResponseType(typeof(IEnumerable<TheaterResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public override async Task<IActionResult> GetAll()
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
         {
             var theaters = await _unitOfWork.TheaterRepository.GetAllAsync();
 
@@ -40,7 +41,8 @@ namespace TheatersOfTheCity.Api.Controllers.v1
 
         [ProducesResponseType(typeof(TheaterResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public override async Task<IActionResult> GetById([FromRoute] int id)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById([FromRoute] int id)
         { 
             var theater = await _unitOfWork.TheaterRepository.GetByIdAsync(id);
             if (theater == null)
@@ -74,7 +76,7 @@ namespace TheatersOfTheCity.Api.Controllers.v1
 
         [HttpDelete("{id}")]
         [ProducesResponseType(typeof(TheaterResponse), StatusCodes.Status204NoContent)]
-        public override async Task<IActionResult> DeleteById([FromRoute] int id)
+        public async Task<IActionResult> DeleteById([FromRoute] int id)
         {
             await _unitOfWork.TheaterRepository.DeleteByIdAsync(id);
             return NoContent();

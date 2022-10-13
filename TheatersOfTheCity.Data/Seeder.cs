@@ -22,8 +22,8 @@ public class Seeder : ISeeder
     {
         if (generateDatabase)
         {
-          //  await GenerateContacts(20);
-            await GenerateTheaters(); 
+            await GenerateContacts(20);
+            // await GenerateTheaters(); 
         }
     }
 
@@ -61,7 +61,7 @@ public class Seeder : ISeeder
         var contacts = new Faker<Contact>()
             .RuleFor(x => x.FirstName, (f => f.Name.FirstName()))
             .RuleFor(x => x.SecondName, f => f.Name.LastName())
-            .RuleFor(x => x.Birth, f => f.Date.Past(15, new DateTime(2004, 11, 11)))
+            .RuleFor(x => x.Birth, f => f.Person.DateOfBirth.Date)
             .RuleFor(x => x.Email, (f, x) => f.Internet.Email(x.FirstName, x.SecondName))
             .RuleFor(x => x.Phone, f => f.Phone.PhoneNumber())
             .Generate(count);

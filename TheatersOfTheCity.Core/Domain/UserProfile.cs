@@ -1,4 +1,5 @@
-﻿using Dapper.Contrib.Extensions;
+﻿using Dapper;
+using Dapper.Contrib.Extensions;
 using Newtonsoft.Json;
 
 namespace TheatersOfTheCity.Core.Domain;
@@ -6,7 +7,6 @@ namespace TheatersOfTheCity.Core.Domain;
 [Table("User")]
 public class UserProfile
 {
-    [Key]
     public int UserId { get; set; }
     
     [JsonProperty("id")]

@@ -11,5 +11,8 @@ public class RequestToDomainProfile : Profile
     {
         CreateMap<GoogleTokenBody, GoogleAuthCodeResponse>();
         CreateMap<CreateTheaterRequest, Theater>();
+        
+        CreateMap<CreateContactRequest, Contact>();
+        CreateMap<UpdateContactRequest, Contact>();
     }
 }

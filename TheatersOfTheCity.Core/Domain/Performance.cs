@@ -4,7 +4,7 @@ namespace TheatersOfTheCity.Core.Domain;
 
 public class Performance 
 {
-    [Dapper.Contrib.Extensions.Key]
+    [Key]
     public int PerformanceId { get; set; }
     
     [Required]

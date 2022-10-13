@@ -22,7 +22,9 @@ namespace TheatersOfTheCity.Api.Controllers.v1
             _unitOfWork = unitOfWork;
         }
         
-        public override async Task<IActionResult> GetAll()
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetAll()
         {
             var performances = await _unitOfWork.PerformanceRepository.GetAllAsync();
             if (!performances.Any())
@@ -34,7 +36,9 @@ namespace TheatersOfTheCity.Api.Controllers.v1
             return Ok(response.ToApiResponse());
         }
 
-        public override async Task<IActionResult> GetById([FromRoute] int id)
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(PerformanceResponse), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetById([FromRoute] int id)
         {
             var performance = await _unitOfWork.PerformanceRepository.GetByIdAsync(id);
             if (performance == null)
@@ -64,9 +68,17 @@ namespace TheatersOfTheCity.Api.Controllers.v1
             return Ok(response.ToApiResponse());
         }
 
-        public override async Task<IActionResult> DeleteById(int id)
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> DeleteById(int id)
         {
-            await _unitOfWork.PerformanceRepository.DeleteByIdAsync(id);
+            var performance = await _unitOfWork.PerformanceRepository.GetByIdAsync(id);
+            if (performance == null)
+            {
+                return NotFound();
+            }
+
+            await _unitOfWork.PerformanceRepository.DeleteAsync(performance);
             return NoContent();
         }
     }

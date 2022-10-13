@@ -8,9 +8,5 @@ public class CreateTheaterRequest
     
     public  string Address { get; set; }
     
-    public string Email { get; set; }
-    
-    public string Phohe { get; set; }
-    
-    public string ArtisticDirector { get; set; }
+    public int DirectorId { get; set; }
 }

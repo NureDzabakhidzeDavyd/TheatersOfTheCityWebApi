@@ -1,5 +1,3 @@
-using Dapper.FluentMap;
-using Dapper.FluentMap.Configuration;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -7,6 +5,7 @@ using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using SqlKata.Compilers;
 using TheatersOfTheCity.Business.External;
 using TheatersOfTheCity.Business.Options;
 using TheatersOfTheCity.Core.Data;
@@ -45,6 +44,7 @@ builder.Services.AddScoped<IContactRepository, ContactRepository>();
 builder.Services.AddScoped<IPerformanceRepository, PerformanceRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ISeeder, Seeder>();
+builder.Services.AddScoped<Compiler, MySqlCompiler>();
 
 #endregion
 

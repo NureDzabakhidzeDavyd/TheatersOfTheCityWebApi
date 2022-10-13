@@ -1,14 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Dapper;
-using Dapper.Contrib.Extensions;
-using TheatersOfTheCity.Core.Enums;
 
-namespace TheatersOfTheCity.Core.Domain;
+namespace TheatersOfTheCity.Contracts.v1.Response;
 
-[Table("Contact")]
-public class Contact
+public class ContactResponse
 {
-    [Dapper.Contrib.Extensions.Key]
+    [Key]
     public  int ContactId { get; set; }
     
     public string FirstName { get; set; }

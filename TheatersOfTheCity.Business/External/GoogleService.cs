@@ -104,7 +104,7 @@ public class GoogleService : IGoogleService
             signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.Unicode.GetBytes(_jwtSettings.Secret)), SecurityAlgorithms.HmacSha256),
             expires: DateTime.UtcNow.Add(_jwtSettings.TokenLifetime));
 
-        var jwtResult = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
+       var jwtResult = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
         return jwtResult;
     }
 }

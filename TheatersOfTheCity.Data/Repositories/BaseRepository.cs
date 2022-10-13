@@ -1,41 +1,41 @@
 ﻿using System.Data;
+using Dapper;
 using Dapper.Contrib.Extensions;
 using Microsoft.Extensions.Logging;
 using MySql.Data.MySqlClient;
 using TheatersOfTheCity.Core.Data;
 using TheatersOfTheCity.Core.Options;
+using SqlKata;
+using SqlKata.Compilers;
 
 namespace TheatersOfTheCity.Data.Repositories;
 
 public class BaseRepository<T> : IRepository<T> where T: class
 {
     private readonly ILogger<BaseRepository<T>> _logger;
+    protected readonly MySqlCompiler MySqlCompiler;
     protected readonly string Connection;
 
     protected BaseRepository(RepositoryConfiguration sqlConfiguration, ILogger<BaseRepository<T>> logger)
     {
         Connection = sqlConfiguration.DbConnection;
         _logger = logger;
+        MySqlCompiler = new MySqlCompiler();
     }
 
     public async Task<T> CreateAsync(T entity)
     {
         using IDbConnection connection = new MySqlConnection(Connection);
         await connection.InsertAsync(entity);
+
         return entity;
     }
 
-    public async Task<IEnumerable<T>> CreateManyAsync(IEnumerable<T> entities)
+    public virtual async Task<IEnumerable<T>> CreateManyAsync(IEnumerable<T> entities)
     {
         using IDbConnection connection = new MySqlConnection(Connection);
-        try
-        {
-            await connection.InsertAsync(entities);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError($"BaseRepository: {ex.Message}");
-        }
+        await connection.InsertAsync(entities);
+        
         return entities;
     }
 
