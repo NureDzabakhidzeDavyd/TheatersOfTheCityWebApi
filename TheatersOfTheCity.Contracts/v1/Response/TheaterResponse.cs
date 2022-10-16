@@ -9,10 +9,6 @@ public class TheaterResponse
     public string City { get; set; }
     
     public  string Address { get; set; }
-    
-    public string Email { get; set; }
-    
-    public string Phohe { get; set; }
-    
-    public Contact ArtisticDirector { get; set; }
+
+    public Contact Director { get; set; }
 }

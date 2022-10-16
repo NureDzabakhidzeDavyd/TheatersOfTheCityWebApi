@@ -12,14 +12,12 @@ namespace TheatersOfTheCity.Data.Repositories;
 
 public class BaseRepository<T> : IRepository<T> where T: class
 {
-    private readonly ILogger<BaseRepository<T>> _logger;
     protected readonly MySqlCompiler MySqlCompiler;
     protected readonly string Connection;
 
-    protected BaseRepository(RepositoryConfiguration sqlConfiguration, ILogger<BaseRepository<T>> logger)
+    public BaseRepository(RepositoryConfiguration sqlConfiguration)
     {
         Connection = sqlConfiguration.DbConnection;
-        _logger = logger;
         MySqlCompiler = new MySqlCompiler();
     }
 
@@ -35,7 +33,7 @@ public class BaseRepository<T> : IRepository<T> where T: class
     {
         using IDbConnection connection = new MySqlConnection(Connection);
         await connection.InsertAsync(entities);
-        
+
         return entities;
     }
 
@@ -45,6 +43,27 @@ public class BaseRepository<T> : IRepository<T> where T: class
         await connection.UpdateAsync(entity);
         return entity;
     }
+
+    // public async Task<T> UpdateManyAsync(IEnumerable<T> entities)
+    // {
+    //     var properties = typeof(T).GetProperties();
+    //     var columns = properties.Select(x => x.Name).ToArray();
+    //     var entityId = $"{nameof(T)}Id";
+    //     var compiler = new SqlServerCompiler();
+    //
+    //     using IDbConnection connection = new MySqlConnection(Connection);
+    //     foreach (var entity in entities)
+    //     {
+    //         var values = entity.GetType().GetProperties().Select(x => x.GetValue(entity));
+    //         var query = new Query(nameof(T)).Where(entityId, 1).AsUpdate(columns, values);
+    //         SqlResult result = compiler.Compile(query);
+    //         string sql = result.Sql;
+    //         
+    //         connection.UpdateAsync()
+    //     }
+    //
+    //
+    // }
 
     public async Task DeleteAsync(T entity)
     {

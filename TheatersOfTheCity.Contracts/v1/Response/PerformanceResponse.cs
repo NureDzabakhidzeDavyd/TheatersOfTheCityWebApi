@@ -1,4 +1,6 @@
-﻿namespace TheatersOfTheCity.Contracts.v1.Request;
+﻿using TheatersOfTheCity.Core.Domain;
+
+namespace TheatersOfTheCity.Contracts.v1.Request;
 
 public class PerformanceResponse
 {

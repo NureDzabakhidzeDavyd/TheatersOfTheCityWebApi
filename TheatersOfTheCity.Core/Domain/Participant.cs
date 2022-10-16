@@ -1,20 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Dapper.Contrib.Extensions;
 
 namespace TheatersOfTheCity.Core.Domain;
 
-[Table("participant")]
+[System.ComponentModel.DataAnnotations.Schema.Table("Participant")]
 public class Participant
 {
-    [Key]
+    [System.ComponentModel.DataAnnotations.Key]
     public int ContactId { get; set; }
-    
+    [Write(false)]
     public Contact Contact { get; set; }
     
     public string Role { get; set; }
     
-    [NotMapped]
+    [Write(false)]
     public Scene Scene { get; set; }
-    [ForeignKey("performance_participant_contact_fk")]
     public int SceneId { get; set; }
 }

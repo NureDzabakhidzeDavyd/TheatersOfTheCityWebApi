@@ -10,8 +10,7 @@ namespace TheatersOfTheCity.Data.Repositories;
 
 public class UserRepository : BaseRepository<UserProfile>, IUserRepository
 {
-    public UserRepository(RepositoryConfiguration sqlConfiguration, 
-        ILogger<BaseRepository<UserProfile>> logger) : base(sqlConfiguration, logger) {}
+    public UserRepository(RepositoryConfiguration sqlConfiguration) : base(sqlConfiguration) {}
 
     public async Task<UserProfile?> GetUserByEmail(string email)
     {

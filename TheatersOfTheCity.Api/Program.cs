@@ -38,13 +38,15 @@ builder.Services.AddHttpClient();
 
 var databaseConfiguration = builder.Configuration.GetSection(nameof(RepositoryConfiguration)).Get<RepositoryConfiguration>();
 builder.Services.AddSingleton(databaseConfiguration);
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ITheaterRepository, TheaterRepository>();
 builder.Services.AddScoped<IContactRepository, ContactRepository>();
 builder.Services.AddScoped<IPerformanceRepository, PerformanceRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IProgramRepository, ProgramRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IParticipantRepository, ParticipantRepository>();
+builder.Services.AddScoped<ISceneRepository, SceneRepository>();
 builder.Services.AddScoped<ISeeder, Seeder>();
-builder.Services.AddScoped<Compiler, MySqlCompiler>();
 
 #endregion
 
@@ -119,7 +121,7 @@ if (app.Environment.IsDevelopment())
 using (var scope = app.Services.CreateScope())
 {
     var seeder = scope.ServiceProvider.GetRequiredService<ISeeder>();
-    await seeder.Seed(false);
+    await seeder.Seed(true);
 }
 
 

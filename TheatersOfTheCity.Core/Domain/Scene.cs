@@ -1,23 +1,21 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Dapper.Contrib.Extensions;
 
 namespace TheatersOfTheCity.Core.Domain;
 
-[Table("scene")]
+[Table(nameof(Scene))]
 public class Scene
 {
     /// <summary>
     /// Performance participant reference
     /// </summary>
-    [NotMapped]
-    [ForeignKey("scene_participant_scene_id_fk")]
+    [Write(false)]
     public Participant Participant { get; set; }
     public int ParticipantId { get; set; }
     
     /// <summary>
     /// Performance in which participant take part
     /// </summary>
-    [NotMapped]
+    [Write(false)]
     public Performance Performance { get; set; }
-    [ForeignKey("scene_performance_actor_id_fk")]
     public int PerformanceId { get; set; }
 }

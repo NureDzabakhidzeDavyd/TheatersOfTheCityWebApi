@@ -7,6 +7,5 @@ namespace TheatersOfTheCity.Data.Repositories;
 
 public class ContactRepository : BaseRepository<Contact>, IContactRepository
 {
-    public ContactRepository(RepositoryConfiguration sqlConfiguration, 
-        ILogger<BaseRepository<Contact>> logger) : base(sqlConfiguration, logger) {}
+    public ContactRepository(RepositoryConfiguration sqlConfiguration) : base(sqlConfiguration) {}
 }

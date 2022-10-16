@@ -59,8 +59,17 @@ namespace TheatersOfTheCity.Api.Controllers.v1
         public async Task<IActionResult> Create([FromBody] CreateTheaterRequest request)
         {
             var newTheater = _mapper.Map<Theater>(request);
+            
+            var director = await _unitOfWork.ContactRepository.GetByIdAsync(request.DirectorId);
+            if (director == null)
+            {
+                return NotFound(director.ToApiResponse($"Director with {request.DirectorId} doesn't exist"));
+            }
+            
             var theater = await _unitOfWork.TheaterRepository.CreateAsync(newTheater);
+            
             var response = _mapper.Map<TheaterResponse>(theater);
+            response.Director = theater.Director;
             return StatusCode(StatusCodes.Status201Created, response);
         }
         
@@ -70,7 +79,18 @@ namespace TheatersOfTheCity.Api.Controllers.v1
         {
             var updateTheater = _mapper.Map<Theater>(request);
             var theater = await _unitOfWork.TheaterRepository.UpdateAsync(updateTheater);
+            
+            var director = await _unitOfWork.ContactRepository.GetByIdAsync(request.DirectorId);
+            if (director == null)
+            {
+                return NotFound(director.ToApiResponse($"Director with {request.DirectorId} doesn't exist"));
+            }
+
+            await _unitOfWork.TheaterRepository.UpdateAsync(theater);
+            
             var response = _mapper.Map<TheaterResponse>(theater);
+            response.Director = director;
+            
             return Ok(response.ToApiResponse());
         }
 
