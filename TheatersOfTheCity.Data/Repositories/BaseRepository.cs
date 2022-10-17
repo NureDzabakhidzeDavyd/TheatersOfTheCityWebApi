@@ -7,6 +7,7 @@ using TheatersOfTheCity.Core.Data;
 using TheatersOfTheCity.Core.Options;
 using SqlKata;
 using SqlKata.Compilers;
+using TheatersOfTheCity.Core.Domain;
 
 namespace TheatersOfTheCity.Data.Repositories;
 
@@ -91,5 +92,18 @@ public class BaseRepository<T> : IRepository<T> where T: class
         var result = await connection.GetAllAsync<T>();
         return result;
     }
-    
+
+    public virtual async Task<IEnumerable<T>> GetManyById(IEnumerable<int> ids, string columnName)
+    {
+        var tableName = typeof(T).Name;
+        var columnId = columnName;
+        var compiler = new MySqlCompiler();
+        var query = new Query(tableName).WhereIn<int>(columnId, ids);
+        SqlResult sqlResult = compiler.Compile(query);
+        string sql = sqlResult.ToString();
+        using IDbConnection connection = new MySqlConnection(Connection);
+        var result = await connection.QueryAsync<T>(sql);
+        return result;
+    }
+
 }

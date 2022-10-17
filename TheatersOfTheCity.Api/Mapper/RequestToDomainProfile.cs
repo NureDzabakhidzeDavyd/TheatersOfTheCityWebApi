@@ -14,5 +14,8 @@ public class RequestToDomainProfile : Profile
         
         CreateMap<CreateContactRequest, Contact>();
         CreateMap<UpdateContactRequest, Contact>();
+        
+        CreateMap<CreatePerformanceRequest, Performance>();
+        CreateMap<UpdatePerformanceRequest, Performance>();
     }
 }

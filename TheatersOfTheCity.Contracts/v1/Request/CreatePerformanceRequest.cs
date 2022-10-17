@@ -6,7 +6,9 @@ public class CreatePerformanceRequest
     
     public string Genre { get; set; }
     
-    public DateTime Duration { get; set; }
+    public TimeSpan Duration { get; set; }
     
     public string Language { get; set; }
+    
+    public IEnumerable<int> ParticipantsIds { get; set; }
 }

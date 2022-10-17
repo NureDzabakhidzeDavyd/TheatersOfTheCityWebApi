@@ -2,5 +2,5 @@
 
 public interface ISeeder
 {
-    public Task Seed(bool generateDatabase);
+    public Task Seed();
 }

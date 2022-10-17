@@ -5,31 +5,24 @@
     <projectFile profileName="TheatersOfTheCity.Api">TheatersOfTheCity.Api/TheatersOfTheCity.Api.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79f55697-854b-4938-9a02-5344e539f5d5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Data/IParticipantRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Data/IProgramRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Data/ISceneRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/ParticipantRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/ProgramRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/SceneRepository.cs" afterDir="false" />
+    <list default="true" id="79f55697-854b-4938-9a02-5344e539f5d5" name="Changes" comment="Partcipant &amp; Scene &amp; Program repos">
+      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/v1/Response/ParticipantResponse.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TheatersOfTheCity/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TheatersOfTheCity/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/TheatersController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/TheatersController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/PerformancesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/PerformancesController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Api/Mapper/DomainToResponseProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Mapper/DomainToResponseProfile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Api/Mapper/RequestToDomainProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Mapper/RequestToDomainProfile.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Api/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/v1/Request/UpdateTheaterRequest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/v1/Request/UpdateTheaterRequest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Api/TheatersOfTheCity.Api.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/TheatersOfTheCity.Api.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/v1/Request/CreatePerformanceRequest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/v1/Request/CreatePerformanceRequest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/v1/Request/UpdatePerformanceRequest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/v1/Request/UpdatePerformanceRequest.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/v1/Response/PerformanceResponse.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/v1/Response/PerformanceResponse.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/v1/Response/TheaterResponse.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/v1/Response/TheaterResponse.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Core/Data/IUnitOfWork.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Data/IUnitOfWork.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Core/Data/IRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Data/IRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Core/Data/ISceneRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Data/ISceneRepository.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/Participant.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/Participant.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/Performance.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/Performance.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/Scene.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/Scene.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/Theater.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/Theater.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Core/Services/ISeeder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Services/ISeeder.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/BaseRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/BaseRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/ContactRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/ContactRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/PerformanceRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/PerformanceRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/TheaterRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/TheaterRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/UnitOfWork.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/UnitOfWork.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/UserRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/UserRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/ParticipantRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/ParticipantRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/SceneRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/SceneRepository.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Data/Seeder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Data/Seeder.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -69,6 +62,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c211910a977d4e0f801d22959084cfa25200/38/254a10d5/FluentMapper.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c211910a977d4e0f801d22959084cfa25200/de/7c2d11ef/EntityMapBase`2.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/fe3c9641e4ed4d2586b9e70a940c75af7000/e6/e8c0f247/SerilogHostBuilderExtensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/metadata/7ca8898b690a4181a32a9cf767cedb1ea9c28/4d/1720c767/Newtonsoft.Json.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/17489a3ca0a52be014fe2583faf98fc55aa85ac91d398a832b425ce58af94ae/OpenApiSecurityRequirement.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/1e8feaadf5c3fa14d36ea2a638c432a2e1a47b7837d8b83d88303c5d9c15cf/AsyncValueTaskMethodBuilderT.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/227ed75384c24c09bd6a4ae4ff4c1534a23898/_bde5b/PropertyAttributes.cs" root0="FORCE_HIGHLIGHTING" />
@@ -86,6 +80,8 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7ed6f5e3b5f78ae215ce2f37f9ca779fea6e31feb6dfdf8b5683b9b27ba54/JsonConvert.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/8b17eea7411eb1ee7e80413e8229dc445ba073ab591c18196db8b55712aabb/ControllerFactoryProvider.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/92babe8112867ada958d7443496d6510f9173f428dbe621a94a6d174937/IHttpClientFactory.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/97892987fb2a9bc79b06cbf7fbedf98a5ef75c6a588983bbc038064cfaba/Select.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/97af33e538b92416d330d2761cc7286a751e61b8a8b11f567c646267804c9843/Utf8JsonReader.TryGet.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/a5a310969299f85b94b4f128fa37f50593b8fecdb3f14e1ac4d31476d060/HttpClientFactoryExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/aaf01342eea43fe290632b786d8a29adb32df5a8ff30d03dbbe5aa62aaba4d1d/ServiceCollectionExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/b248e4691d5cac2c1f912b9e441cf84024d444bae742a66b19c5c2645fb9d4/DefaultTypeMap.cs" root0="SKIP_HIGHLIGHTING" />
@@ -124,22 +120,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.C#&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "XThreadsFramesViewSplitterKey": "0.41218638",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.sourceCode.C#",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;,
-      &quot;sqlserver&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql",
+      "sqlserver"
     ]
   }
-}</component>
+}]]></component>
   <component name="RiderProblemsViewState">
     <hideBySeverity>
       <option value="20" />
@@ -205,7 +202,8 @@
       <workItem from="1665401683526" duration="4576000" />
       <workItem from="1665552244617" duration="28222000" />
       <workItem from="1665643475636" duration="19711000" />
-      <workItem from="1665895619057" duration="6325000" />
+      <workItem from="1665895619057" duration="16186000" />
+      <workItem from="1666029704349" duration="10117000" />
     </task>
     <task id="LOCAL-00001" summary="Setting default project body">
       <created>1664343077330</created>
@@ -291,7 +289,14 @@
       <option name="project" value="LOCAL" />
       <updated>1665646476705</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Partcipant &amp; Scene &amp; Program repos">
+      <created>1665902071374</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1665902071374</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -325,75 +330,37 @@
     <MESSAGE value="Swagger jwt auth" />
     <MESSAGE value="Updated database &amp; entities" />
     <MESSAGE value="Updated database and entities" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated database and entities" />
+    <MESSAGE value="Partcipant &amp; Scene &amp; Program repos" />
+    <option name="LAST_COMMIT_MESSAGE" value="Partcipant &amp; Scene &amp; Program repos" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/ContactsController.cs</url>
-          <line>33</line>
-          <properties documentPath="C:\Users\david.dzabakhidze\RiderProjects\TheatersofTheCityWebAPI\TheatersOfTheCity\TheatersOfTheCity.Api\Controllers\v1\ContactsController.cs" initialLine="30" containingFunctionPresentation="method 'GetAll'">
+          <url>file://$PROJECT_DIR$/TheatersOfTheCity.Data/Seeder.cs</url>
+          <line>85</line>
+          <properties documentPath="C:\Users\david.dzabakhidze\RiderProjects\TheatersofTheCityWebAPI\TheatersOfTheCity\TheatersOfTheCity.Data\Seeder.cs" initialLine="85" containingFunctionPresentation="method 'GenerateParticipantsAndScenes'">
             <startOffsets>
-              <option value="1022" />
+              <option value="2707" />
             </startOffsets>
             <endOffsets>
-              <option value="1081" />
+              <option value="2777" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="5" />
+          <option name="timeStamp" value="23" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/TheatersOfTheCity.Data/Seeder.cs</url>
-          <line>111</line>
-          <properties documentPath="C:\Users\david.dzabakhidze\RiderProjects\TheatersofTheCityWebAPI\TheatersOfTheCity\TheatersOfTheCity.Data\Seeder.cs" initialLine="112" containingFunctionPresentation="method 'GenerateTheaters'">
+          <url>file://$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/SceneRepository.cs</url>
+          <line>30</line>
+          <properties documentPath="C:\Users\david.dzabakhidze\RiderProjects\TheatersofTheCityWebAPI\TheatersOfTheCity\TheatersOfTheCity.Data\Repositories\SceneRepository.cs" initialLine="25" containingFunctionPresentation="method 'CreateScene'">
             <startOffsets>
-              <option value="3808" />
+              <option value="1065" />
             </startOffsets>
             <endOffsets>
-              <option value="3870" />
+              <option value="1067" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/TheatersOfTheCity.Data/Seeder.cs</url>
-          <line>146</line>
-          <properties documentPath="C:\Users\david.dzabakhidze\RiderProjects\TheatersofTheCityWebAPI\TheatersOfTheCity\TheatersOfTheCity.Data\Seeder.cs" initialLine="147" containingFunctionPresentation="method 'GeneratePrograms'">
-            <startOffsets>
-              <option value="5319" />
-            </startOffsets>
-            <endOffsets>
-              <option value="5381" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/TheatersOfTheCity.Data/Seeder.cs</url>
-          <line>86</line>
-          <properties documentPath="C:\Users\david.dzabakhidze\RiderProjects\TheatersofTheCityWebAPI\TheatersOfTheCity\TheatersOfTheCity.Data\Seeder.cs" initialLine="87" containingFunctionPresentation="method 'GenerateParticipantsAndScenes'">
-            <startOffsets>
-              <option value="2715" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2785" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="18" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/TheatersOfTheCity.Data/Seeder.cs</url>
-          <line>28</line>
-          <properties documentPath="C:\Users\david.dzabakhidze\RiderProjects\TheatersofTheCityWebAPI\TheatersOfTheCity\TheatersOfTheCity.Data\Seeder.cs" initialLine="28" containingFunctionPresentation="method 'Seed'">
-            <startOffsets>
-              <option value="780" />
-            </startOffsets>
-            <endOffsets>
-              <option value="820" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="19" />
+          <option name="timeStamp" value="27" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

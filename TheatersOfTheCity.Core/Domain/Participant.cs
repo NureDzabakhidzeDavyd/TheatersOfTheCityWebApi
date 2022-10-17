@@ -12,8 +12,4 @@ public class Participant
     public Contact Contact { get; set; }
     
     public string Role { get; set; }
-    
-    [Write(false)]
-    public Scene Scene { get; set; }
-    public int SceneId { get; set; }
 }

@@ -12,4 +12,6 @@ public interface IRepository<T>
     
     public Task<T> GetByIdAsync(int id);
     public Task<IEnumerable<T>> GetAllAsync();
+    public Task<IEnumerable<T>> GetManyById(IEnumerable<int> ids, string columnName);
+
 }

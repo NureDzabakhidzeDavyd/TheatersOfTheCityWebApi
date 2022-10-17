@@ -51,19 +51,47 @@ namespace TheatersOfTheCity.Api.Controllers.v1
         }
 
         [HttpPost]
-        public  async Task<IActionResult> Create(CreateTheaterRequest request)
+        public  async Task<IActionResult> Create(CreatePerformanceRequest request)
         {
             var newPerformance = _mapper.Map<Performance>(request);
             var performance = await _unitOfWork.PerformanceRepository.CreateAsync(newPerformance);
             var response = _mapper.Map<PerformanceResponse>(performance);
+
+            if (request.ParticipantsIds.Any())
+            {
+                var participants = (await _unitOfWork.ParticipantRepository
+                    .GetManyById(request.ParticipantsIds, nameof(Participant.ContactId))).DistinctBy(x => x.ContactId).ToList();
+                
+                
+                if (participants.Count() != request.ParticipantsIds.Count())
+                {
+                    return NotFound(request.ParticipantsIds.ToApiResponse("Not all participants was found"));
+                }
+
+                var contacts =
+                    await _unitOfWork.ContactRepository.GetManyById(request.ParticipantsIds,
+                        nameof(Contact.ContactId));
+                participants.ForEach(participant => participant.Contact = contacts.First(contact =>  contact.ContactId == participant.ContactId));
+                
+                await _unitOfWork.SceneRepository.CreateScene(request.ParticipantsIds,
+                performance.PerformanceId);
+                
+                response.Participants = _mapper.Map<IEnumerable<ParticipantResponse>>(participants);
+            }
             return StatusCode(StatusCodes.Status201Created, response);
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(UpdateTheaterRequest request)
+        public async Task<IActionResult> Update(UpdatePerformanceRequest request)
         {
             var updateThPerformance = _mapper.Map<Performance>(request);
             var performance = await _unitOfWork.PerformanceRepository.UpdateAsync(updateThPerformance);
+
+            var participants = await _unitOfWork.ParticipantRepository
+                .GetManyById(request.ParticipantsIds, nameof(Participant.ContactId));
+            await _unitOfWork.SceneRepository.CreateScene(participants.Select(x => x.ContactId),
+                    performance.PerformanceId);
+            
             var response = _mapper.Map<TheaterResponse>(performance);
             return Ok(response.ToApiResponse());
         }

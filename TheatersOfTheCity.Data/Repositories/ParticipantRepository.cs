@@ -9,4 +9,6 @@ public class ParticipantRepository : BaseRepository<Participant>, IParticipantRe
     public ParticipantRepository(RepositoryConfiguration sqlConfiguration) : base(sqlConfiguration)
     {
     }
+    
+    
 }

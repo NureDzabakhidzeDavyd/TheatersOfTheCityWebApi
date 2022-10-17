@@ -3,9 +3,12 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using Newtonsoft.Json;
 using SqlKata.Compilers;
+using TheatersOfTheCity.Api.Controllers.Extensions;
 using TheatersOfTheCity.Business.External;
 using TheatersOfTheCity.Business.Options;
 using TheatersOfTheCity.Core.Data;
@@ -56,6 +59,11 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(option =>
 {
+    option.MapType(typeof(TimeSpan), () => new OpenApiSchema
+    {
+        Type = "time",
+        Example = new OpenApiString("00:00:00")
+    });
     option.SwaggerDoc("v1", new OpenApiInfo()
     {
         Description = "Theaters of the city API",
@@ -121,9 +129,8 @@ if (app.Environment.IsDevelopment())
 using (var scope = app.Services.CreateScope())
 {
     var seeder = scope.ServiceProvider.GetRequiredService<ISeeder>();
-    await seeder.Seed(true);
+    await seeder.Seed();
 }
-
 
 app.UseHttpsRedirection();
 app.UseRouting();

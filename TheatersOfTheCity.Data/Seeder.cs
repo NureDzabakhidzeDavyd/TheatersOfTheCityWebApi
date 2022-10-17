@@ -18,15 +18,16 @@ public class Seeder : ISeeder
         _logger = logger;
     }
     
-    public async Task Seed(bool generateDatabase)
+    public async Task Seed()
     {
-        if (generateDatabase)
+        var contacts = await _unitOfWork.ContactRepository.GetAllAsync();
+        if (!contacts.Any())
         {
-            // await GenerateContacts(50);
-           // await GenerateTheaters(10); 
-           // await GeneratePerformances(20);
-            //await GeneratePrograms();
-            await GenerateParticipantsAndScenes(20);
+             await GenerateContacts(50);
+             await GenerateTheaters(10); 
+             await GeneratePerformances(20);
+             await GeneratePrograms();
+             await GenerateParticipantsAndScenes(20);
         }
     }
 
@@ -80,8 +81,6 @@ public class Seeder : ISeeder
             .RuleFor(x => x.ParticipantId, f => f.PickRandom(participants).ContactId)
             .Generate();
             scenes.Add(scene);
-
-            participant.SceneId = scene.PerformanceId;
         }
 
         await _unitOfWork.ParticipantRepository.CreateManyAsync(participants);
@@ -200,7 +199,7 @@ public class Seeder : ISeeder
             .RuleFor(x => x.Name, f => f.Company.CompanyName())
             .RuleFor(x => x.Genre, f => f.PickRandom(genres))
             .RuleFor(x => x.Duration, f => f.Date.BetweenTimeOnly(new TimeOnly(1, 0), new TimeOnly(4, 0)).ToTimeSpan())
-            .RuleFor(x => x.Language, f => f.PickRandom(new[] { "English", "Ukrainian" }))
+            .RuleFor(x => x.Language, f => f.PickRandom(new[] { "en", "ua" }))
             .Generate(count);
         await _unitOfWork.PerformanceRepository.CreateManyAsync(performances);
         
