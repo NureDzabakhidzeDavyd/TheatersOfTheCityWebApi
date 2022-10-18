@@ -54,6 +54,22 @@ namespace TheatersOfTheCity.Api.Controllers.v1
             return Ok(response.ToApiResponse());
         }
         
+        [ProducesResponseType(typeof(IEnumerable<TheaterResponse>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [HttpGet("{id}/program")]
+        public async Task<IActionResult> GetTheaterPrograms([FromRoute] int id)
+        {
+            var performances = await _unitOfWork.TheaterRepository.GetTheaterProgramsAsync(id);
+
+            if (!performances.Any())
+            {
+                return NotFound();
+            }
+            
+            var response = _mapper.Map<IEnumerable<PerformanceResponse>>(performances);
+            return Ok(response.ToApiResponse());
+        }
+        
         [HttpPost]
         [ProducesResponseType(typeof(TheaterResponse), StatusCodes.Status201Created)]
         public async Task<IActionResult> Create([FromBody] CreateTheaterRequest request)

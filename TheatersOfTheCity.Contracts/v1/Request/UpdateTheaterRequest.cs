@@ -7,6 +7,5 @@ public class UpdateTheaterRequest
     public string City { get; set; }
     
     public  string Address { get; set; }
-
     public int DirectorId { get; set; }
 }

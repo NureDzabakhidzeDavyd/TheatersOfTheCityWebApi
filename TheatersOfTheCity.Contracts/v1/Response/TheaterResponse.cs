@@ -4,6 +4,8 @@ namespace TheatersOfTheCity.Contracts.v1.Response;
 
 public class TheaterResponse
 {
+    public int TheaterId { get; set; }
+    
     public  string Name { get; set; }
     
     public string City { get; set; }

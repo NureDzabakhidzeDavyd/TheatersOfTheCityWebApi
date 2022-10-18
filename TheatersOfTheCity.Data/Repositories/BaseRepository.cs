@@ -13,13 +13,13 @@ namespace TheatersOfTheCity.Data.Repositories;
 
 public class BaseRepository<T> : IRepository<T> where T: class
 {
-    protected readonly MySqlCompiler MySqlCompiler;
+    private readonly MySqlCompiler _mySqlCompiler;
     protected readonly string Connection;
 
     public BaseRepository(RepositoryConfiguration sqlConfiguration)
     {
         Connection = sqlConfiguration.DbConnection;
-        MySqlCompiler = new MySqlCompiler();
+        _mySqlCompiler = new MySqlCompiler();
     }
 
     public async Task<T> CreateAsync(T entity)
@@ -79,7 +79,7 @@ public class BaseRepository<T> : IRepository<T> where T: class
         await connection.DeleteAsync(entityToDel);
     }
 
-    public async Task<T> GetByIdAsync(int id)
+    public virtual async Task<T> GetByIdAsync(int id)
     {
         using IDbConnection connection = new MySqlConnection(Connection);
         var result = await connection.GetAsync<T>(id);
@@ -93,17 +93,22 @@ public class BaseRepository<T> : IRepository<T> where T: class
         return result;
     }
 
-    public virtual async Task<IEnumerable<T>> GetManyById(IEnumerable<int> ids, string columnName)
+    public virtual async Task<IEnumerable<T>> GetManyByIdAsync(IEnumerable<int> ids, string columnName)
     {
         var tableName = typeof(T).Name;
         var columnId = columnName;
-        var compiler = new MySqlCompiler();
         var query = new Query(tableName).WhereIn<int>(columnId, ids);
-        SqlResult sqlResult = compiler.Compile(query);
-        string sql = sqlResult.ToString();
+        string sql = QueryToString(query);
+        
         using IDbConnection connection = new MySqlConnection(Connection);
         var result = await connection.QueryAsync<T>(sql);
         return result;
     }
 
+    public string QueryToString(Query query)
+    {
+        var compiler = _mySqlCompiler;
+        SqlResult sqlResult = compiler.Compile(query);
+        return sqlResult.ToString();
+    }
 }

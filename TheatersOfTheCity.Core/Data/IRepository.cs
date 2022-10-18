@@ -1,4 +1,6 @@
-﻿namespace TheatersOfTheCity.Core.Data;
+﻿using SqlKata;
+
+namespace TheatersOfTheCity.Core.Data;
 
 public interface IRepository<T>
 {
@@ -12,6 +14,7 @@ public interface IRepository<T>
     
     public Task<T> GetByIdAsync(int id);
     public Task<IEnumerable<T>> GetAllAsync();
-    public Task<IEnumerable<T>> GetManyById(IEnumerable<int> ids, string columnName);
+    public Task<IEnumerable<T>> GetManyByIdAsync(IEnumerable<int> ids, string columnName);
 
+    public string QueryToString(Query query);
 }

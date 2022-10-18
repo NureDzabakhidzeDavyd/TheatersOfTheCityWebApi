@@ -1,13 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using Dapper;
+﻿using Dapper;
+using Dapper.Contrib.Extensions;
 
 namespace TheatersOfTheCity.Core.Domain;
-[Table(nameof(Program))]
+[System.ComponentModel.DataAnnotations.Schema.Table(nameof(Program))]
 public class Program
-{
-    [ForeignKey("program_theater_theater_id_fk")]
+{ 
     public int TheaterId { get; set; }
+    [Write(false)]
+    public IEnumerable<Theater> Theaters { get; set; }
 
-    [ForeignKey("program_performance_performance_id_fk")]
     public int PerformanceId { get; set; }
+    [Write(false)]
+    public IEnumerable<Performance> Performances { get; set; }
 }

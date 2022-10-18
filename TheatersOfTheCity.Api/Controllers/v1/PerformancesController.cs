@@ -60,7 +60,7 @@ namespace TheatersOfTheCity.Api.Controllers.v1
             if (request.ParticipantsIds.Any())
             {
                 var participants = (await _unitOfWork.ParticipantRepository
-                    .GetManyById(request.ParticipantsIds, nameof(Participant.ContactId))).DistinctBy(x => x.ContactId).ToList();
+                    .GetManyByIdAsync(request.ParticipantsIds, nameof(Participant.ContactId))).DistinctBy(x => x.ContactId).ToList();
                 
                 
                 if (participants.Count() != request.ParticipantsIds.Count())
@@ -69,7 +69,7 @@ namespace TheatersOfTheCity.Api.Controllers.v1
                 }
 
                 var contacts =
-                    await _unitOfWork.ContactRepository.GetManyById(request.ParticipantsIds,
+                    await _unitOfWork.ContactRepository.GetManyByIdAsync(request.ParticipantsIds,
                         nameof(Contact.ContactId));
                 participants.ForEach(participant => participant.Contact = contacts.First(contact =>  contact.ContactId == participant.ContactId));
                 
@@ -88,7 +88,7 @@ namespace TheatersOfTheCity.Api.Controllers.v1
             var performance = await _unitOfWork.PerformanceRepository.UpdateAsync(updateThPerformance);
 
             var participants = await _unitOfWork.ParticipantRepository
-                .GetManyById(request.ParticipantsIds, nameof(Participant.ContactId));
+                .GetManyByIdAsync(request.ParticipantsIds, nameof(Participant.ContactId));
             await _unitOfWork.SceneRepository.CreateScene(participants.Select(x => x.ContactId),
                     performance.PerformanceId);
             

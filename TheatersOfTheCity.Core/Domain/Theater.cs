@@ -17,4 +17,7 @@ public class Theater
     
     [Write(false)]
     public Contact Director { get; set; }
+    
+    [Write(false)]
+    public IEnumerable<Performance> Performances { get; set; }
 }
