@@ -7,9 +7,9 @@ public class Program
 { 
     public int TheaterId { get; set; }
     [Write(false)]
-    public IEnumerable<Theater> Theaters { get; set; }
+    public List<Theater> Theaters { get; set; }
 
     public int PerformanceId { get; set; }
     [Write(false)]
-    public IEnumerable<Performance> Performances { get; set; }
+    public List<Performance> Performances { get; set; }
 }

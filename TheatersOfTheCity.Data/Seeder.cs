@@ -24,10 +24,10 @@ public class Seeder : ISeeder
         if (!contacts.Any())
         {
              await GenerateContacts(50);
-             await GenerateTheaters(10); 
-             await GeneratePerformances(20);
-             await GeneratePrograms();
-             await GenerateParticipantsAndScenes(20);
+              await GenerateTheaters(10); 
+              await GeneratePerformances(20);
+              await GeneratePrograms();
+              await GenerateParticipantsAndScenes(20);
         }
     }
 

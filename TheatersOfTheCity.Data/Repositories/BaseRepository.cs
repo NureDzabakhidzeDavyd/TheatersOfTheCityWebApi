@@ -45,27 +45,6 @@ public class BaseRepository<T> : IRepository<T> where T: class
         return entity;
     }
 
-    // public async Task<T> UpdateManyAsync(IEnumerable<T> entities)
-    // {
-    //     var properties = typeof(T).GetProperties();
-    //     var columns = properties.Select(x => x.Name).ToArray();
-    //     var entityId = $"{nameof(T)}Id";
-    //     var compiler = new SqlServerCompiler();
-    //
-    //     using IDbConnection connection = new MySqlConnection(Connection);
-    //     foreach (var entity in entities)
-    //     {
-    //         var values = entity.GetType().GetProperties().Select(x => x.GetValue(entity));
-    //         var query = new Query(nameof(T)).Where(entityId, 1).AsUpdate(columns, values);
-    //         SqlResult result = compiler.Compile(query);
-    //         string sql = result.Sql;
-    //         
-    //         connection.UpdateAsync()
-    //     }
-    //
-    //
-    // }
-
     public async Task DeleteAsync(T entity)
     {
         using IDbConnection connection = new MySqlConnection(Connection);
@@ -93,6 +72,12 @@ public class BaseRepository<T> : IRepository<T> where T: class
         return result;
     }
 
+    /// <summary>
+    /// Get many objects by ids
+    /// </summary>
+    /// <param name="ids">Ids enumerable for searching</param>
+    /// <param name="columnName">Column used as search parameter</param>
+    /// <returns>Enumerable of objects with given ids</returns>
     public virtual async Task<IEnumerable<T>> GetManyByIdAsync(IEnumerable<int> ids, string columnName)
     {
         var tableName = typeof(T).Name;
@@ -103,6 +88,23 @@ public class BaseRepository<T> : IRepository<T> where T: class
         using IDbConnection connection = new MySqlConnection(Connection);
         var result = await connection.QueryAsync<T>(sql);
         return result;
+    }
+    
+    public async Task<bool> EntitiesAreExist(IEnumerable<int> ids, string idName)
+    {
+        var query = new Query(nameof(Contact)).WhereIn(idName, ids)
+            .AsCount();
+        var sql = QueryToString(query);
+        
+        using IDbConnection connection = new MySqlConnection(Connection);
+        var contactsCount = (await connection.QueryAsync<int>(sql)).First();
+        
+        if (ids.Count() != contactsCount)
+        {
+            return false;
+        }
+
+        return true;
     }
 
     public string QueryToString(Query query)

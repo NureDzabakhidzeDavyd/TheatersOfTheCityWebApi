@@ -1,4 +1,8 @@
-﻿using TheatersOfTheCity.Core.Data;
+﻿using System.Data;
+using Dapper.Contrib.Extensions;
+using MySql.Data.MySqlClient;
+using SqlKata;
+using TheatersOfTheCity.Core.Data;
 using TheatersOfTheCity.Core.Domain;
 using TheatersOfTheCity.Core.Options;
 
@@ -9,6 +13,4 @@ public class ParticipantRepository : BaseRepository<Participant>, IParticipantRe
     public ParticipantRepository(RepositoryConfiguration sqlConfiguration) : base(sqlConfiguration)
     {
     }
-    
-    
 }

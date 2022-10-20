@@ -24,10 +24,11 @@ namespace TheatersOfTheCity.Api.Controllers.v1
         
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(IEnumerable<PerformanceResponse>),StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAll()
         {
             var performances = await _unitOfWork.PerformanceRepository.GetAllAsync();
-            if (!performances.Any())
+            if (performances == null)
             {
                 return NotFound();
             }
@@ -38,6 +39,8 @@ namespace TheatersOfTheCity.Api.Controllers.v1
 
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(PerformanceResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             var performance = await _unitOfWork.PerformanceRepository.GetByIdAsync(id);
@@ -51,52 +54,58 @@ namespace TheatersOfTheCity.Api.Controllers.v1
         }
 
         [HttpPost]
+        [ProducesResponseType(typeof(PerformanceResponse), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public  async Task<IActionResult> Create(CreatePerformanceRequest request)
         {
+            var participants = _mapper.Map<IEnumerable<Participant>>(request.Participants);
+            var contactsIds = request.Participants.Select(x => x.ContactId);
+            
             var newPerformance = _mapper.Map<Performance>(request);
             var performance = await _unitOfWork.PerformanceRepository.CreateAsync(newPerformance);
             var response = _mapper.Map<PerformanceResponse>(performance);
 
-            if (request.ParticipantsIds.Any())
+            if (request.Participants.Any())
             {
-                var participants = (await _unitOfWork.ParticipantRepository
-                    .GetManyByIdAsync(request.ParticipantsIds, nameof(Participant.ContactId))).DistinctBy(x => x.ContactId).ToList();
-                
-                
-                if (participants.Count() != request.ParticipantsIds.Count())
-                {
-                    return NotFound(request.ParticipantsIds.ToApiResponse("Not all participants was found"));
-                }
-
                 var contacts =
-                    await _unitOfWork.ContactRepository.GetManyByIdAsync(request.ParticipantsIds,
-                        nameof(Contact.ContactId));
-                participants.ForEach(participant => participant.Contact = contacts.First(contact =>  contact.ContactId == participant.ContactId));
-                
-                await _unitOfWork.SceneRepository.CreateScene(request.ParticipantsIds,
-                performance.PerformanceId);
-                
-                response.Participants = _mapper.Map<IEnumerable<ParticipantResponse>>(participants);
+                    await _unitOfWork.ContactRepository.GetManyByIdAsync(contactsIds, nameof(Contact.ContactId));
+                if (contacts.Count() != contactsIds.Count())
+                {
+                    NotFound(contactsIds.ToApiResponse("Not all contacts are exist"));
+                }
+                    // TODO: Make less query request to db. Multiply insert in multiply tables
+                var newParticipants = await _unitOfWork.ParticipantRepository.CreateManyAsync(participants);
+                await _unitOfWork.SceneRepository.CreateSceneAsync(newParticipants.Select(x => x.ContactId),
+                    performance.PerformanceId);
+                newParticipants.ToList().ForEach(x => x.Contact = contacts.First(c => c.ContactId == x.ContactId));
+                response.Participants = _mapper.Map<IEnumerable<ParticipantResponse>>(newParticipants);
             }
             return StatusCode(StatusCodes.Status201Created, response);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Update(UpdatePerformanceRequest request)
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Update([FromBody] UpdatePerformanceRequest request, [FromRoute] int id)
         {
-            var updateThPerformance = _mapper.Map<Performance>(request);
-            var performance = await _unitOfWork.PerformanceRepository.UpdateAsync(updateThPerformance);
+            var updateThPerformance = await _unitOfWork.PerformanceRepository.GetByIdAsync(id);
+            if (updateThPerformance == null)
+            {
+                return NotFound(updateThPerformance.ToApiResponse("Current performance doesn't exist"));
+            }
 
-            var participants = await _unitOfWork.ParticipantRepository
-                .GetManyByIdAsync(request.ParticipantsIds, nameof(Participant.ContactId));
-            await _unitOfWork.SceneRepository.CreateScene(participants.Select(x => x.ContactId),
-                    performance.PerformanceId);
-            
-            var response = _mapper.Map<TheaterResponse>(performance);
+            var mappedPerformance = _mapper.Map(request, updateThPerformance);
+            var performance = await _unitOfWork.PerformanceRepository.UpdateAsync(mappedPerformance);
+            var participants = updateThPerformance.Participants;
+
+            var response = _mapper.Map<PerformanceResponse>(performance);
+            response.Participants = _mapper.Map<IEnumerable<ParticipantResponse>>(participants);
             return Ok(response.ToApiResponse());
+            // TODO: Update Participants or no?
         }
 
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> DeleteById(int id)
         {

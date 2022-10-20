@@ -16,21 +16,33 @@ public class SceneRepository : BaseRepository<Scene>, ISceneRepository
     {
     }
 
-    public async Task CreateScene(IEnumerable<int> participantsIds, int performanceId)
+    public async Task CreateSceneAsync(IEnumerable<int> participantsIds, int performanceId)
     {
         var columns = new [] { "ParticipantId", "PerformanceId" };
         object[][] data = new object[participantsIds.Count()][];
-        // participantsIds.ToList().ForEach(x => data.Add(new object[] {x, performanceId}));
 
         for (int i = 0; i < data.Length; i++)
         {
             data[i] = new object[] { participantsIds.ToArray()[i], performanceId };
         }
         
-        var compiler = new MySqlCompiler();
-        var query = new Query(nameof(Scene)).AsInsert( columns, data);
-        SqlResult sqlResult = compiler.Compile(query);
-        string sql = sqlResult.ToString();
+        var query = new Query(nameof(Scene)).AsInsert(columns, data);
+        string sql = QueryToString(query);
+        
+        using IDbConnection connection = new MySqlConnection(Connection);
+        await connection.QueryAsync<Scene>(sql);
+    }
+
+    public async Task UpdateSceneAsync(IEnumerable<int> participantsIds, int performanceId)
+    {
+        var columns = new [] { "ParticipantId", "PerformanceId" };
+        var data = participantsIds.Select(x => new object[] { x, performanceId }).ToArray();
+        var query = new Query(nameof(Scene))
+            .Where(nameof(Scene.PerformanceId), "=", performanceId)
+            .AsDelete()
+            .AsInsert(columns, data);
+        
+        string sql = QueryToString(query);
         
         using IDbConnection connection = new MySqlConnection(Connection);
         await connection.QueryAsync<Scene>(sql);

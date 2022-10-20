@@ -12,5 +12,5 @@ public class TheaterResponse
     
     public  string Address { get; set; }
 
-    public Contact Director { get; set; }
+    public ContactResponse Director { get; set; }
 }

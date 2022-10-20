@@ -15,7 +15,8 @@ public class Performance
     public TimeSpan Duration { get; set; }
 
     public string Language { get; set; }
-    
-    [Write(false)]
-    public List<Participant> Participants { get; set; }
+
+    [Write(false)] 
+    public List<Participant> Participants { get; set; } = new List<Participant>();
+
 }

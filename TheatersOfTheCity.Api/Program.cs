@@ -61,8 +61,15 @@ builder.Services.AddSwaggerGen(option =>
 {
     option.MapType(typeof(TimeSpan), () => new OpenApiSchema
     {
-        Type = "time",
+        Type = "string",
+        Format = "time",
         Example = new OpenApiString("00:00:00")
+    });
+    option.MapType(typeof(DateTime), () => new OpenApiSchema
+    {
+        Type = "string", 
+        Format = "date",
+        Example = new OpenApiString("2013-06-23")
     });
     option.SwaggerDoc("v1", new OpenApiInfo()
     {

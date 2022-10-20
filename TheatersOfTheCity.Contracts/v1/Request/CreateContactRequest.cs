@@ -1,18 +1,20 @@
-﻿namespace TheatersOfTheCity.Contracts.v1.Request;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace TheatersOfTheCity.Contracts.v1.Request;
 
 public class CreateContactRequest
 {
-    [System.ComponentModel.DataAnnotations.Required]
+    [Required]
     public string FirstName { get; set; }
 
     public string SecondName { get; set; }
 
-    [System.ComponentModel.DataAnnotations.Required]
+    [Required]
     public DateTime Birth { get; set; }
 
-    [System.ComponentModel.DataAnnotations.Required]
+    [Required]
     public  string Email { get; set; }
     
-    [System.ComponentModel.DataAnnotations.Required]
+    [Required]
     public string Phone { get; set; }
 }

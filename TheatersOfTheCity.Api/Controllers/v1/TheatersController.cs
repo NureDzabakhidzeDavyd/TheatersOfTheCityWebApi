@@ -54,23 +54,45 @@ namespace TheatersOfTheCity.Api.Controllers.v1
             return Ok(response.ToApiResponse());
         }
         
+        [ProducesResponseType(typeof(TheaterResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [HttpGet("/{name}")]
+        public async Task<IActionResult> GetByName([FromRoute] string name)
+        { 
+            var theater = await _unitOfWork.TheaterRepository.GetTheaterByName(name);
+            if (theater == null)
+            {
+                return NotFound(theater.ToApiResponse("Theater doesn't exist"));
+            }
+
+            var response = _mapper.Map<TheaterResponse>(theater);
+            return Ok(response.ToApiResponse());
+        }
+        
         [ProducesResponseType(typeof(IEnumerable<TheaterResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [HttpGet("{id}/program")]
+        [HttpGet("{id}/programs")]
         public async Task<IActionResult> GetTheaterPrograms([FromRoute] int id)
         {
-            var performances = await _unitOfWork.TheaterRepository.GetTheaterProgramsAsync(id);
+            var theater = await _unitOfWork.TheaterRepository.GetByIdAsync(id);
+            if (theater == null)
+            {
+                return NotFound(theater.ToApiResponse("Theater was not found"));
+            }
+            
+            var performances = await _unitOfWork.PerformanceRepository.GetTheaterProgramsAsync(id);
 
             if (!performances.Any())
             {
-                return NotFound();
+                return NotFound(theater.ToApiResponse("Theater doesn't have any performances"));
             }
-            
-            var response = _mapper.Map<IEnumerable<PerformanceResponse>>(performances);
+
+            var response = _mapper.Map<IEnumerable<LookupResponse>>(performances);
             return Ok(response.ToApiResponse());
         }
         
         [HttpPost]
+        [ProducesResponseType( StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(TheaterResponse), StatusCodes.Status201Created)]
         public async Task<IActionResult> Create([FromBody] CreateTheaterRequest request)
         {
@@ -85,16 +107,20 @@ namespace TheatersOfTheCity.Api.Controllers.v1
             var theater = await _unitOfWork.TheaterRepository.CreateAsync(newTheater);
             
             var response = _mapper.Map<TheaterResponse>(theater);
-            response.Director = theater.Director;
+            response.Director = _mapper.Map<ContactResponse>(director);
             return StatusCode(StatusCodes.Status201Created, response);
         }
         
-        [HttpPut]
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(TheaterResponse), StatusCodes.Status200OK)]
-        public async Task<IActionResult> Update([FromBody] UpdateTheaterRequest request)
+        public async Task<IActionResult> Update([FromBody] UpdateTheaterRequest request, [FromRoute] int id)
         {
-            var updateTheater = _mapper.Map<Theater>(request);
-            var theater = await _unitOfWork.TheaterRepository.UpdateAsync(updateTheater);
+            var updateTheater = await _unitOfWork.TheaterRepository.GetByIdAsync(id);
+            if (updateTheater == null)
+            {
+                return NotFound(updateTheater.ToApiResponse($"Theater with {id} id doesn't exist"));
+            }
             
             var director = await _unitOfWork.ContactRepository.GetByIdAsync(request.DirectorId);
             if (director == null)
@@ -102,16 +128,16 @@ namespace TheatersOfTheCity.Api.Controllers.v1
                 return NotFound(director.ToApiResponse($"Director with {request.DirectorId} doesn't exist"));
             }
 
-            await _unitOfWork.TheaterRepository.UpdateAsync(theater);
+            var theater = await _unitOfWork.TheaterRepository.UpdateAsync(_mapper.Map(request, updateTheater));
             
             var response = _mapper.Map<TheaterResponse>(theater);
-            response.Director = director;
+            response.Director = _mapper.Map<ContactResponse>(director);
             
             return Ok(response.ToApiResponse());
         }
 
         [HttpDelete("{id}")]
-        [ProducesResponseType(typeof(TheaterResponse), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> DeleteById([FromRoute] int id)
         {
             await _unitOfWork.TheaterRepository.DeleteByIdAsync(id);

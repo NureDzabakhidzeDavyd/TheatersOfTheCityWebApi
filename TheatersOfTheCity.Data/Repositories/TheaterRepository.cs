@@ -33,7 +33,8 @@ public class TheaterRepository : BaseRepository<Theater>, ITheaterRepository
 
     public override async Task<Theater> GetByIdAsync(int id)
     {
-        var query = new Query(nameof(Theater)).Join(nameof(Contact), nameof(Contact.ContactId),
+        var query = new Query(nameof(Theater))
+            .Join(nameof(Contact), nameof(Contact.ContactId),
             nameof(Theater.DirectorId));
         string sql = QueryToString(query);
 
@@ -46,23 +47,20 @@ public class TheaterRepository : BaseRepository<Theater>, ITheaterRepository
         return result;
     }
 
-    public async Task<IEnumerable<Performance>> GetTheaterProgramsAsync(int Id)
+    public async Task<Theater> GetTheaterByName(string name)
     {
-        // select  p.* from Performance p inner join Program pr on pr.PerformanceId = p.PerformanceId
-        // inner join Theater t on pr.TheaterId = t.TheaterId
-        // where t.TheaterId = id
-        var theaterTable = nameof(Theater);
-        var programTable = nameof(Program);
-        var performanceTable = nameof(Performance);
-        
-        var query = new Query(performanceTable)
-            .Join(programTable,$"{programTable}.{nameof(Program.PerformanceId)}", $"{performanceTable}.{nameof(Performance.PerformanceId)}")
-            .Join(theaterTable, $"{theaterTable}.{nameof(Theater.TheaterId)}", $"{programTable}.{nameof(Program.TheaterId)}")
-            .Where($"{programTable}.{nameof(Program.TheaterId)}", "=", Id);
+        var query = new Query(nameof(Theater))
+            .Where(nameof(Theater.Name), "=", name)
+            .Join(nameof(Contact), nameof(Contact.ContactId),
+                nameof(Theater.DirectorId));
         var sql = QueryToString(query);
-        // TODO: Make inner join with participants to get contacts and create TheaterProgramResponse
-        using IDbConnection connection = new MySqlConnection(Connection);
-        var result = await connection.QueryAsync<Performance>(sql);
-        return result;
+
+        IDbConnection connection = new MySqlConnection(Connection);
+        var result = await connection.QueryAsync<Theater, Contact, Theater>(sql, (theater, contact) =>
+        {
+            theater.Director = contact;
+            return theater;
+        }, splitOn: nameof(Contact.ContactId));
+        return result.FirstOrDefault();
     }
 }

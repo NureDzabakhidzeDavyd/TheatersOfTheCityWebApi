@@ -22,6 +22,7 @@ namespace TheatersOfTheCity.Api.Controllers.v1
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ContactResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAll()
         {
             var contacts = await _unitOfWork.ContactRepository.GetAllAsync();
@@ -31,7 +32,7 @@ namespace TheatersOfTheCity.Api.Controllers.v1
                 return NotFound();
             }
             
-            var response = _mapper.Map<IEnumerable<Contact>>(contacts);
+            var response = _mapper.Map<IEnumerable<ContactResponse>>(contacts);
             return Ok(response.ToApiResponse());
         }
         
@@ -45,13 +46,20 @@ namespace TheatersOfTheCity.Api.Controllers.v1
             return StatusCode(StatusCodes.Status201Created, response);
         }
         
-        [HttpPut]
+        [HttpPut("{id}")]
         [ProducesResponseType(typeof(ContactResponse), StatusCodes.Status200OK)]
-        public async Task<IActionResult> Update([FromBody] UpdateContactRequest request)
+        [ProducesResponseType( StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Update([FromBody] UpdateContactRequest request, [FromRoute] int id)
         {
-            var updateContact = _mapper.Map<Contact>(request);
-            var contact = await _unitOfWork.ContactRepository.UpdateAsync(updateContact);
-            var response = _mapper.Map<ContactResponse>(contact);
+            var contact = await _unitOfWork.ContactRepository.GetByIdAsync(id);
+            if (contact == null)
+            {
+                return NotFound(contact.ToApiResponse("Current contact doesn't exist"));
+            }
+
+            var updateContact = _mapper.Map(request, contact);
+            var result = await _unitOfWork.ContactRepository.UpdateAsync(updateContact);
+            var response = _mapper.Map<ContactResponse>(result);
             return Ok(response.ToApiResponse());
         }
         
@@ -63,10 +71,10 @@ namespace TheatersOfTheCity.Api.Controllers.v1
             var contact = await _unitOfWork.ContactRepository.GetByIdAsync(id);
             if (contact is null)
             {
-                return NotFound();
+                return NotFound(contact.ToApiResponse("Current contact doesn't exist"));
             }
 
-            var response = _mapper.Map<Contact>(contact);
+            var response = _mapper.Map<ContactResponse>(contact);
             return Ok(response.ToApiResponse());
         }
 

@@ -17,5 +17,7 @@ public class RequestToDomainProfile : Profile
         
         CreateMap<CreatePerformanceRequest, Performance>();
         CreateMap<UpdatePerformanceRequest, Performance>();
+
+        CreateMap<CreateParticipantRequest, Participant>();
     }
 }
