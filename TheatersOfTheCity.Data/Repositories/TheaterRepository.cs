@@ -9,6 +9,7 @@ using TheatersOfTheCity.Contracts.v1.Request;
 using TheatersOfTheCity.Core.Data;
 using TheatersOfTheCity.Core.Domain;
 using TheatersOfTheCity.Core.Options;
+using TheatersOfTheCity.Data.Services;
 
 namespace TheatersOfTheCity.Data.Repositories;
 
@@ -18,12 +19,11 @@ public class TheaterRepository : BaseRepository<Theater>, ITheaterRepository
 
     public override async Task<IEnumerable<Theater>> GetAllAsync()
     {
-        var query = new Query(nameof(Theater)).Join(nameof(Contact), nameof(Contact.ContactId),
+        var query = new Query(TableName).Join(nameof(Contact), nameof(Contact.ContactId),
             nameof(Theater.DirectorId));
-        string sql = QueryToString(query);
+        var sql = query.MySqlQueryToString();
 
-        using IDbConnection connection = new MySqlConnection(Connection);
-        var result = (await connection.QueryAsync<Theater, Contact, Theater>(sql, (theater, contact) =>
+        var result = (await Connection.QueryAsync<Theater, Contact, Theater>(sql, (theater, contact) =>
         {
             theater.Director = contact;
             return theater;
@@ -33,13 +33,12 @@ public class TheaterRepository : BaseRepository<Theater>, ITheaterRepository
 
     public override async Task<Theater> GetByIdAsync(int id)
     {
-        var query = new Query(nameof(Theater))
+        var query = new Query(TableName)
             .Join(nameof(Contact), nameof(Contact.ContactId),
             nameof(Theater.DirectorId));
-        string sql = QueryToString(query);
+        var sql = query.MySqlQueryToString();
 
-        using IDbConnection connection = new MySqlConnection(Connection);
-        var result = (await connection.QueryAsync<Theater, Contact, Theater>(sql, (theater, contact) =>
+        var result = (await Connection.QueryAsync<Theater, Contact, Theater>(sql, (theater, contact) =>
         {
             theater.Director = contact;
             return theater;
@@ -49,14 +48,13 @@ public class TheaterRepository : BaseRepository<Theater>, ITheaterRepository
 
     public async Task<Theater> GetTheaterByName(string name)
     {
-        var query = new Query(nameof(Theater))
+        var query = new Query(TableName)
             .Where(nameof(Theater.Name), "=", name)
             .Join(nameof(Contact), nameof(Contact.ContactId),
                 nameof(Theater.DirectorId));
-        var sql = QueryToString(query);
-
-        IDbConnection connection = new MySqlConnection(Connection);
-        var result = await connection.QueryAsync<Theater, Contact, Theater>(sql, (theater, contact) =>
+        var sql = query.MySqlQueryToString();
+        
+        var result = await Connection.QueryAsync<Theater, Contact, Theater>(sql, (theater, contact) =>
         {
             theater.Director = contact;
             return theater;

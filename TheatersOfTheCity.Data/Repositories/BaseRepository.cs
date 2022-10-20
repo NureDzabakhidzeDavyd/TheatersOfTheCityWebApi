@@ -8,67 +8,61 @@ using TheatersOfTheCity.Core.Options;
 using SqlKata;
 using SqlKata.Compilers;
 using TheatersOfTheCity.Core.Domain;
+using TheatersOfTheCity.Data.Services;
 
 namespace TheatersOfTheCity.Data.Repositories;
 
-public class BaseRepository<T> : IRepository<T> where T: class
+public class BaseRepository<T> : IDisposable, IRepository<T> where T: class
 {
-    private readonly MySqlCompiler _mySqlCompiler;
-    protected readonly string Connection;
+    protected readonly IDbConnection Connection;
+    protected readonly string TableName = typeof(T).Name;
 
     public BaseRepository(RepositoryConfiguration sqlConfiguration)
     {
-        Connection = sqlConfiguration.DbConnection;
-        _mySqlCompiler = new MySqlCompiler();
+        var connection = sqlConfiguration.DbConnection;
+        Connection = new MySqlConnection(connection);
     }
 
     public async Task<T> CreateAsync(T entity)
     {
-        using IDbConnection connection = new MySqlConnection(Connection);
-        await connection.InsertAsync(entity);
+        await Connection.InsertAsync(entity);
 
         return entity;
     }
 
     public virtual async Task<IEnumerable<T>> CreateManyAsync(IEnumerable<T> entities)
     {
-        using IDbConnection connection = new MySqlConnection(Connection);
-        await connection.InsertAsync(entities);
+        await Connection.InsertAsync(entities);
 
         return entities;
     }
 
     public async Task<T> UpdateAsync(T entity)
     {
-        using IDbConnection connection = new MySqlConnection(Connection);
-        await connection.UpdateAsync(entity);
+        await Connection.UpdateAsync(entity);
         return entity;
     }
 
     public async Task DeleteAsync(T entity)
     {
-        using IDbConnection connection = new MySqlConnection(Connection);
-        await connection.DeleteAsync(entity);
+        await Connection.DeleteAsync(entity);
     }
 
     public async Task DeleteByIdAsync(int id)
     {
-        using IDbConnection connection = new MySqlConnection(Connection);
-        var entityToDel = await connection.GetAsync<T>(id);
-        await connection.DeleteAsync(entityToDel);
+        var entityToDel = await Connection.GetAsync<T>(id);
+        await Connection.DeleteAsync(entityToDel);
     }
 
     public virtual async Task<T> GetByIdAsync(int id)
     {
-        using IDbConnection connection = new MySqlConnection(Connection);
-        var result = await connection.GetAsync<T>(id);
+        var result = await Connection.GetAsync<T>(id);
         return result;
     }
 
     public virtual async Task<IEnumerable<T>> GetAllAsync()
     {
-        using IDbConnection connection = new MySqlConnection(Connection);
-        var result = await connection.GetAllAsync<T>();
+        var result = await Connection.GetAllAsync<T>();
         return result;
     }
 
@@ -80,13 +74,11 @@ public class BaseRepository<T> : IRepository<T> where T: class
     /// <returns>Enumerable of objects with given ids</returns>
     public virtual async Task<IEnumerable<T>> GetManyByIdAsync(IEnumerable<int> ids, string columnName)
     {
-        var tableName = typeof(T).Name;
         var columnId = columnName;
-        var query = new Query(tableName).WhereIn<int>(columnId, ids);
-        string sql = QueryToString(query);
+        var query = new Query(TableName).WhereIn(columnId, ids);
+        var sql = query.MySqlQueryToString();
         
-        using IDbConnection connection = new MySqlConnection(Connection);
-        var result = await connection.QueryAsync<T>(sql);
+        var result = await Connection.QueryAsync<T>(sql);
         return result;
     }
     
@@ -94,10 +86,9 @@ public class BaseRepository<T> : IRepository<T> where T: class
     {
         var query = new Query(nameof(Contact)).WhereIn(idName, ids)
             .AsCount();
-        var sql = QueryToString(query);
+        var sql = query.MySqlQueryToString();
         
-        using IDbConnection connection = new MySqlConnection(Connection);
-        var contactsCount = (await connection.QueryAsync<int>(sql)).First();
+        var contactsCount = (await Connection.QueryAsync<int>(sql)).First();
         
         if (ids.Count() != contactsCount)
         {
@@ -107,10 +98,28 @@ public class BaseRepository<T> : IRepository<T> where T: class
         return true;
     }
 
-    public string QueryToString(Query query)
+    private void ReleaseUnmanagedResources()
     {
-        var compiler = _mySqlCompiler;
-        SqlResult sqlResult = compiler.Compile(query);
-        return sqlResult.ToString();
+        Connection.Close();
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        ReleaseUnmanagedResources();
+        if (disposing)
+        {
+            Connection.Dispose();
+        }
+    }
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    ~BaseRepository()
+    {
+        Dispose(false);
     }
 }

@@ -6,6 +6,7 @@ using SqlKata;
 using TheatersOfTheCity.Core.Data;
 using TheatersOfTheCity.Core.Domain;
 using TheatersOfTheCity.Core.Options;
+using TheatersOfTheCity.Data.Services;
 
 namespace TheatersOfTheCity.Data.Repositories;
 
@@ -17,15 +18,14 @@ public class PerformanceRepository : BaseRepository<Performance>, IPerformanceRe
     {
         var participantTable = nameof(Participant);
         var sceneTable = nameof(Scene);
-        var performanceTable = nameof(Performance);
+        var performanceTable = TableName;
         
         var query = new Query(performanceTable)
             .LeftJoin(sceneTable,$"{sceneTable}.{nameof(Scene.PerformanceId)}", $"{performanceTable}.{nameof(Performance.PerformanceId)}")
             .LeftJoin(participantTable, $"{participantTable}.{nameof(Participant.ContactId)}", $"{sceneTable}.{nameof(Scene.ParticipantId)}")
             .LeftJoin(nameof(Contact), $"{nameof(Contact)}.{nameof(Contact.ContactId)}", $"{participantTable}.{nameof(Participant.ContactId)}");
-        var sql = QueryToString(query);
-        using IDbConnection connection = new MySqlConnection(Connection);
-        var performances = await connection.QueryAsync<Performance, Participant, Contact, Performance>(sql,
+        var sql = query.MySqlQueryToString();
+        var performances = await Connection.QueryAsync<Performance, Participant, Contact, Performance>(sql,
             (performance, participant, contact) =>
             {
                 if (participant != null)
@@ -50,7 +50,7 @@ public class PerformanceRepository : BaseRepository<Performance>, IPerformanceRe
 
     public override async Task<Performance> GetByIdAsync(int id)
     {
-        var participantTable = nameof(Participant);
+        var participantTable = TableName;
         var sceneTable = nameof(Scene);
         var contactTable = nameof(Contact);
         var performanceTable = nameof(Performance);
@@ -63,10 +63,9 @@ public class PerformanceRepository : BaseRepository<Performance>, IPerformanceRe
             .Join(contactTable, $"{contactTable}.{nameof(Contact.ContactId)}",
                 $"{participantTable}.{nameof(Participant.ContactId)}")
             .Where($"{performanceTable}.{nameof(Performance.PerformanceId)}", "=", id);
-        var sql = QueryToString(query);
+        var sql = query.MySqlQueryToString();
         
-        using IDbConnection connection = new MySqlConnection(Connection);
-        var performances = (await connection.QueryAsync<Performance, Participant, Contact, Performance>(sql,
+        var performances = (await Connection.QueryAsync<Performance, Participant, Contact, Performance>(sql,
             (performance, participant, contact) =>
             {
                 if (participant != null)
@@ -79,7 +78,7 @@ public class PerformanceRepository : BaseRepository<Performance>, IPerformanceRe
 
         if (!performances.Any())
         {
-            var result = await connection.GetAsync<Performance>(id);
+            var result = await Connection.GetAsync<Performance>(id);
             return result;
         }
         
@@ -97,14 +96,13 @@ public class PerformanceRepository : BaseRepository<Performance>, IPerformanceRe
         var programsLookup = new List<Lookup>();
         
         var programTable = nameof(Program);
-        var performanceTable = nameof(Performance);
+        var performanceTable = TableName;
 
         var query = new Query(performanceTable)
             .Join(programTable,$"{programTable}.{nameof(Program.PerformanceId)}", $"{performanceTable}.{nameof(Performance.PerformanceId)}")
             .Where($"{programTable}.{nameof(Program.TheaterId)}", "=", Id);
-        var sql = QueryToString(query);
-        using IDbConnection connection = new MySqlConnection(Connection);
-        await connection.QueryAsync<Performance, Program, Performance>(sql,
+        var sql = query.MySqlQueryToString();
+        await Connection.QueryAsync<Performance, Program, Performance>(sql,
             (performance, _) =>
             {
                 var lookup = new Lookup()

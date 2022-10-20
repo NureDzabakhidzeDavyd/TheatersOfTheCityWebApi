@@ -2,9 +2,11 @@
 using Dapper;
 using Microsoft.Extensions.Logging;
 using MySql.Data.MySqlClient;
+using SqlKata;
 using TheatersOfTheCity.Core.Data;
 using TheatersOfTheCity.Core.Domain;
 using TheatersOfTheCity.Core.Options;
+using TheatersOfTheCity.Data.Services;
 
 namespace TheatersOfTheCity.Data.Repositories;
 
@@ -14,9 +16,9 @@ public class UserRepository : BaseRepository<UserProfile>, IUserRepository
 
     public async Task<UserProfile?> GetUserByEmail(string email)
     {
-        var command = @"SELECT * FROM User WHERE email = @email";
-        using DbConnection connection = new MySqlConnection(Connection);
-        var result = await connection.QuerySingleOrDefaultAsync<UserProfile?>(command, new {email});
+        var query = new Query(TableName).Where(nameof(UserProfile.Email), "=", email);
+        var sql = query.MySqlQueryToString();
+        var result = await Connection.QuerySingleOrDefaultAsync<UserProfile?>(sql, new {email});
         return result;
     }
 }

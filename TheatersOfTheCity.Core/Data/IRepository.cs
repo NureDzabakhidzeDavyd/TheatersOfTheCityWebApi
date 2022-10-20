@@ -16,7 +16,4 @@ public interface IRepository<T>
     public Task<IEnumerable<T>> GetAllAsync();
     public Task<IEnumerable<T>> GetManyByIdAsync(IEnumerable<int> ids, string columnName);
     public Task<bool> EntitiesAreExist(IEnumerable<int> ids, string idName);
-
-    
-    public string QueryToString(Query query);
 }
