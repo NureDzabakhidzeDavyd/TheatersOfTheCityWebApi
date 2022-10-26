@@ -97,10 +97,8 @@ public class PerformanceRepository : BaseRepository<Performance>, IPerformanceRe
          return groupPerformance;
     }
     
-    public async Task<IEnumerable<Lookup>> GetTheaterProgramsAsync(int Id)
+    public async Task<IEnumerable<Performance>> GetTheaterProgramsAsync(int Id)
     {
-        var programsLookup = new List<Lookup>();
-        
         var programTable = nameof(Program);
         var performanceTable = TableName;
     
@@ -108,23 +106,8 @@ public class PerformanceRepository : BaseRepository<Performance>, IPerformanceRe
             .Join(programTable,$"{programTable}.{nameof(Program.PerformanceId)}", $"{performanceTable}.{nameof(Performance.PerformanceId)}")
             .Where($"{programTable}.{nameof(Program.TheaterId)}", "=", Id);
         var sql = query.MySqlQueryToString();
-        await Connection.QueryAsync<Performance, Program, Performance>(sql,
-            (performance, _) =>
-            {
-                var lookup = new Lookup()
-                {
-                    Id = performance.PerformanceId,
-                    Name = performance.Name
-                };
-                programsLookup.Add(lookup);
-                return performance;
-            }, splitOn: $"{nameof(Program.PerformanceId)}");
-    
-        if (!programsLookup.Any())
-        {
-            return null;
-        }
-        
-        return programsLookup;
+        var performances = await Connection.QueryAsync<Performance>(sql);
+
+        return performances;
     }
 }

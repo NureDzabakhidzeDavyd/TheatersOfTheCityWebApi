@@ -10,10 +10,12 @@ public class RequestToDomainProfile : Profile
     public RequestToDomainProfile()
     {
         CreateMap<GoogleTokenBody, GoogleAuthCodeResponse>();
-        CreateMap<CreateTheaterRequest, Theater>();
         
         CreateMap<CreateContactRequest, Contact>();
         CreateMap<UpdateContactRequest, Contact>();
+
+        CreateMap<CreateTheaterRequest, Theater>();
+        CreateMap<UpdateTheaterRequest, Theater>();
         
         CreateMap<CreatePerformanceRequest, Performance>();
         CreateMap<UpdatePerformanceRequest, Performance>();

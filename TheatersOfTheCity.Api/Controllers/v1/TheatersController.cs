@@ -74,17 +74,11 @@ namespace TheatersOfTheCity.Api.Controllers.v1
         [HttpGet("{id}/programs")]
         public async Task<IActionResult> GetTheaterPrograms([FromRoute] int id)
         {
-            var theater = await _unitOfWork.TheaterRepository.GetByIdAsync(id);
-            if (theater == null)
-            {
-                return NotFound(theater.ToApiResponse("Theater was not found"));
-            }
-            
             var performances = await _unitOfWork.PerformanceRepository.GetTheaterProgramsAsync(id);
 
             if (!performances.Any())
             {
-                return NotFound(theater.ToApiResponse("Theater doesn't have any performances"));
+                return NotFound(performances.ToApiResponse("Theater doesn't have any performances"));
             }
 
             var response = _mapper.Map<IEnumerable<LookupResponse>>(performances);

@@ -5,5 +5,5 @@ namespace TheatersOfTheCity.Core.Data;
 
 public interface IPerformanceRepository : IRepository<Performance>
 {
-    public Task<IEnumerable<Lookup>> GetTheaterProgramsAsync(int Id);
+    public Task<IEnumerable<Performance>> GetTheaterProgramsAsync(int Id);
 }
