@@ -14,5 +14,5 @@ public class CreatePerformanceRequest
     
     public string Language { get; set; }
     
-    public IEnumerable<CreateSceneRequest> Participants { get; set; }
+    public IEnumerable<CreatePerformanceParticipantRequest> Participants { get; set; }
 }

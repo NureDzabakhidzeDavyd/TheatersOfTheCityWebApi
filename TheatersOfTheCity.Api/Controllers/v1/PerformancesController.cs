@@ -56,10 +56,10 @@ namespace TheatersOfTheCity.Api.Controllers.v1
         [HttpPost]
         [ProducesResponseType(typeof(PerformanceResponse), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public  async Task<IActionResult> Create(CreatePerformanceRequest request)
+        public  async Task<IActionResult> Create([FromBody]CreatePerformanceRequest request)
         {
             //TODO: Update participant
-            var requestScenes = _mapper.Map<IEnumerable<Scene>>(request.Participants);
+            var requestParticipants = _mapper.Map<IEnumerable<Participant>>(request.Participants);
             
             var newPerformance = _mapper.Map<Performance>(request);
             var performance = await _unitOfWork.PerformanceRepository.CreateAsync(newPerformance);
@@ -67,26 +67,26 @@ namespace TheatersOfTheCity.Api.Controllers.v1
             
             if (request.Participants.Any())
             {
-                var contacts = await _unitOfWork.ContactRepository.GetManyByIdAsync(requestScenes.Select(x => x.ParticipantId), nameof(Contact.ContactId));
-                if (contacts.Count() != requestScenes.Count())
+                var contacts = await _unitOfWork.ContactRepository.GetManyByIdAsync(requestParticipants.Select(x => x.ContactId), nameof(Contact.ContactId));
+                if (contacts.Count() != requestParticipants.Count())
                 {
                     NotFound(contacts.ToApiResponse("Not all contacts are exist"));
                 }
                 
-                requestScenes.ToList().ForEach(x => x.Participant = contacts.First(c => c.ContactId == x.ParticipantId));
-                requestScenes.ToList().ForEach(x => x.ParticipantId = x.Participant.ContactId);
-                requestScenes.ToList().ForEach(x => x.Performance = new Lookup(){Id = response.PerformanceId, Name = response.Name});
-                requestScenes.ToList().ForEach(x => x.PerformanceId = response.PerformanceId);
+                requestParticipants.ToList().ForEach(x => x.Contact = contacts.First(c => c.ContactId == x.ContactId));
+                requestParticipants.ToList().ForEach(x => x.ContactId = x.Contact.ContactId);
+                requestParticipants.ToList().ForEach(x => x.Performance = new Lookup(){Id = response.PerformanceId, Name = response.Name});
+                requestParticipants.ToList().ForEach(x => x.PerformanceId = response.PerformanceId);
 
 
-                var scenes = await _unitOfWork.SceneRepository.CreateManyAsync(requestScenes);
-                response.Participants = _mapper.Map<IEnumerable<SceneResponse>>(scenes);
+                var participants = await _unitOfWork.ParticipantRepository.CreateManyAsync(requestParticipants);
+                response.Participants = _mapper.Map<IEnumerable<ParticipantResponse>>(participants);
             }
             return StatusCode(StatusCodes.Status201Created, response);
         }
 
         [HttpPut("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(PerformanceResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Update([FromBody] UpdatePerformanceRequest request, [FromRoute] int id)
         {
@@ -118,6 +118,21 @@ namespace TheatersOfTheCity.Api.Controllers.v1
             await _unitOfWork.PerformanceRepository.DeleteByIdAsync(id);
             
             return NoContent();
+        }
+        
+        [HttpGet("participants/{id}")]
+        [ProducesResponseType(typeof(ParticipantResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetParticipantsByPerformanceId([FromRoute] int id)
+        {
+            var participant = await _unitOfWork.ParticipantRepository.GetParticipantsByPerformanceIdAsync(id);
+            if (participant == null)
+            {
+                return NotFound();
+            }
+
+            var response = _mapper.Map<ParticipantResponse>(participant);
+            return Ok(response.ToApiResponse());
         }
     }
 }

@@ -2,11 +2,11 @@
 
 namespace TheatersOfTheCity.Contracts.v1.Response;
 
-public class SceneResponse
+public class ParticipantResponse
 {
-    public int SceneId { get; set; }
+    public int ParticipantId { get; set; }
 
-    public Contact Participant { get; set; }
+    public Contact Contact { get; set; }
 
     public Lookup Performance { get; set; }
     

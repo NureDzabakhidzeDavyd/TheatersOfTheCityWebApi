@@ -17,6 +17,6 @@ public class Performance
     public string Language { get; set; }
 
     [Write(false)] 
-    public List<Scene?> Participants { get; set; } = new List<Scene>();
+    public List<Participant?> Participants { get; set; } = new List<Participant>();
 
 }

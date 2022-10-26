@@ -1,8 +1,8 @@
 ﻿namespace TheatersOfTheCity.Contracts.v1.Request;
 
-public class CreateSceneRequest
+public class CreatePerformanceParticipantRequest
 {
-    public int ParticipantId { get; set; }
-    
+    public int ContactId { get; set; }
+
     public string Role { get; set; }
 }

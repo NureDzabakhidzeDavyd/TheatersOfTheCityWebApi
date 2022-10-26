@@ -17,28 +17,28 @@ public class PerformanceRepository : BaseRepository<Performance>, IPerformanceRe
     public override async Task<IEnumerable<Performance>> GetAllAsync()
     {
         // TODO: Update part 2
-        var sceneTable = nameof(Scene);
+        var participantTable = nameof(Participant);
         var performanceTable = TableName;
         
         var query = new Query(performanceTable)
-            .LeftJoin(sceneTable,$"{sceneTable}.{nameof(Scene.PerformanceId)}", $"{performanceTable}.{nameof(Performance.PerformanceId)}")
-            .LeftJoin(nameof(Contact), $"{nameof(Contact)}.{nameof(Contact.ContactId)}", $"{sceneTable}.{nameof(Scene.ParticipantId)}");
+            .LeftJoin(participantTable,$"{participantTable}.{nameof(Participant.PerformanceId)}", $"{performanceTable}.{nameof(Performance.PerformanceId)}")
+            .LeftJoin(nameof(Contact), $"{nameof(Contact)}.{nameof(Contact.ContactId)}", $"{participantTable}.{nameof(Participant.ContactId)}");
         var sql = query.MySqlQueryToString();
-        var performances = await Connection.QueryAsync<Performance, Scene, Contact, Performance>(sql,
-            (performance, scene, contact) =>
+        var performances = await Connection.QueryAsync<Performance, Participant, Contact, Performance>(sql,
+            (performance, participant, contact) =>
             {
-                if (scene != null)
+                if (participant != null)
                 {
-                    performance.Participants.Add(scene);
-                    scene.Participant = contact;
-                    scene.Performance = new Lookup()
+                    performance.Participants.Add(participant);
+                    participant.Contact = contact;
+                    participant.Performance = new Lookup()
                     {
                         Id = performance.PerformanceId,
                         Name = performance.Name
                     };
                 }
                 return performance;
-            }, splitOn: $"{nameof(Scene.SceneId)}, {nameof(Contact.ContactId)}");
+            }, splitOn: $"{nameof(Participant.ParticipantId)}, {nameof(Contact.ContactId)}");
         var result = performances.GroupBy(p => p.PerformanceId).Select(g =>
         {
             
@@ -54,33 +54,33 @@ public class PerformanceRepository : BaseRepository<Performance>, IPerformanceRe
 
     public override async Task<Performance> GetByIdAsync(int id)
     {
-         var sceneTable = nameof(Scene);
+         var participantTable = nameof(Participant);
          var contactTable = nameof(Contact);
          var performanceTable = TableName;
          
          var query = new Query(performanceTable)
-             .LeftJoin(sceneTable,$"{sceneTable}.{nameof(Scene.PerformanceId)}", 
+             .LeftJoin(participantTable,$"{participantTable}.{nameof(Participant.PerformanceId)}", 
                  $"{performanceTable}.{nameof(Performance.PerformanceId)}")
              .LeftJoin(contactTable, $"{contactTable}.{nameof(Contact.ContactId)}",
-                 $"{sceneTable}.{nameof(Scene.ParticipantId)}")
+                 $"{participantTable}.{nameof(Participant.ContactId)}")
              .Where($"{performanceTable}.{nameof(Performance.PerformanceId)}", "=", id);
          var sql = query.MySqlQueryToString();
          
-         var performances = (await Connection.QueryAsync<Performance, Scene, Contact, Performance>(sql,
-             (performance, scene, contact) =>
+         var performances = (await Connection.QueryAsync<Performance, Participant, Contact, Performance>(sql,
+             (performance, participant, contact) =>
              {
-                 if (scene != null)
+                 if (participant != null)
                  {
-                     scene.Participant = contact;
-                     scene.Performance = new Lookup()
+                     participant.Contact = contact;
+                     participant.Performance = new Lookup()
                      {
                          Id = performance.PerformanceId,
                          Name = performance.Name
                      };
-                     performance.Participants.Add(scene);
+                     performance.Participants.Add(participant);
                  }
                  return performance;
-             }, splitOn: $"{nameof(Scene.SceneId)}, {nameof(Contact.ContactId)}"));
+             }, splitOn: $"{nameof(Participant.ParticipantId)}, {nameof(Contact.ContactId)}"));
          
          if (!performances.Any())
          {

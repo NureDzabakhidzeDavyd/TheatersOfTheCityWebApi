@@ -7,5 +7,5 @@ public interface IUnitOfWork
     public IContactRepository ContactRepository { get; set; }
     public IUserRepository UserRepository { get; set; }
     public IProgramRepository ProgramRepository { get; set; }
-    public ISceneRepository SceneRepository { get; set; }
+    public IParticipantRepository ParticipantRepository { get; set; }
 }

@@ -19,7 +19,10 @@ public class RequestToDomainProfile : Profile
         
         CreateMap<CreatePerformanceRequest, Performance>();
         CreateMap<UpdatePerformanceRequest, Performance>();
+        CreateMap<CreatePerformanceParticipantRequest, Participant>();
 
-        CreateMap<CreateSceneRequest, Scene>();
+        CreateMap<UpdateParticipantRequest, Participant>();
+        CreateMap<CreateParticipantRequest, Participant>();
+
     }
 }

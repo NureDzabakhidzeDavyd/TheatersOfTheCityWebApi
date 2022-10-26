@@ -28,11 +28,11 @@ public class Seeder : ISeeder
               await GenerateTheaters(10); 
               await GeneratePerformances(20);
               await GeneratePrograms();
-              await GenerateScenes(20);
+              await GenerateParticipants(20);
         }
     }
 
-    private async Task GenerateScenes(int count)
+    private async Task GenerateParticipants(int count)
     {
         var roles = new[]
         {
@@ -73,20 +73,20 @@ public class Seeder : ISeeder
             throw new SqlNullValueException();
         }
 
-        _logger.LogInformation("Seeder: Creating scenes");
-        var scenes = new List<Scene>();
+        _logger.LogInformation("Seeder: Creating participants");
+        var result = new List<Participant>();
         foreach (var performance in performances)
         {
-            var scene = new Faker<Scene>()
+            var participants = new Faker<Participant>()
             .RuleFor(x => x.PerformanceId, performance.PerformanceId)
-            .RuleFor(x => x.ParticipantId, f => f.PickRandom(actors).ContactId)
+            .RuleFor(x => x.ContactId, f => f.PickRandom(actors).ContactId)
             .RuleFor(x => x.Role, f => f.PickRandom(roles))
             .Generate(3);
-            scenes.AddRange(scene);
+            result.AddRange(participants);
         }
 
-        await _unitOfWork.SceneRepository.CreateManyAsync(scenes);
-        _logger.LogInformation("Seeder: Scenes created");
+        await _unitOfWork.ParticipantRepository.CreateManyAsync(result);
+        _logger.LogInformation("Seeder: Participants created");
     }
 
     /// <summary>

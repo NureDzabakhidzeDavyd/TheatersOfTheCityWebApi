@@ -15,6 +15,6 @@ public class DomainToResponseProfile : Profile
         CreateMap<Performance, PerformanceResponse>();
         CreateMap<Contact, ContactResponse>();
         CreateMap<Lookup, LookupResponse>();
-        CreateMap<Scene, SceneResponse>();
+        CreateMap<Participant, ParticipantResponse>();
     }
 }

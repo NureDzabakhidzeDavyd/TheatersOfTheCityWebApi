@@ -92,5 +92,20 @@ namespace TheatersOfTheCity.Api.Controllers.v1
             await _unitOfWork.ContactRepository.DeleteAsync(contact);
             return NoContent();
         }
+        
+        [HttpGet("/{id}/participants")]
+        [ProducesResponseType(typeof(IEnumerable<Participant>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetParticipantsByContactId([FromRoute] int id)
+        {
+            var participants = await _unitOfWork.ParticipantRepository.GetParticipantsByContactId(id);
+            if (!participants.Any())
+            {
+                return NotFound();
+            }
+
+            var response = _mapper.Map<IEnumerable<Participant>>(participants);
+            return Ok(response.ToApiResponse());
+        }
     }
 }
