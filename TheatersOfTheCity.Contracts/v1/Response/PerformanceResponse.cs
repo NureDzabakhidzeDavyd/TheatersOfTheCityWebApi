@@ -15,5 +15,5 @@ public class PerformanceResponse
     
     public string Language { get; set; }
     
-    public IEnumerable<ParticipantResponse> Participants { get; set; }
+    public IEnumerable<SceneResponse> Participants { get; set; }
 }

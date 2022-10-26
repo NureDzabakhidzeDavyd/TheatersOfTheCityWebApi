@@ -13,4 +13,6 @@ public class UserProfileResponse
     public string Avatar { get; set; }
     
     public string Country { get; set; }
+    
+    public string RefreshToken { get; set; }
 }

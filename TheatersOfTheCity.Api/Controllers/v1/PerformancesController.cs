@@ -58,27 +58,29 @@ namespace TheatersOfTheCity.Api.Controllers.v1
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public  async Task<IActionResult> Create(CreatePerformanceRequest request)
         {
-            var participants = _mapper.Map<IEnumerable<Participant>>(request.Participants);
-            var contactsIds = request.Participants.Select(x => x.ContactId);
+            //TODO: Update participant
+            var requestScenes = _mapper.Map<IEnumerable<Scene>>(request.Participants);
             
             var newPerformance = _mapper.Map<Performance>(request);
             var performance = await _unitOfWork.PerformanceRepository.CreateAsync(newPerformance);
             var response = _mapper.Map<PerformanceResponse>(performance);
-
+            
             if (request.Participants.Any())
             {
-                var contacts =
-                    await _unitOfWork.ContactRepository.GetManyByIdAsync(contactsIds, nameof(Contact.ContactId));
-                if (contacts.Count() != contactsIds.Count())
+                var contacts = await _unitOfWork.ContactRepository.GetManyByIdAsync(requestScenes.Select(x => x.ParticipantId), nameof(Contact.ContactId));
+                if (contacts.Count() != requestScenes.Count())
                 {
-                    NotFound(contactsIds.ToApiResponse("Not all contacts are exist"));
+                    NotFound(contacts.ToApiResponse("Not all contacts are exist"));
                 }
-                    // TODO: Make less query request to db. Multiply insert in multiply tables
-                var newParticipants = await _unitOfWork.ParticipantRepository.CreateManyAsync(participants);
-                await _unitOfWork.SceneRepository.CreateSceneAsync(newParticipants.Select(x => x.ContactId),
-                    performance.PerformanceId);
-                newParticipants.ToList().ForEach(x => x.Contact = contacts.First(c => c.ContactId == x.ContactId));
-                response.Participants = _mapper.Map<IEnumerable<ParticipantResponse>>(newParticipants);
+                
+                requestScenes.ToList().ForEach(x => x.Participant = contacts.First(c => c.ContactId == x.ParticipantId));
+                requestScenes.ToList().ForEach(x => x.ParticipantId = x.Participant.ContactId);
+                requestScenes.ToList().ForEach(x => x.Performance = new Lookup(){Id = response.PerformanceId, Name = response.Name});
+                requestScenes.ToList().ForEach(x => x.PerformanceId = response.PerformanceId);
+
+
+                var scenes = await _unitOfWork.SceneRepository.CreateManyAsync(requestScenes);
+                response.Participants = _mapper.Map<IEnumerable<SceneResponse>>(scenes);
             }
             return StatusCode(StatusCodes.Status201Created, response);
         }
@@ -88,20 +90,18 @@ namespace TheatersOfTheCity.Api.Controllers.v1
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Update([FromBody] UpdatePerformanceRequest request, [FromRoute] int id)
         {
-            var updateThPerformance = await _unitOfWork.PerformanceRepository.GetByIdAsync(id);
-            if (updateThPerformance == null)
+            var updatePerformanceRequest = await _unitOfWork.PerformanceRepository.GetByIdAsync(id);
+            if (updatePerformanceRequest == null)
             {
-                return NotFound(updateThPerformance.ToApiResponse("Current performance doesn't exist"));
+                return NotFound(updatePerformanceRequest.ToApiResponse("Current performance doesn't exist"));
             }
 
-            var mappedPerformance = _mapper.Map(request, updateThPerformance);
+            var mappedPerformance = _mapper.Map(request, updatePerformanceRequest);
             var performance = await _unitOfWork.PerformanceRepository.UpdateAsync(mappedPerformance);
-            var participants = updateThPerformance.Participants;
 
             var response = _mapper.Map<PerformanceResponse>(performance);
-            response.Participants = _mapper.Map<IEnumerable<ParticipantResponse>>(participants);
+            response.Participants.ToList().ForEach(x => x.Performance.Name = response.Name);
             return Ok(response.ToApiResponse());
-            // TODO: Update Participants or no?
         }
 
         [HttpDelete("{id}")]
@@ -115,7 +115,8 @@ namespace TheatersOfTheCity.Api.Controllers.v1
                 return NotFound();
             }
 
-            await _unitOfWork.PerformanceRepository.DeleteAsync(performance);
+            await _unitOfWork.PerformanceRepository.DeleteByIdAsync(id);
+            
             return NoContent();
         }
     }

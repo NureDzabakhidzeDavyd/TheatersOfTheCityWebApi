@@ -9,7 +9,6 @@ public class UnitOfWork : IUnitOfWork
         IContactRepository contactRepository,
         IUserRepository userRepository,
          IProgramRepository programRepository,
-        IParticipantRepository participantRepository,
         ISceneRepository sceneRepository)
     {
         TheaterRepository = theaterRepository;
@@ -17,7 +16,6 @@ public class UnitOfWork : IUnitOfWork
         ContactRepository = contactRepository;
         UserRepository = userRepository;
         ProgramRepository = programRepository;
-        ParticipantRepository = participantRepository;
         SceneRepository = sceneRepository;
     }
     
@@ -26,6 +24,5 @@ public class UnitOfWork : IUnitOfWork
     public IContactRepository ContactRepository { get; set; }
     public IUserRepository UserRepository { get; set; }
     public IProgramRepository ProgramRepository { get; set; }
-    public IParticipantRepository ParticipantRepository { get; set; }
     public ISceneRepository SceneRepository { get; set; }
 }

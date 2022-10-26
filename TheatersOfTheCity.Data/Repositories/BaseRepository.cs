@@ -37,7 +37,7 @@ public class BaseRepository<T> : IDisposable, IRepository<T> where T: class
         return entities;
     }
 
-    public async Task<T> UpdateAsync(T entity)
+    public virtual async Task<T> UpdateAsync(T entity)
     {
         await Connection.UpdateAsync(entity);
         return entity;
@@ -48,7 +48,7 @@ public class BaseRepository<T> : IDisposable, IRepository<T> where T: class
         await Connection.DeleteAsync(entity);
     }
 
-    public async Task DeleteByIdAsync(int id)
+    public virtual async Task DeleteByIdAsync(int id)
     {
         var entityToDel = await Connection.GetAsync<T>(id);
         await Connection.DeleteAsync(entityToDel);

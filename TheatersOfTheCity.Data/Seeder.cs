@@ -1,4 +1,5 @@
-﻿using Bogus;
+﻿using System.Data.SqlTypes;
+using Bogus;
 using Microsoft.Extensions.Logging;
 using TheatersOfTheCity.Core.Data;
 using TheatersOfTheCity.Core.Domain;
@@ -27,11 +28,11 @@ public class Seeder : ISeeder
               await GenerateTheaters(10); 
               await GeneratePerformances(20);
               await GeneratePrograms();
-              await GenerateParticipantsAndScenes(20);
+              await GenerateScenes(20);
         }
     }
 
-    private async Task GenerateParticipantsAndScenes(int count)
+    private async Task GenerateScenes(int count)
     {
         var roles = new[]
         {
@@ -64,27 +65,26 @@ public class Seeder : ISeeder
         };
 
         var actors = await _unitOfWork.ContactRepository.GetAllAsync();
-        var performances = await _unitOfWork.PerformanceRepository.GetAllAsync();
+        var performances = (await _unitOfWork.PerformanceRepository.GetAllAsync()).ToArray();
 
-        _logger.LogInformation("Seeder: Creating performance participants");
-        var participants = new Faker<Participant>()
-            .RuleFor(x => x.ContactId, f => f.PickRandom(actors).ContactId)
-            .RuleFor(x => x.Role, f => f.PickRandom(roles))
-            .Generate(count);
+        if (!performances.Any() || !actors.Any())
+        {
+            _logger.LogError("Performances or contacts don't exist");
+            throw new SqlNullValueException();
+        }
 
         _logger.LogInformation("Seeder: Creating scenes");
         var scenes = new List<Scene>();
-        foreach (var participant in participants)
+        foreach (var performance in performances)
         {
             var scene = new Faker<Scene>()
-            .RuleFor(x => x.PerformanceId, f => f.PickRandom(performances).PerformanceId)
-            .RuleFor(x => x.ParticipantId, f => f.PickRandom(participants).ContactId)
-            .Generate();
-            scenes.Add(scene);
+            .RuleFor(x => x.PerformanceId, performance.PerformanceId)
+            .RuleFor(x => x.ParticipantId, f => f.PickRandom(actors).ContactId)
+            .RuleFor(x => x.Role, f => f.PickRandom(roles))
+            .Generate(3);
+            scenes.AddRange(scene);
         }
 
-        await _unitOfWork.ParticipantRepository.CreateManyAsync(participants);
-        _logger.LogInformation("Seeder: Performance participants created");
         await _unitOfWork.SceneRepository.CreateManyAsync(scenes);
         _logger.LogInformation("Seeder: Scenes created");
     }
