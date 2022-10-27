@@ -1,4 +1,6 @@
-﻿namespace TheatersOfTheCity.Contracts.v1.Request;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace TheatersOfTheCity.Contracts.v1.Request;
 
 public class UpdateTheaterRequest
 {
@@ -7,5 +9,6 @@ public class UpdateTheaterRequest
     public string City { get; set; }
     
     public  string Address { get; set; }
+    
     public int DirectorId { get; set; }
 }

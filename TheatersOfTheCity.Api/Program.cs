@@ -1,6 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Reflection;
 using System.Text;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
@@ -34,10 +35,21 @@ builder.Services.AddSingleton<IGoogleService, GoogleService>();
 
 builder.Services.AddAutoMapper(typeof(Program));
 
+builder.Services.AddValidatorsFromAssemblyContaining<TheatersOfTheCity.Core.Domain.Program>();
+
 // Add services to the container.
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddControllers();
 builder.Services.AddHttpClient();
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(option =>
+    {
+        option.AllowAnyMethod();
+        option.AllowAnyHeader();
+        option.AllowAnyOrigin();
+    });
+});
 
 #region Database services
 
@@ -146,6 +158,7 @@ using (var scope = app.Services.CreateScope())
 
 app.UseHttpsRedirection();
 app.UseRouting();
+app.UseCors();
 
 app.UseAuthorization();
 app.UseAuthentication();

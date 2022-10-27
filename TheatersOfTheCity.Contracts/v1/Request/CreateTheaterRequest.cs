@@ -1,4 +1,6 @@
-﻿namespace TheatersOfTheCity.Contracts.v1.Request;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace TheatersOfTheCity.Contracts.v1.Request;
 
 public class CreateTheaterRequest
 {
