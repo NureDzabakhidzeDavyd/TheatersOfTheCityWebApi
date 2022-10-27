@@ -22,6 +22,10 @@ namespace TheatersOfTheCity.Api.Controllers.v1
             _unitOfWork = unitOfWork;
         }
         
+        /// <summary>
+        /// Get all performances
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(IEnumerable<PerformanceResponse>),StatusCodes.Status404NotFound)]
@@ -37,6 +41,11 @@ namespace TheatersOfTheCity.Api.Controllers.v1
             return Ok(response.ToApiResponse());
         }
 
+        /// <summary>
+        /// Get performance by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(PerformanceResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -52,13 +61,37 @@ namespace TheatersOfTheCity.Api.Controllers.v1
             var response = _mapper.Map<PerformanceResponse>(performance);
             return Ok(response.ToApiResponse());
         }
+        
+        /// <summary>
+        /// Get all theaters which shows performance with id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("{id}/shows")]
+        [ProducesResponseType(typeof(Lookup), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
 
+        public async Task<IActionResult> GetPerfromanceShows([FromRoute] int id)
+        {
+            var response = await _unitOfWork.PerformanceRepository.GetPerformanceShowsByIdAsync(id);
+            if (response == null)
+            {
+                return NotFound();
+            }
+            
+            return Ok(response.ToApiResponse());
+        }
+
+        /// <summary>
+        /// Create performance with participants
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(typeof(PerformanceResponse), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public  async Task<IActionResult> Create([FromBody]CreatePerformanceRequest request)
         {
-            //TODO: Update participant
             var requestParticipants = _mapper.Map<IEnumerable<Participant>>(request.Participants);
             
             var newPerformance = _mapper.Map<Performance>(request);
@@ -85,6 +118,12 @@ namespace TheatersOfTheCity.Api.Controllers.v1
             return StatusCode(StatusCodes.Status201Created, response);
         }
 
+        /// <summary>
+        /// Update performance by id
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(PerformanceResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -104,6 +143,11 @@ namespace TheatersOfTheCity.Api.Controllers.v1
             return Ok(response.ToApiResponse());
         }
 
+        /// <summary>
+        /// Delete performance by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -120,7 +164,12 @@ namespace TheatersOfTheCity.Api.Controllers.v1
             return NoContent();
         }
         
-        [HttpGet("participants/{id}")]
+        /// <summary>
+        /// Get performance participants
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("{id}/participants")]
         [ProducesResponseType(typeof(ParticipantResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetParticipantsByPerformanceId([FromRoute] int id)

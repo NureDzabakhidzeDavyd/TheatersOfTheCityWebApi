@@ -23,6 +23,10 @@ namespace TheatersOfTheCity.Api.Controllers.v1
             _unitOfWork = unitOfWork;
         }
 
+        /// <summary>
+        /// Get all theaters
+        /// </summary>
+        /// <returns></returns>
         [ProducesResponseType(typeof(IEnumerable<TheaterResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet]
@@ -39,6 +43,11 @@ namespace TheatersOfTheCity.Api.Controllers.v1
             return Ok(response.ToApiResponse());
         }
 
+        /// <summary>
+        /// Get theater by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [ProducesResponseType(typeof(TheaterResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("{id}")]
@@ -54,6 +63,11 @@ namespace TheatersOfTheCity.Api.Controllers.v1
             return Ok(response.ToApiResponse());
         }
         
+        /// <summary>
+        /// Get theater by full name
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         [ProducesResponseType(typeof(TheaterResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("/{name}")]
@@ -69,6 +83,11 @@ namespace TheatersOfTheCity.Api.Controllers.v1
             return Ok(response.ToApiResponse());
         }
         
+        /// <summary>
+        /// Get all theater programs
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [ProducesResponseType(typeof(IEnumerable<TheaterResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("{id}/programs")]
@@ -85,6 +104,11 @@ namespace TheatersOfTheCity.Api.Controllers.v1
             return Ok(response.ToApiResponse());
         }
         
+        /// <summary>
+        /// Create new theater
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost]
         [ProducesResponseType( StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(TheaterResponse), StatusCodes.Status201Created)]
@@ -105,6 +129,12 @@ namespace TheatersOfTheCity.Api.Controllers.v1
             return StatusCode(StatusCodes.Status201Created, response);
         }
         
+        /// <summary>
+        /// Update theater by id
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(TheaterResponse), StatusCodes.Status200OK)]
@@ -130,6 +160,11 @@ namespace TheatersOfTheCity.Api.Controllers.v1
             return Ok(response.ToApiResponse());
         }
 
+        /// <summary>
+        /// Delete theater by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> DeleteById([FromRoute] int id)

@@ -37,6 +37,11 @@ namespace TheatersOfTheCity.Api.Controllers.v1
             return Ok(result.ToApiResponse());
         }
 
+        /// <summary>
+        /// Get user profile
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <returns></returns>
         [HttpPost("user")]
         public async Task<ActionResult> UserByAccessToken(string accessToken)
         {
@@ -47,6 +52,11 @@ namespace TheatersOfTheCity.Api.Controllers.v1
             return Ok(result.ToApiResponse());
         }
 
+        /// <summary>
+        /// Refresh access token
+        /// </summary>
+        /// <param name="refreshToken"></param>
+        /// <returns></returns>
         [HttpPost("refresh")]
         public async Task<IActionResult> RefreshAccessToken(string refreshToken)
         {
@@ -57,6 +67,11 @@ namespace TheatersOfTheCity.Api.Controllers.v1
             return Ok(result.ToApiResponse());
         }
 
+        /// <summary>
+        /// Authentication by google auth
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
         [HttpPost("google")]
         public async Task<IActionResult> GoogleAuth(string token)
         {

@@ -20,6 +20,10 @@ public class ParticipantController : BaseEntitiesController
         _unitOfWork = unitOfWork;
     }
     
+    /// <summary>
+    /// Get all participants in all performances
+    /// </summary>
+    /// <returns></returns>
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(IEnumerable<ParticipantResponse>),StatusCodes.Status404NotFound)]
@@ -35,6 +39,11 @@ public class ParticipantController : BaseEntitiesController
         return Ok(response.ToApiResponse());
     }
     
+    /// <summary>
+    /// Get particular participant with role by id
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(ParticipantResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -50,6 +59,11 @@ public class ParticipantController : BaseEntitiesController
         return Ok(response.ToApiResponse());
     }
 
+    /// <summary>
+    /// Create new participant in particular performance
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
     [HttpPost]
     [ProducesResponseType(typeof(ParticipantResponse), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -78,6 +92,12 @@ public class ParticipantController : BaseEntitiesController
         return StatusCode(StatusCodes.Status201Created, response);
     }
     
+    /// <summary>
+    /// Update participant
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="id"></param>
+    /// <returns></returns>
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(ParticipantResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -100,6 +120,11 @@ public class ParticipantController : BaseEntitiesController
         return Ok(response.ToApiResponse());
     }
     
+    /// <summary>
+    /// Delete participant by id
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]

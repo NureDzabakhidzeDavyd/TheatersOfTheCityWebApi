@@ -20,6 +20,10 @@ namespace TheatersOfTheCity.Api.Controllers.v1
             _unitOfWork = unitOfWork;
         }
 
+        /// <summary>
+        /// Get all contacts
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ContactResponse), StatusCodes.Status200OK)]
@@ -36,6 +40,11 @@ namespace TheatersOfTheCity.Api.Controllers.v1
             return Ok(response.ToApiResponse());
         }
         
+        /// <summary>
+        /// Create new contact
+        /// </summary>
+        /// <param name="request">New contact request</param>
+        /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(typeof(ContactResponse), StatusCodes.Status201Created)]
         public async Task<IActionResult> Create([FromBody] CreateContactRequest request)
@@ -46,6 +55,12 @@ namespace TheatersOfTheCity.Api.Controllers.v1
             return StatusCode(StatusCodes.Status201Created, response);
         }
         
+        /// <summary>
+        /// Update contact by id
+        /// </summary>
+        /// <param name="request">New contact' changes</param>
+        /// <param name="id">Contact current id</param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(ContactResponse), StatusCodes.Status200OK)]
         [ProducesResponseType( StatusCodes.Status404NotFound)]
@@ -63,6 +78,11 @@ namespace TheatersOfTheCity.Api.Controllers.v1
             return Ok(response.ToApiResponse());
         }
         
+        /// <summary>
+        /// Get contact by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(ContactResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -78,6 +98,11 @@ namespace TheatersOfTheCity.Api.Controllers.v1
             return Ok(response.ToApiResponse());
         }
 
+        /// <summary>
+        /// Delete contact by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -93,6 +118,11 @@ namespace TheatersOfTheCity.Api.Controllers.v1
             return NoContent();
         }
         
+        /// <summary>
+        /// Get all roles of contact in performances by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("/{id}/participants")]
         [ProducesResponseType(typeof(IEnumerable<Participant>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

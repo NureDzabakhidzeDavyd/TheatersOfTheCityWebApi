@@ -16,7 +16,6 @@ public class PerformanceRepository : BaseRepository<Performance>, IPerformanceRe
 
     public override async Task<IEnumerable<Performance>> GetAllAsync()
     {
-        // TODO: Update part 2
         var participantTable = nameof(Participant);
         var performanceTable = TableName;
         
@@ -110,4 +109,31 @@ public class PerformanceRepository : BaseRepository<Performance>, IPerformanceRe
 
         return performances;
     }
+
+    public async Task<IEnumerable<Lookup>> GetPerformanceShowsByIdAsync(int id)
+    {
+        var theaterTable = nameof(Theater);
+        var programTable = nameof(Program);
+        
+        var query = new Query(theaterTable)
+            .Join(programTable, $"{programTable}.{nameof(Program.TheaterId)}", $"{theaterTable}.{nameof(Theater.TheaterId)}")
+            .Join(TableName, $"{TableName}.{nameof(Performance.PerformanceId)}", $"{programTable}.{nameof(Program.PerformanceId)}")
+            .Where($"{theaterTable}.{nameof(Theater.TheaterId)}", "=", id)
+            .Select(new[] {$"{theaterTable}.{nameof(Theater.TheaterId)}", $"{theaterTable}.{nameof(Theater.Name)}"});
+        var sql = query.MySqlQueryToString();
+        
+        var theatersLookup = await Connection.QueryAsync<Theater, Lookup, Lookup>(sql,
+            (theater, _) =>
+            {
+                var lookup = new Lookup()
+                {
+                    Id = theater.TheaterId,
+                    Name = theater.Name
+                };
+                return lookup;
+            }, splitOn: nameof(Theater.Name));
+
+        return theatersLookup.Distinct();
+    }
+
 }

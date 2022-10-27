@@ -30,14 +30,14 @@ public class BaseRepository<T> : IDisposable, IRepository<T> where T: class
         return entity;
     }
 
-    public virtual async Task<IEnumerable<T>> CreateManyAsync(IEnumerable<T> entities)
+    public async Task<IEnumerable<T>> CreateManyAsync(IEnumerable<T> entities)
     {
         await Connection.InsertAsync(entities);
 
         return entities;
     }
 
-    public virtual async Task<T> UpdateAsync(T entity)
+    public async Task<T> UpdateAsync(T entity)
     {
         await Connection.UpdateAsync(entity);
         return entity;
@@ -48,7 +48,7 @@ public class BaseRepository<T> : IDisposable, IRepository<T> where T: class
         await Connection.DeleteAsync(entity);
     }
 
-    public virtual async Task DeleteByIdAsync(int id)
+    public async Task DeleteByIdAsync(int id)
     {
         var entityToDel = await Connection.GetAsync<T>(id);
         await Connection.DeleteAsync(entityToDel);
@@ -65,14 +65,8 @@ public class BaseRepository<T> : IDisposable, IRepository<T> where T: class
         var result = await Connection.GetAllAsync<T>();
         return result;
     }
-
-    /// <summary>
-    /// Get many objects by ids
-    /// </summary>
-    /// <param name="ids">Ids enumerable for searching</param>
-    /// <param name="columnName">Column used as search parameter</param>
-    /// <returns>Enumerable of objects with given ids</returns>
-    public virtual async Task<IEnumerable<T>> GetManyByIdAsync(IEnumerable<int> ids, string columnName)
+    
+    public async Task<IEnumerable<T>> GetManyByIdAsync(IEnumerable<int> ids, string columnName)
     {
         var columnId = columnName;
         var query = new Query(TableName).WhereIn(columnId, ids);

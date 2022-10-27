@@ -1,4 +1,5 @@
 using System.IdentityModel.Tokens.Jwt;
+using System.Reflection;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.JsonWebTokens;
@@ -34,6 +35,7 @@ builder.Services.AddSingleton<IGoogleService, GoogleService>();
 builder.Services.AddAutoMapper(typeof(Program));
 
 // Add services to the container.
+builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddControllers();
 builder.Services.AddHttpClient();
 
@@ -56,28 +58,28 @@ builder.Services.AddEndpointsApiExplorer();
 
 #region Swagger configuration
 
-builder.Services.AddSwaggerGen(option =>
+builder.Services.AddSwaggerGen(options =>
 {
-    option.MapType(typeof(TimeSpan), () => new OpenApiSchema
+    options.MapType(typeof(TimeSpan), () => new OpenApiSchema
     {
         Type = "string",
         Format = "time",
         Example = new OpenApiString("00:00:00")
     });
-    option.MapType(typeof(DateTime), () => new OpenApiSchema
+    options.MapType(typeof(DateTime), () => new OpenApiSchema
     {
         Type = "string", 
         Format = "date",
         Example = new OpenApiString("2013-06-23")
     });
-    option.SwaggerDoc("v1", new OpenApiInfo()
+    options.SwaggerDoc("v1", new OpenApiInfo()
     {
         Description = "Theaters of the city API",
         Version = "v1",
         Title = "Theaters of the city"
     });
 
-    option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
     {
         BearerFormat = "Bearer {jwt}",
         Description = "Please insert JWT into field",
@@ -96,10 +98,14 @@ builder.Services.AddSwaggerGen(option =>
         }
     };
     
-    option.AddSecurityRequirement(new OpenApiSecurityRequirement()
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement()
     {
         {securityScheme, new string[] {} }
     });
+    // xml comments
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    options.IncludeXmlComments(xmlPath, includeControllerXmlComments: true);
 });
 
 builder.Services.AddAuthentication(x =>
