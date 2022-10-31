@@ -7,6 +7,7 @@ using System.Linq;
 using TheatersOfTheCity.Contracts.Common;
 using TheatersOfTheCity.Contracts.v1.Response;
 using TheatersOfTheCity.Core.Domain;
+using TheatersOfTheCity.Core.Domain.Filters;
 
 namespace TheatersOfTheCity.Api.Controllers.v1
 {
@@ -26,12 +27,17 @@ namespace TheatersOfTheCity.Api.Controllers.v1
         /// Get all performances
         /// </summary>
         /// <returns></returns>
+        /// <remarks>new List<DynamicFilter>(){new DynamicFilter(){FieldName = "Genre", Value = "Horror", FieldType = 1}, new DynamicFilter(){FieldName = "Language", Value = "ua", FieldType = 1}}</remarks>
+
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(IEnumerable<PerformanceResponse>),StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(
+            [FromQuery] PaginationFilter paginationFilter,
+            [FromQuery] DynamicFilters? dynamicFilters = null,
+            [FromQuery] SortFilter? sortQuery = null)
         {
-            var performances = await _unitOfWork.PerformanceRepository.GetAllAsync();
+            var performances = await _unitOfWork.PerformanceRepository.PaginateAsync(paginationFilter, sortQuery, dynamicFilters);
             if (performances == null)
             {
                 return NotFound();

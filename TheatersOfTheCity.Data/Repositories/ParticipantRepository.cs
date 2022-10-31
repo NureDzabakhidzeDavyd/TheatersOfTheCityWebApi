@@ -9,15 +9,19 @@ using TheatersOfTheCity.Contracts.v1.Request;
 using TheatersOfTheCity.Core.Attributes;
 using TheatersOfTheCity.Core.Data;
 using TheatersOfTheCity.Core.Domain;
+using TheatersOfTheCity.Core.Domain.Filters;
 using TheatersOfTheCity.Core.Options;
-using TheatersOfTheCity.Data.Services;
+using TheatersOfTheCity.Data.Helpers;
 
 namespace TheatersOfTheCity.Data.Repositories;
 
 public class ParticipantRepository : BaseRepository<Participant>, IParticipantRepository
 {
+    private Query _getAllQuery;
+    
     public ParticipantRepository(RepositoryConfiguration sqlConfiguration) : base(sqlConfiguration)
     {
+        _getAllQuery = GetAllQuery();
     }
 
     public async Task DeleteParticipantsByPerformanceIdAsync(int performanceId)
@@ -26,10 +30,9 @@ public class ParticipantRepository : BaseRepository<Participant>, IParticipantRe
 
         var query = new Query(TableName)
             .Where(nameof(Participant.PerformanceId), "=", performanceId)
-            .AsDelete();
-        var sql = query.MySqlQueryToString();
+            .AsDelete().MySqlQueryToString();
 
-        await Connection.QueryAsync(sql);
+        await Connection.QueryAsync(query);
     }
 
     public async Task<IEnumerable<Participant>> GetParticipantsByPerformanceIdAsync(int performanceId)
@@ -38,10 +41,11 @@ public class ParticipantRepository : BaseRepository<Participant>, IParticipantRe
         
         var query = new Query(TableName)
             .Where(nameof(Participant.PerformanceId), "=", performanceId)
-            .Join(nameof(Contact), $"{contactTable}.{nameof(Contact.ContactId)}", $"{TableName}.{nameof(Participant.ContactId)}");
-        var sql = query.MySqlQueryToString();
+            .Join(nameof(Contact), $"{contactTable}.{nameof(Contact.ContactId)}", 
+                $"{TableName}.{nameof(Participant.ContactId)}")
+            .MySqlQueryToString();
 
-        var participants = await Connection.QueryAsync<Participant, Contact, Participant>(sql, (participant, contact) =>
+        var participants = await Connection.QueryAsync<Participant, Contact, Participant>(query, (participant, contact) =>
         {
             participant.Contact = contact;
             return participant;
@@ -50,17 +54,21 @@ public class ParticipantRepository : BaseRepository<Participant>, IParticipantRe
         return participants;
     }
 
-    public async override Task<IEnumerable<Participant>> GetAllAsync()
+    public async override Task<IEnumerable<Participant>> PaginateAsync(PaginationFilter paginationFilter, SortFilter? sortFilter, DynamicFilters dynamicFilters)
     {
-        // TODO: Update part 2
-        var performanceTable = nameof(Performance);
-        var contactTable = nameof(Contact);
+        var builder = new QueryBuilder<Participant>(paginationFilter, sortFilter, dynamicFilters, _getAllQuery);
+
+        _getAllQuery = builder.Build();
+        var result = await this.GetAllAsync();
+        _getAllQuery = GetAllQuery();
+        return result;
+    }
+
+    public override async Task<IEnumerable<Participant>> GetAllAsync()
+    {
+        var query = GetAllQuery().MySqlQueryToString();
         
-        var query = new Query(TableName)
-            .Join(performanceTable,$"{performanceTable}.{nameof(Performance.PerformanceId)}", $"{TableName}.{nameof(Participant.PerformanceId)}")
-            .Join(nameof(Contact), $"{nameof(Contact)}.{nameof(Contact.ContactId)}", $"{TableName}.{nameof(Participant.ContactId)}");
-        var sql = query.MySqlQueryToString();
-        var participants = await Connection.QueryAsync<Participant, Performance, Contact, Participant>(sql,
+        var participants = await Connection.QueryAsync<Participant, Performance, Contact, Participant>(query,
             (participant, performance, contact) =>
             {
                 participant.Performance = new Lookup() 
@@ -74,6 +82,19 @@ public class ParticipantRepository : BaseRepository<Participant>, IParticipantRe
             }, splitOn: $"{nameof(Performance.PerformanceId)}, {nameof(Contact.ContactId)}");
 
         return participants;
+    }
+
+    private Query GetAllQuery(string paginateQuery = null)
+    {
+        var performanceTable = nameof(Performance);
+
+        var query = new Query(TableName)
+            .Join(performanceTable, $"{performanceTable}.{nameof(Performance.PerformanceId)}",
+                $"{TableName}.{nameof(Participant.PerformanceId)}")
+            .Join(nameof(Contact), $"{nameof(Contact)}.{nameof(Contact.ContactId)}",
+                $"{TableName}.{nameof(Participant.ContactId)}");
+
+        return query;
     }
 
     public override async Task<Participant> GetByIdAsync(int id)

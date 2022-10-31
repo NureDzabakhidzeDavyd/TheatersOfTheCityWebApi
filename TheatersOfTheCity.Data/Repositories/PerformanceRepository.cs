@@ -5,23 +5,24 @@ using MySql.Data.MySqlClient;
 using SqlKata;
 using TheatersOfTheCity.Core.Data;
 using TheatersOfTheCity.Core.Domain;
+using TheatersOfTheCity.Core.Domain.Filters;
 using TheatersOfTheCity.Core.Options;
-using TheatersOfTheCity.Data.Services;
+using TheatersOfTheCity.Data.Helpers;
 
 namespace TheatersOfTheCity.Data.Repositories;
 
 public class PerformanceRepository : BaseRepository<Performance>, IPerformanceRepository
 {
-    public PerformanceRepository(RepositoryConfiguration sqlConfiguration): base(sqlConfiguration) {}
+    private Query _getAllQuery;
 
+    public PerformanceRepository(RepositoryConfiguration sqlConfiguration) : base(sqlConfiguration)
+    {
+        _getAllQuery = GetAllQuery();
+    }
+    
     public override async Task<IEnumerable<Performance>> GetAllAsync()
     {
-        var participantTable = nameof(Participant);
-        var performanceTable = TableName;
-        
-        var query = new Query(performanceTable)
-            .LeftJoin(participantTable,$"{participantTable}.{nameof(Participant.PerformanceId)}", $"{performanceTable}.{nameof(Performance.PerformanceId)}")
-            .LeftJoin(nameof(Contact), $"{nameof(Contact)}.{nameof(Contact.ContactId)}", $"{participantTable}.{nameof(Participant.ContactId)}");
+        var query = GetAllQuery();
         var sql = query.MySqlQueryToString();
         var performances = await Connection.QueryAsync<Performance, Participant, Contact, Performance>(sql,
             (performance, participant, contact) =>
@@ -48,6 +49,29 @@ public class PerformanceRepository : BaseRepository<Performance>, IPerformanceRe
             }
             return groupPerformance;
         });
+        return result;
+    }
+
+    private Query GetAllQuery()
+    {
+        var participantTable = nameof(Participant);
+        var performanceTable = TableName;
+
+        var query = new Query(performanceTable)
+            .LeftJoin(participantTable, $"{participantTable}.{nameof(Participant.PerformanceId)}",
+                $"{performanceTable}.{nameof(Performance.PerformanceId)}")
+            .LeftJoin(nameof(Contact), $"{nameof(Contact)}.{nameof(Contact.ContactId)}",
+                $"{participantTable}.{nameof(Participant.ContactId)}");
+        return query;
+    }
+
+    public override async Task<IEnumerable<Performance>> PaginateAsync(PaginationFilter paginationFilter, SortFilter? sortFilter, DynamicFilters? dynamicFilters)
+    {
+        var builder = new QueryBuilder<Performance>(paginationFilter, sortFilter, dynamicFilters, _getAllQuery);
+
+        _getAllQuery = builder.Build();
+        var result = await GetAllAsync();
+        _getAllQuery = GetAllQuery();
         return result;
     }
 

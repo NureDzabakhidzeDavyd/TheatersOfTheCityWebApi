@@ -1,7 +1,7 @@
 ﻿using SqlKata;
 using SqlKata.Compilers;
 
-namespace TheatersOfTheCity.Data.Services;
+namespace TheatersOfTheCity.Data.Helpers;
 
 public static class SqlToStringService
 {

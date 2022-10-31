@@ -6,15 +6,16 @@ using TheatersOfTheCity.Contracts.v1.Request;
 using TheatersOfTheCity.Contracts.v1.Response;
 using TheatersOfTheCity.Core.Data;
 using TheatersOfTheCity.Core.Domain;
+using TheatersOfTheCity.Core.Domain.Filters;
 
 namespace TheatersOfTheCity.Api.Controllers.v1;
 
-public class ParticipantController : BaseEntitiesController
+public class ParticipantsController : BaseEntitiesController
 {
     private readonly IMapper _mapper;
     private readonly IUnitOfWork _unitOfWork;
 
-    public ParticipantController(IMapper mapper, IUnitOfWork unitOfWork)
+    public ParticipantsController(IMapper mapper, IUnitOfWork unitOfWork)
     {
         _mapper = mapper;
         _unitOfWork = unitOfWork;
@@ -24,12 +25,17 @@ public class ParticipantController : BaseEntitiesController
     /// Get all participants in all performances
     /// </summary>
     /// <returns></returns>
+    ///<remarks>new List<DynamicFilter>(){new DynamicFilter(){FieldName = "FirstName", Value = "David", FieldType = 1}}</remarks>
+
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(IEnumerable<ParticipantResponse>),StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAll( 
+        [FromQuery] PaginationFilter paginationFilter,
+        [FromQuery] DynamicFilters? dynamicFilters = null,
+        [FromQuery] SortFilter? sortQuery = null)
     {
-        var participants = await _unitOfWork.ParticipantRepository.GetAllAsync();
+        var participants = await _unitOfWork.ParticipantRepository.PaginateAsync(paginationFilter, sortQuery, dynamicFilters);
         if (participants == null)
         {
             return NotFound();

@@ -8,7 +8,8 @@ using TheatersOfTheCity.Core.Options;
 using SqlKata;
 using SqlKata.Compilers;
 using TheatersOfTheCity.Core.Domain;
-using TheatersOfTheCity.Data.Services;
+using TheatersOfTheCity.Core.Domain.Filters;
+using TheatersOfTheCity.Data.Helpers;
 
 namespace TheatersOfTheCity.Data.Repositories;
 
@@ -69,20 +70,42 @@ public class BaseRepository<T> : IDisposable, IRepository<T> where T: class
     public async Task<IEnumerable<T>> GetManyByIdAsync(IEnumerable<int> ids, string columnName)
     {
         var columnId = columnName;
-        var query = new Query(TableName).WhereIn(columnId, ids);
-        var sql = query.MySqlQueryToString();
+        var query = new Query(TableName).WhereIn(columnId, ids).MySqlQueryToString();
         
-        var result = await Connection.QueryAsync<T>(sql);
+        var result = await Connection.QueryAsync<T>(query);
         return result;
     }
-    
+
+    public async Task<IEnumerable<Lookup>> GetLookups()
+    {
+        var query = new Query(TableName).Select(new[] { $"{TableName}Id", "Name"}).MySqlQueryToString();
+        var result = await Connection.QueryAsync<T, Lookup, Lookup>(query, (entity, lookup) =>
+        {
+            lookup.Id = (int)(entity.GetType().GetProperty($"{TableName}Id")?.GetValue(entity) ??
+                              throw new ArgumentException());
+            lookup.Name = (string)(entity.GetType().GetProperty($"Name")?.GetValue(entity) ??
+                                   throw new ArgumentException());
+            return lookup;
+        });
+
+        return result;
+    }
+
+    public virtual async Task<IEnumerable<T>> PaginateAsync(PaginationFilter paginationFilter, SortFilter? sortFilter, DynamicFilters? dynamicFilters)
+    {
+        var builder = new QueryBuilder<T>(paginationFilter, sortFilter, dynamicFilters);
+        builder.Deconstruct(out var query);
+        
+        var result = await Connection.QueryAsync<T>(query);
+        return result;
+    }
+
     public async Task<bool> EntitiesAreExist(IEnumerable<int> ids, string idName)
     {
         var query = new Query(nameof(Contact)).WhereIn(idName, ids)
-            .AsCount();
-        var sql = query.MySqlQueryToString();
+            .AsCount().MySqlQueryToString();
         
-        var contactsCount = (await Connection.QueryAsync<int>(sql)).First();
+        var contactsCount = (await Connection.QueryAsync<int>(query)).First();
         
         if (ids.Count() != contactsCount)
         {
@@ -91,6 +114,8 @@ public class BaseRepository<T> : IDisposable, IRepository<T> where T: class
 
         return true;
     }
+
+    #region Dispose pattern
 
     private void ReleaseUnmanagedResources()
     {
@@ -116,4 +141,6 @@ public class BaseRepository<T> : IDisposable, IRepository<T> where T: class
     {
         Dispose(false);
     }
+
+    #endregion
 }

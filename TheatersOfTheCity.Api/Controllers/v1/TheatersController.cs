@@ -6,6 +6,7 @@ using TheatersOfTheCity.Contracts.v1.Request;
 using TheatersOfTheCity.Contracts.v1.Response;
 using TheatersOfTheCity.Core.Data;
 using TheatersOfTheCity.Core.Domain;
+using TheatersOfTheCity.Core.Domain.Filters;
 
 namespace TheatersOfTheCity.Api.Controllers.v1
 {
@@ -27,12 +28,16 @@ namespace TheatersOfTheCity.Api.Controllers.v1
         /// Get all theaters
         /// </summary>
         /// <returns></returns>
+        /// <remarks>new List<DynamicFilter>(){new DynamicFilter(){FieldName = "Contact.FirstName", Value = "David", FieldType = 1}}</remarks>
         [ProducesResponseType(typeof(IEnumerable<TheaterResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(
+            [FromQuery] PaginationFilter agPaginationFilter,
+            [FromQuery] DynamicFilters? dynamicFilters = null,
+            [FromQuery] SortFilter? sortQuery = null)
         {
-            var theaters = await _unitOfWork.TheaterRepository.GetAllAsync();
+            var theaters = await _unitOfWork.TheaterRepository.PaginateAsync(agPaginationFilter, sortQuery, dynamicFilters);
 
             if (!theaters.Any())
             {

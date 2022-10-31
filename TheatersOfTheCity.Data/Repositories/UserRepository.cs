@@ -6,7 +6,7 @@ using SqlKata;
 using TheatersOfTheCity.Core.Data;
 using TheatersOfTheCity.Core.Domain;
 using TheatersOfTheCity.Core.Options;
-using TheatersOfTheCity.Data.Services;
+using TheatersOfTheCity.Data.Helpers;
 
 namespace TheatersOfTheCity.Data.Repositories;
 

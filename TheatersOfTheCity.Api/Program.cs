@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Text;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Any;
@@ -14,6 +15,7 @@ using TheatersOfTheCity.Api.Controllers.Extensions;
 using TheatersOfTheCity.Business.External;
 using TheatersOfTheCity.Business.Options;
 using TheatersOfTheCity.Core.Data;
+using TheatersOfTheCity.Core.Domain.Filters;
 using TheatersOfTheCity.Core.Options;
 using TheatersOfTheCity.Core.Services;
 using TheatersOfTheCity.Data;
@@ -39,7 +41,14 @@ builder.Services.AddValidatorsFromAssemblyContaining<TheatersOfTheCity.Core.Doma
 
 // Add services to the container.
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.CacheProfiles.Add("120SecondsDuration",
+        new CacheProfile()
+        {
+            Duration = 30
+        });
+});
 builder.Services.AddHttpClient();
 builder.Services.AddCors(options =>
 {
@@ -50,6 +59,8 @@ builder.Services.AddCors(options =>
         option.AllowAnyOrigin();
     });
 });
+
+builder.Services.AddResponseCaching();
 
 #region Database services
 
@@ -100,7 +111,7 @@ builder.Services.AddSwaggerGen(options =>
         Type = SecuritySchemeType.ApiKey,
         Name = "Authorization"
     });
-
+    
     var securityScheme = new OpenApiSecurityScheme()
     {
         Reference = new OpenApiReference()
@@ -159,6 +170,7 @@ using (var scope = app.Services.CreateScope())
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseCors();
+app.UseResponseCaching();
 
 app.UseAuthorization();
 app.UseAuthentication();
