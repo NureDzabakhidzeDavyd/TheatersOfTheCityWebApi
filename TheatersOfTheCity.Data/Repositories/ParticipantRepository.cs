@@ -54,14 +54,15 @@ public class ParticipantRepository : BaseRepository<Participant>, IParticipantRe
         return participants;
     }
 
-    public async override Task<IEnumerable<Participant>> PaginateAsync(PaginationFilter paginationFilter, SortFilter? sortFilter, DynamicFilters dynamicFilters)
+    public override async Task<(IEnumerable<Participant> data, int count)> PaginateAsync(PaginationFilter paginationFilter, SortFilter? sortFilter, DynamicFilters? dynamicFilters)
     {
         var builder = new QueryBuilder<Participant>(paginationFilter, sortFilter, dynamicFilters, _getAllQuery);
 
         _getAllQuery = builder.Build();
-        var result = await this.GetAllAsync();
+        var data = await GetAllAsync();
+        var count = await GetCount();
         _getAllQuery = GetAllQuery();
-        return result;
+        return (data, count);
     }
 
     public override async Task<IEnumerable<Participant>> GetAllAsync()

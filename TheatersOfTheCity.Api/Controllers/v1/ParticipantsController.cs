@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using TheatersOfTheCity.Api.Controllers.Extensions;
 using TheatersOfTheCity.Contracts.Common;
+using TheatersOfTheCity.Contracts.Services;
 using TheatersOfTheCity.Contracts.v1.Request;
 using TheatersOfTheCity.Contracts.v1.Response;
 using TheatersOfTheCity.Core.Data;
@@ -36,13 +38,17 @@ public class ParticipantsController : BaseEntitiesController
         [FromQuery] SortFilter? sortQuery = null)
     {
         var participants = await _unitOfWork.ParticipantRepository.PaginateAsync(paginationFilter, sortQuery, dynamicFilters);
-        if (participants == null)
+        if (participants.data == null)
         {
             return NotFound();
         }
 
-        var response = _mapper.Map<IEnumerable<ParticipantResponse>>(participants);
-        return Ok(response.ToApiResponse());
+        var mappedParticipants = _mapper.Map<IEnumerable<ParticipantResponse>>(participants.data);
+        var response = 
+            mappedParticipants.ToPageList(paginationFilter.Page, participants.count, paginationFilter.Size);
+        var metadata = PageListHeaderResponseService.PageListHeaderResponse(response);
+        Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+        return Ok(mappedParticipants.ToApiResponse());
     }
     
     /// <summary>

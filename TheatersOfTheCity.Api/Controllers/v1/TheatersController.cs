@@ -1,7 +1,9 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using TheatersOfTheCity.Api.Controllers.Extensions;
 using TheatersOfTheCity.Contracts.Common;
+using TheatersOfTheCity.Contracts.Services;
 using TheatersOfTheCity.Contracts.v1.Request;
 using TheatersOfTheCity.Contracts.v1.Response;
 using TheatersOfTheCity.Core.Data;
@@ -33,18 +35,22 @@ namespace TheatersOfTheCity.Api.Controllers.v1
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet]
         public async Task<IActionResult> GetAll(
-            [FromQuery] PaginationFilter agPaginationFilter,
+            [FromQuery] PaginationFilter PaginationFilter,
             [FromQuery] DynamicFilters? dynamicFilters = null,
             [FromQuery] SortFilter? sortQuery = null)
         {
-            var theaters = await _unitOfWork.TheaterRepository.PaginateAsync(agPaginationFilter, sortQuery, dynamicFilters);
+            var theaters = await _unitOfWork.TheaterRepository.PaginateAsync(PaginationFilter, sortQuery, dynamicFilters);
 
-            if (!theaters.Any())
+            if (!theaters.data.Any())
             {
                 return NotFound();
             }
             
-            var response = _mapper.Map<IEnumerable<TheaterResponse>>(theaters);
+            var mappedTheaters = _mapper.Map<IEnumerable<TheaterResponse>>(theaters.data);
+            var response = 
+                mappedTheaters.ToPageList(PaginationFilter.Page, theaters.count, PaginationFilter.Size);
+            var metadata = PageListHeaderResponseService.PageListHeaderResponse(response);
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
             return Ok(response.ToApiResponse());
         }
 

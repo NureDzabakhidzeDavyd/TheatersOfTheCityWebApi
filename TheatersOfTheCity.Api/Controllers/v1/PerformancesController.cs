@@ -4,7 +4,9 @@ using TheatersOfTheCity.Api.Controllers.Extensions;
 using TheatersOfTheCity.Contracts.v1.Request;
 using TheatersOfTheCity.Core.Data;
 using System.Linq;
+using Newtonsoft.Json;
 using TheatersOfTheCity.Contracts.Common;
+using TheatersOfTheCity.Contracts.Services;
 using TheatersOfTheCity.Contracts.v1.Response;
 using TheatersOfTheCity.Core.Domain;
 using TheatersOfTheCity.Core.Domain.Filters;
@@ -38,12 +40,16 @@ namespace TheatersOfTheCity.Api.Controllers.v1
             [FromQuery] SortFilter? sortQuery = null)
         {
             var performances = await _unitOfWork.PerformanceRepository.PaginateAsync(paginationFilter, sortQuery, dynamicFilters);
-            if (performances == null)
+            if (performances.data == null)
             {
                 return NotFound();
             }
 
-            var response = _mapper.Map<IEnumerable<PerformanceResponse>>(performances);
+            var mappedPerformances = _mapper.Map<IEnumerable<PerformanceResponse>>(performances.data);
+            var response =
+                mappedPerformances.ToPageList(paginationFilter.Page, performances.count, paginationFilter.Size);
+            var metadata = PageListHeaderResponseService.PageListHeaderResponse(response);
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
             return Ok(response.ToApiResponse());
         }
 

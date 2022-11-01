@@ -35,14 +35,15 @@ public class TheaterRepository : BaseRepository<Theater>, ITheaterRepository
         return result;
     }
 
-    public override async Task<IEnumerable<Theater>> PaginateAsync(PaginationFilter paginationFilter, SortFilter? sortFilter, DynamicFilters? dynamicFilters)
+    public override async Task<(IEnumerable<Theater> data, int count)> PaginateAsync(PaginationFilter paginationFilter, SortFilter? sortFilter, DynamicFilters? dynamicFilters)
     {
         var builder = new QueryBuilder<Performance>(paginationFilter, sortFilter, dynamicFilters, _getAllQuery);
 
         _getAllQuery = builder.Build();
-        var result = await GetAllAsync();
+        var data = await GetAllAsync();
+        var count = await GetCount();
         _getAllQuery = GetAllQuery();
-        return result;
+        return (data, count);
     }
 
     private Query GetAllQuery()

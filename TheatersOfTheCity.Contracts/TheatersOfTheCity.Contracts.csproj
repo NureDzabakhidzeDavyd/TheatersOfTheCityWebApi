@@ -11,6 +11,10 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Reference Include="Microsoft.AspNetCore.Http.Abstractions">
+        <HintPath>..\..\..\..\..\..\Program Files\dotnet\shared\Microsoft.AspNetCore.App\6.0.8\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
+      </Reference>
+      <Reference Include="Microsoft.AspNetCore.Http.Features" />
       <Reference Include="System.Web.Http">
         <HintPath>..\..\..\.nuget\packages\microsoft.aspnet.webapi.core\5.2.9\lib\net45\System.Web.Http.dll</HintPath>
       </Reference>

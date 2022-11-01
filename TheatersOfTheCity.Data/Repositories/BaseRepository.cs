@@ -91,12 +91,22 @@ public class BaseRepository<T> : IDisposable, IRepository<T> where T: class
         return result;
     }
 
-    public virtual async Task<IEnumerable<T>> PaginateAsync(PaginationFilter paginationFilter, SortFilter? sortFilter, DynamicFilters? dynamicFilters)
+    public virtual async Task<(IEnumerable<T> data, int count)> PaginateAsync(PaginationFilter paginationFilter, SortFilter? sortFilter, DynamicFilters? dynamicFilters)
     {
         var builder = new QueryBuilder<T>(paginationFilter, sortFilter, dynamicFilters);
         var query = builder.ToString();
         
-        var result = await Connection.QueryAsync<T>(query);
+        var data = await Connection.QueryAsync<T>(query);
+        var count = await GetCount();
+
+        var result = (data, count);
+        return result;
+    }
+
+    private protected async Task<int> GetCount()
+    {
+        var query = new Query(TableName).AsCount().MySqlQueryToString();
+        var result = await Connection.QueryFirstAsync<int>(query);
         return result;
     }
 

@@ -1,7 +1,9 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using TheatersOfTheCity.Api.Controllers.Extensions;
 using TheatersOfTheCity.Contracts.Common;
+using TheatersOfTheCity.Contracts.Services;
 using TheatersOfTheCity.Contracts.v1.Request;
 using TheatersOfTheCity.Contracts.v1.Response;
 using TheatersOfTheCity.Core.Data;
@@ -30,18 +32,22 @@ namespace TheatersOfTheCity.Api.Controllers.v1
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ContactResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAll(
-            [FromQuery] PaginationFilter paginationQuery,
+            [FromQuery] PaginationFilter paginationFilter,
             [FromQuery] DynamicFilters? dynamicFilters = null,
             [FromQuery] SortFilter? sortQuery = null)
         {
-            var contacts = await _unitOfWork.ContactRepository.PaginateAsync(paginationQuery, sortQuery, dynamicFilters);
+            var contacts = await _unitOfWork.ContactRepository.PaginateAsync(paginationFilter, sortQuery, dynamicFilters);
 
-            if (!contacts.Any())
+            if (!contacts.data.Any())
             {
                 return NotFound();
             }
             
-            var response = _mapper.Map<IEnumerable<ContactResponse>>(contacts);
+            var mappedContacts = _mapper.Map<IEnumerable<ContactResponse>>(contacts.data);
+            var response = 
+                mappedContacts.ToPageList(paginationFilter.Page, contacts.count, paginationFilter.Size);
+            var metadata = PageListHeaderResponseService.PageListHeaderResponse(response);
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
             return Ok(response.ToApiResponse());
         }
         

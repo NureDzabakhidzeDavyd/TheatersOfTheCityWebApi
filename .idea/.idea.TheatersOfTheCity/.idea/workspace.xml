@@ -5,17 +5,25 @@
     <projectFile profileName="TheatersOfTheCity.Api">TheatersOfTheCity.Api/TheatersOfTheCity.Api.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79f55697-854b-4938-9a02-5344e539f5d5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Installers/AuthInstaller.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Installers/DbInstaller.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Installers/IInstaller.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Installers/InstallExtension.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Installers/MvcInstaller.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Installers/SwaggerInstaller.cs" afterDir="false" />
+    <list default="true" id="79f55697-854b-4938-9a02-5344e539f5d5" name="Changes" comment="Installer extension">
+      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/Extensions/PageListHeaderResponseService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/Services/ToPageListService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/PageList.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TheatersOfTheCity/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TheatersOfTheCity/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/AuthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/AuthController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/ContactsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/ContactsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/ParticipantsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/ParticipantsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/PerformancesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/PerformancesController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/TheatersController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/TheatersController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Api/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Data/Helpers/QueryBuilder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Data/Helpers/QueryBuilder.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/Services/ToApiResponseService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/Services/ToApiResponseService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/TheatersOfTheCity.Contracts.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/TheatersOfTheCity.Contracts.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Core/Data/IRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Data/IRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/Filters/PaginationFilter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/Filters/PaginationFilter.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/BaseRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/BaseRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/ParticipantRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/ParticipantRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/PerformanceRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/PerformanceRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/TheaterRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/TheaterRepository.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +59,8 @@
     <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/318b222980a44aa4a34a9d94fc61e0b136c80/4d/64594411/HttpContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/318b222980a44aa4a34a9d94fc61e0b136c80/95/5f635249/HttpResponse.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/36d7889921db4820998c500c8c367e0916e00/5b/cd19572e/Query.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/36d7889921db4820998c500c8c367e0916e00/80/3b152f62/Include.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/36d7889921db4820998c500c8c367e0916e00/8c/e9c45cee/MySqlCompiler.cs" root0="SKIP_HIGHLIGHTING" />
@@ -235,7 +245,7 @@
       <workItem from="1667194944683" duration="8589000" />
       <workItem from="1667211370304" duration="1421000" />
       <workItem from="1667236884825" duration="8299000" />
-      <workItem from="1667283575572" duration="2230000" />
+      <workItem from="1667283575572" duration="7826000" />
     </task>
     <task id="LOCAL-00001" summary="Setting default project body">
       <created>1664343077330</created>
@@ -391,7 +401,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667246427435</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Installer extension">
+      <created>1667286059846</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1667286059846</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -436,85 +453,73 @@
     <MESSAGE value="Participant Controller" />
     <MESSAGE value="xml comments" />
     <MESSAGE value="Pagination, Filtering, Sorting and Caching" />
-    <option name="LAST_COMMIT_MESSAGE" value="Pagination, Filtering, Sorting and Caching" />
+    <MESSAGE value="Installer extension" />
+    <option name="LAST_COMMIT_MESSAGE" value="Installer extension" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/PerformancesController.cs</url>
-          <line>121</line>
+          <line>127</line>
           <properties documentPath="C:\Users\david.dzabakhidze\RiderProjects\TheatersofTheCityWebAPI\TheatersOfTheCity\TheatersOfTheCity.Api\Controllers\v1\PerformancesController.cs" initialLine="82" containingFunctionPresentation="method 'Create'">
             <startOffsets>
-              <option value="5220" />
+              <option value="5627" />
             </startOffsets>
             <endOffsets>
-              <option value="5222" />
+              <option value="5629" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="108" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/PerformanceRepository.cs</url>
-          <line>148</line>
+          <line>149</line>
           <properties documentPath="C:\Users\david.dzabakhidze\RiderProjects\TheatersofTheCityWebAPI\TheatersOfTheCity\TheatersOfTheCity.Data\Repositories\PerformanceRepository.cs" initialLine="124" containingFunctionPresentation="method 'GetPerformanceShowsByIdAsync'">
             <startOffsets>
-              <option value="6145" />
+              <option value="6205" />
             </startOffsets>
             <endOffsets>
-              <option value="6506" />
+              <option value="6566" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="119" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/ContactsController.cs</url>
-          <line>35</line>
-          <properties documentPath="C:\Users\david.dzabakhidze\RiderProjects\TheatersofTheCityWebAPI\TheatersOfTheCity\TheatersOfTheCity.Api\Controllers\v1\ContactsController.cs" initialLine="34" containingFunctionPresentation="method 'GetAll'">
-            <startOffsets>
-              <option value="1361" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1362" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="123" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/ParticipantsController.cs</url>
-          <line>37</line>
+          <line>39</line>
           <properties documentPath="C:\Users\david.dzabakhidze\RiderProjects\TheatersofTheCityWebAPI\TheatersOfTheCity\TheatersOfTheCity.Api\Controllers\v1\ParticipantsController.cs" initialLine="35" containingFunctionPresentation="method 'GetAll'">
             <startOffsets>
-              <option value="1343" />
+              <option value="1410" />
             </startOffsets>
             <endOffsets>
-              <option value="1461" />
+              <option value="1528" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="124" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/PerformancesController.cs</url>
-          <line>39</line>
+          <line>41</line>
           <properties documentPath="C:\Users\david.dzabakhidze\RiderProjects\TheatersofTheCityWebAPI\TheatersOfTheCity\TheatersOfTheCity.Api\Controllers\v1\PerformancesController.cs" initialLine="37" containingFunctionPresentation="method 'GetAll'">
             <startOffsets>
-              <option value="1514" />
+              <option value="1581" />
             </startOffsets>
             <endOffsets>
-              <option value="1632" />
+              <option value="1699" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="126" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/TheatersController.cs</url>
-          <line>39</line>
+          <line>41</line>
           <properties documentPath="C:\Users\david.dzabakhidze\RiderProjects\TheatersofTheCityWebAPI\TheatersOfTheCity\TheatersOfTheCity.Api\Controllers\v1\TheatersController.cs" initialLine="39" containingFunctionPresentation="method 'GetAll'">
             <startOffsets>
-              <option value="1497" />
+              <option value="1562" />
             </startOffsets>
             <endOffsets>
-              <option value="1609" />
+              <option value="1672" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="127" />

@@ -65,14 +65,15 @@ public class PerformanceRepository : BaseRepository<Performance>, IPerformanceRe
         return query;
     }
 
-    public override async Task<IEnumerable<Performance>> PaginateAsync(PaginationFilter paginationFilter, SortFilter? sortFilter, DynamicFilters? dynamicFilters)
+    public override async Task<(IEnumerable<Performance> data, int count)> PaginateAsync(PaginationFilter paginationFilter, SortFilter? sortFilter, DynamicFilters? dynamicFilters)
     {
         var builder = new QueryBuilder<Performance>(paginationFilter, sortFilter, dynamicFilters, _getAllQuery);
 
         _getAllQuery = builder.Build();
-        var result = await GetAllAsync();
+        var data = await GetAllAsync();
+        var count = await GetCount();
         _getAllQuery = GetAllQuery();
-        return result;
+        return (data,count);
     }
 
     public override async Task<Performance> GetByIdAsync(int id)

@@ -1,4 +1,9 @@
-﻿namespace TheatersOfTheCity.Contracts.Common;
+﻿using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
+using TheatersOfTheCity.Contracts.Common;
+using TheatersOfTheCity.Core.Domain;
+
+namespace TheatersOfTheCity.Contracts.Services;
 
 public static class ToApiResponseService
 {
