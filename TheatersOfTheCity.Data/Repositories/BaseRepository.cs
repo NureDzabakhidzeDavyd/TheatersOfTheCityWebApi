@@ -94,7 +94,7 @@ public class BaseRepository<T> : IDisposable, IRepository<T> where T: class
     public virtual async Task<IEnumerable<T>> PaginateAsync(PaginationFilter paginationFilter, SortFilter? sortFilter, DynamicFilters? dynamicFilters)
     {
         var builder = new QueryBuilder<T>(paginationFilter, sortFilter, dynamicFilters);
-        builder.Deconstruct(out var query);
+        var query = builder.ToString();
         
         var result = await Connection.QueryAsync<T>(query);
         return result;

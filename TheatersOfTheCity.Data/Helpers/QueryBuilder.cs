@@ -15,13 +15,6 @@ public class QueryBuilder<T>
         AddOptions(paginationFilter, sortFilter, dynamicFilters);
     }
 
-    public void Deconstruct(out string query)
-    {
-        var result = _query.MySqlQueryToString();
-        Reset();
-        query = result;
-    }
-
     public void AddOptions(PaginationFilter paginationFilter, SortFilter? sortFilter, DynamicFilters? dynamicFilters)
     {
         if (sortFilter?.Field is not null)
@@ -89,5 +82,12 @@ public class QueryBuilder<T>
         _query
             .Skip((paginationFilter.Page - 1) * paginationFilter.Size)
             .Take(paginationFilter.Size);
+    }
+    
+    public override string ToString()
+    {
+        var result = _query.MySqlQueryToString();
+        Reset();
+        return result;
     }
 }
