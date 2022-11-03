@@ -1,5 +1,4 @@
 ﻿using Dapper.Contrib.Extensions;
-using TheatersOfTheCity.Core.Attributes;
 
 namespace TheatersOfTheCity.Core.Domain;
 

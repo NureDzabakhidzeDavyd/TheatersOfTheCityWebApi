@@ -1,5 +1,4 @@
 ﻿using TheatersOfTheCity.Contracts.v1.Response;
-using TheatersOfTheCity.Core.Domain;
 
 namespace TheatersOfTheCity.Contracts.v1.Request;
 

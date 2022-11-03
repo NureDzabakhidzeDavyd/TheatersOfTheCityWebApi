@@ -1,10 +1,4 @@
-﻿using System.Data;
-using Dapper;
-using Microsoft.Extensions.Logging;
-using MySql.Data.MySqlClient;
-using SqlKata;
-using TheatersOfTheCity.Core.Data;
-using TheatersOfTheCity.Core.Domain;
+﻿using TheatersOfTheCity.Core.Data;
 using TheatersOfTheCity.Core.Options;
 
 namespace TheatersOfTheCity.Data.Repositories;

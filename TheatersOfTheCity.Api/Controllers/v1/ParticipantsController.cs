@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using TheatersOfTheCity.Api.Controllers.Extensions;
-using TheatersOfTheCity.Contracts.Common;
 using TheatersOfTheCity.Contracts.Services;
 using TheatersOfTheCity.Contracts.v1.Request;
 using TheatersOfTheCity.Contracts.v1.Response;

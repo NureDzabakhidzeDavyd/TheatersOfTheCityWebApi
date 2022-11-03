@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using TheatersOfTheCity.Contracts.v1.Request;
-using TheatersOfTheCity.Core.Domain;
 
 namespace TheatersOfTheCity.Api.Validators.ContactsRequestsValidators;
 

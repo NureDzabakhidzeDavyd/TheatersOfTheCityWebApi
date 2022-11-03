@@ -4,7 +4,6 @@ using Microsoft.Extensions.Logging;
 using TheatersOfTheCity.Business.Options;
 using TheatersOfTheCity.Core.Services;
 using Newtonsoft.Json;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using TheatersOfTheCity.Core.Domain;
 using TheatersOfTheCity.Core.External;

@@ -1,7 +1,5 @@
 using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TheatersOfTheCity.Contracts.Common;
 using TheatersOfTheCity.Contracts.Services;
 using TheatersOfTheCity.Contracts.v1.Request;
 using TheatersOfTheCity.Core.Data;

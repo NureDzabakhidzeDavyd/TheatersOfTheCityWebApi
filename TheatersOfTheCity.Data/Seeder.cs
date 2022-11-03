@@ -3,7 +3,6 @@ using Bogus;
 using Microsoft.Extensions.Logging;
 using TheatersOfTheCity.Core.Data;
 using TheatersOfTheCity.Core.Domain;
-using TheatersOfTheCity.Core.Enums;
 using TheatersOfTheCity.Core.Services;
 
 namespace TheatersOfTheCity.Data;

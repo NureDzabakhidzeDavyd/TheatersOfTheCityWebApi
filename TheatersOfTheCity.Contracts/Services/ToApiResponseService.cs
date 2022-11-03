@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
-using TheatersOfTheCity.Contracts.Common;
-using TheatersOfTheCity.Core.Domain;
+﻿using TheatersOfTheCity.Contracts.Common;
 
 namespace TheatersOfTheCity.Contracts.Services;
 

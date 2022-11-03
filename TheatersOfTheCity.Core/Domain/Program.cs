@@ -1,5 +1,4 @@
-﻿using Dapper;
-using Dapper.Contrib.Extensions;
+﻿using Dapper.Contrib.Extensions;
 
 namespace TheatersOfTheCity.Core.Domain;
 [System.ComponentModel.DataAnnotations.Schema.Table(nameof(Program))]

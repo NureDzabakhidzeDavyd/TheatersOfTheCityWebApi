@@ -1,12 +1,5 @@
-﻿using System.Data;
-using System.Reflection;
-using Dapper;
-using Dapper.Contrib.Extensions;
-using MySql.Data.MySqlClient;
+﻿using Dapper;
 using SqlKata;
-using SqlKata.Compilers;
-using TheatersOfTheCity.Contracts.v1.Request;
-using TheatersOfTheCity.Core.Attributes;
 using TheatersOfTheCity.Core.Data;
 using TheatersOfTheCity.Core.Domain;
 using TheatersOfTheCity.Core.Domain.Filters;

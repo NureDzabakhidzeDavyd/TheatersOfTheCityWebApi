@@ -1,5 +1,4 @@
-﻿using Dapper;
-using Dapper.Contrib.Extensions;
+﻿using Dapper.Contrib.Extensions;
 using Newtonsoft.Json;
 
 namespace TheatersOfTheCity.Core.Domain;

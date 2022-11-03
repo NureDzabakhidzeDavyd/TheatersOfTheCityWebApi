@@ -1,5 +1,4 @@
-﻿using SqlKata;
-using TheatersOfTheCity.Core.Domain;
+﻿using TheatersOfTheCity.Core.Domain;
 using TheatersOfTheCity.Core.Domain.Filters;
 
 namespace TheatersOfTheCity.Core.Data;

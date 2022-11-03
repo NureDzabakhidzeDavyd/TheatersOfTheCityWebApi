@@ -1,6 +1,4 @@
-﻿using TheatersOfTheCity.Core.Domain;
-
-namespace TheatersOfTheCity.Contracts.v1.Response;
+﻿namespace TheatersOfTheCity.Contracts.v1.Response;
 
 public class TheaterResponse
 {

@@ -1,7 +1,4 @@
-﻿using Dapper.Contrib.Extensions;
-using TheatersOfTheCity.Core.Domain;
-
-namespace TheatersOfTheCity.Contracts.v1.Request;
+﻿namespace TheatersOfTheCity.Contracts.v1.Request;
 
 public class UpdatePerformanceRequest
 {

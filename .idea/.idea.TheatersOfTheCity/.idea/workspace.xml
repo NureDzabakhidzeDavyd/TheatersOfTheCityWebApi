@@ -5,25 +5,49 @@
     <projectFile profileName="TheatersOfTheCity.Api">TheatersOfTheCity.Api/TheatersOfTheCity.Api.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79f55697-854b-4938-9a02-5344e539f5d5" name="Changes" comment="Installer extension">
-      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/Extensions/PageListHeaderResponseService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/Services/ToPageListService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/PageList.cs" afterDir="false" />
+    <list default="true" id="79f55697-854b-4938-9a02-5344e539f5d5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/appsettings.Production.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TheatersOfTheCity/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TheatersOfTheCity/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/Extensions/BaseEntitiesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/Extensions/BaseEntitiesController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/AuthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/AuthController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/ContactsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/ContactsController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/ParticipantsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/ParticipantsController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/PerformancesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/PerformancesController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/TheatersController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/TheatersController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Api/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Api/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Api/Validators/ContactsRequestsValidators/CreateContactRequestValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Validators/ContactsRequestsValidators/CreateContactRequestValidator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Api/Validators/ContactsRequestsValidators/UpdateContactRequestValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/Validators/ContactsRequestsValidators/UpdateContactRequestValidator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Api/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Api/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Business/External/GoogleService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Business/External/GoogleService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Business/TheatersOfTheCity.Business.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Business/TheatersOfTheCity.Business.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/Services/ToApiResponseService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/Services/ToApiResponseService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/TheatersOfTheCity.Contracts.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/TheatersOfTheCity.Contracts.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/v1/Request/CreateContactRequest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/v1/Request/CreateContactRequest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/v1/Request/CreateParticipantRequest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/v1/Request/CreateParticipantRequest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/v1/Request/CreatePerformanceParticipantRequest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/v1/Request/CreatePerformanceParticipantRequest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/v1/Request/CreatePerformanceRequest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/v1/Request/CreatePerformanceRequest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/v1/Request/CreateTheaterRequest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/v1/Request/CreateTheaterRequest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/v1/Request/UpdateContactRequest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/v1/Request/UpdateContactRequest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/v1/Request/UpdateParticipantRequest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/v1/Request/UpdateParticipantRequest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/v1/Request/UpdatePerformanceRequest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/v1/Request/UpdatePerformanceRequest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/v1/Request/UpdateTheaterRequest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/v1/Request/UpdateTheaterRequest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/v1/Response/PerformanceResponse.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/v1/Response/PerformanceResponse.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/v1/Response/TheaterResponse.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Contracts/v1/Response/TheaterResponse.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Core/Data/IProgramRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Data/IProgramRepository.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Core/Data/IRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Data/IRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/Filters/PaginationFilter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/Filters/PaginationFilter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/Contact.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/Contact.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/Filters/DynamicFilter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/Filters/DynamicFilter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/Participant.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/Participant.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/UserProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Domain/UserProfile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Core/Options/RepositoryConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Core/Options/RepositoryConfiguration.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/BaseRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/BaseRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/ContactRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/ContactRepository.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/ParticipantRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/ParticipantRepository.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/PerformanceRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/PerformanceRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/ProgramRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/ProgramRepository.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/TheaterRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/TheaterRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/UserRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/UserRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheatersOfTheCity.Data/Seeder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheatersOfTheCity.Data/Seeder.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +59,13 @@
       <set>
         <option value="TheatersOfTheCity.Core : TheatersOfTheCity.Core.Domain.Filters.DynamicFilter : set_FieldType (TheatersOfTheCity.Core.Enums.FieldType?)" />
       </set>
+    </option>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JSON File" />
+      </list>
     </option>
   </component>
   <component name="Git.Settings">
@@ -245,7 +276,11 @@
       <workItem from="1667194944683" duration="8589000" />
       <workItem from="1667211370304" duration="1421000" />
       <workItem from="1667236884825" duration="8299000" />
-      <workItem from="1667283575572" duration="7826000" />
+      <workItem from="1667283575572" duration="8748000" />
+      <workItem from="1667314787033" duration="1130000" />
+      <workItem from="1667383316603" duration="12800000" />
+      <workItem from="1667453897444" duration="3639000" />
+      <workItem from="1667462415453" duration="3805000" />
     </task>
     <task id="LOCAL-00001" summary="Setting default project body">
       <created>1664343077330</created>
@@ -408,7 +443,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667286059846</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="PageList and Header response">
+      <created>1667291726694</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1667291726694</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -454,75 +496,102 @@
     <MESSAGE value="xml comments" />
     <MESSAGE value="Pagination, Filtering, Sorting and Caching" />
     <MESSAGE value="Installer extension" />
-    <option name="LAST_COMMIT_MESSAGE" value="Installer extension" />
+    <MESSAGE value="PageList and Header response" />
+    <option name="LAST_COMMIT_MESSAGE" value="PageList and Header response" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/PerformancesController.cs</url>
-          <line>127</line>
+          <line>125</line>
           <properties documentPath="C:\Users\david.dzabakhidze\RiderProjects\TheatersofTheCityWebAPI\TheatersOfTheCity\TheatersOfTheCity.Api\Controllers\v1\PerformancesController.cs" initialLine="82" containingFunctionPresentation="method 'Create'">
             <startOffsets>
-              <option value="5627" />
+              <option value="5566" />
             </startOffsets>
             <endOffsets>
-              <option value="5629" />
+              <option value="5568" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="108" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/PerformanceRepository.cs</url>
-          <line>149</line>
+          <line>147</line>
           <properties documentPath="C:\Users\david.dzabakhidze\RiderProjects\TheatersofTheCityWebAPI\TheatersOfTheCity\TheatersOfTheCity.Data\Repositories\PerformanceRepository.cs" initialLine="124" containingFunctionPresentation="method 'GetPerformanceShowsByIdAsync'">
             <startOffsets>
-              <option value="6205" />
+              <option value="6156" />
             </startOffsets>
             <endOffsets>
-              <option value="6566" />
+              <option value="6517" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="119" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/ParticipantsController.cs</url>
-          <line>39</line>
+          <line>38</line>
           <properties documentPath="C:\Users\david.dzabakhidze\RiderProjects\TheatersofTheCityWebAPI\TheatersOfTheCity\TheatersOfTheCity.Api\Controllers\v1\ParticipantsController.cs" initialLine="35" containingFunctionPresentation="method 'GetAll'">
             <startOffsets>
-              <option value="1410" />
+              <option value="1368" />
             </startOffsets>
             <endOffsets>
-              <option value="1528" />
+              <option value="1486" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="124" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/PerformancesController.cs</url>
-          <line>41</line>
+          <line>39</line>
           <properties documentPath="C:\Users\david.dzabakhidze\RiderProjects\TheatersofTheCityWebAPI\TheatersOfTheCity\TheatersOfTheCity.Api\Controllers\v1\PerformancesController.cs" initialLine="37" containingFunctionPresentation="method 'GetAll'">
             <startOffsets>
-              <option value="1581" />
+              <option value="1520" />
             </startOffsets>
             <endOffsets>
-              <option value="1699" />
+              <option value="1638" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="126" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/TheatersOfTheCity.Api/Controllers/v1/TheatersController.cs</url>
-          <line>41</line>
+          <line>40</line>
           <properties documentPath="C:\Users\david.dzabakhidze\RiderProjects\TheatersofTheCityWebAPI\TheatersOfTheCity\TheatersOfTheCity.Api\Controllers\v1\TheatersController.cs" initialLine="39" containingFunctionPresentation="method 'GetAll'">
             <startOffsets>
-              <option value="1562" />
+              <option value="1520" />
             </startOffsets>
             <endOffsets>
-              <option value="1672" />
+              <option value="1630" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="127" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/TheatersOfTheCity.Api/Installers/DbInstaller.cs</url>
+          <line>13</line>
+          <properties documentPath="C:\Users\david.dzabakhidze\RiderProjects\TheatersofTheCityWebAPI\TheatersOfTheCity\TheatersOfTheCity.Api\Installers\DbInstaller.cs" initialLine="13" containingFunctionPresentation="method 'InstallService'">
+            <startOffsets>
+              <option value="501" />
+            </startOffsets>
+            <endOffsets>
+              <option value="546" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="128" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/TheatersOfTheCity.Data/Repositories/BaseRepository.cs</url>
+          <line>21</line>
+          <properties documentPath="C:\Users\david.dzabakhidze\RiderProjects\TheatersofTheCityWebAPI\TheatersOfTheCity\TheatersOfTheCity.Data\Repositories\BaseRepository.cs" initialLine="21" containingFunctionPresentation="constructor 'BaseRepository'">
+            <startOffsets>
+              <option value="677" />
+            </startOffsets>
+            <endOffsets>
+              <option value="722" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="129" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
